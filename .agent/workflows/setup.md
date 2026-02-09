@@ -128,10 +128,15 @@ How do you prefer to work?
 
 ### Section 4: Skill Discovery
 
-Based on detected tech stack and work patterns, search the global library:
+Based on detected tech stack and work patterns, search for existing skills:
 
+**Step 1: Check the Antigravity skills library (curated, tested skills):**
+Read: `https://raw.githubusercontent.com/ButchMenzies/antigravity-project-setup/main/skills/README.md`
+
+Look for skills that match the detected tech stack.
+
+**Step 2: Check the global reference library (for inspiration):**
 ```bash
-# Search for skills matching detected technologies
 curl -s https://raw.githubusercontent.com/sickn33/antigravity-awesome-skills/main/skills_index.json | grep -i "<framework>" | head -5
 curl -s https://raw.githubusercontent.com/sickn33/antigravity-awesome-skills/main/skills_index.json | grep -i "<language>" | head -5
 ```
@@ -139,22 +144,28 @@ curl -s https://raw.githubusercontent.com/sickn33/antigravity-awesome-skills/mai
 **Present findings:**
 
 ```
-Based on your tech stack, I found these relevant skills in the global library:
+Based on your tech stack, I found these skills:
 
-| Skill | What it does | Create local version? |
-|-------|--------------|-----------------------|
-| `react-patterns` | React component patterns | Recommended |
-| `api-design-principles` | API design | Recommended |
-| `testing-patterns` | Test strategies | Optional |
+From Antigravity library (ready to copy):
+| Skill | What it does |
+|-------|--------------|
+| `<skill>` | <description> |
 
-Shall I create local versions of the recommended skills?
+From global library (can create local version):
+| Skill | What it does |
+|-------|--------------|
+| `<skill>` | <description> |
 
-1. Yes, create all recommended
+Shall I install the Antigravity skills and/or create local versions of any global skills?
+
+1. Yes, install all recommended
 2. Let me choose which ones
 3. Skip for now — I'll create skills as needed
 ```
 
-If user agrees, run `/create-skill` for each selected skill, using the global version as reference.
+If user agrees:
+- For Antigravity library skills: copy directly from the repo into `.agent/skills/`
+- For global library skills: run `/create-skill` using the global version as reference
 
 ### Section 5: MCP Detection
 

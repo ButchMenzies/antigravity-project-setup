@@ -8,31 +8,34 @@ Create a reusable, project-local skill. Use when you notice repeating patterns, 
 
 ## Steps
 
-### 1. Identify the Pattern
+### 1. Check for Existing Skills
 
-```
-What pattern or workflow should this skill capture?
+Before creating anything, check if the skill already exists:
 
-1. A multi-step process I keep repeating
-2. A project-specific convention or pattern
-3. A workflow that needs documenting
-4. Something inspired by a global skill I want to customize
-```
-
-### 2. Check for Existing Skills
-
+**Step 1a: Check local skills**
 ```bash
-# Check local skills
 ls .agent/skills/ 2>/dev/null
+```
+If a local skill already exists for this pattern → **update it instead**.
 
-# Search global library for inspiration
-curl -s https://raw.githubusercontent.com/sickn33/antigravity-awesome-skills/main/skills_index.json | grep -i "<keyword>" | head -10
+**Step 1b: Check the Antigravity skills library (your curated skills)**
+
+Read the skills index from the setup repo:
+```
+https://raw.githubusercontent.com/ButchMenzies/antigravity-project-setup/main/skills/README.md
 ```
 
-- If a local skill already exists → suggest updating it instead
-- If a global skill matches → read it for inspiration, then write a tailored local version
+If the skill exists there → **copy it directly** into `.agent/skills/<skill-name>/` and customize for the current project if needed.
 
-### 3. Gather Details
+**Step 1c: Check the global reference library (for inspiration)**
+
+Only if the skill doesn't exist in the Antigravity library:
+```
+https://raw.githubusercontent.com/sickn33/antigravity-awesome-skills/main/skills_index.json
+```
+Search for relevant keywords. If a global skill matches → read its SKILL.md for inspiration, then write a local version tailored to this project.
+
+### 2. Gather Details
 
 ```
 Skill name (kebab-case, e.g., "api-error-handling"):
@@ -41,7 +44,7 @@ When should this skill be used?
 When should it NOT be used?
 ```
 
-### 4. Create the Skill
+### 3. Create the Skill
 
 ```bash
 mkdir -p .agent/skills/<skill-name>
@@ -79,13 +82,26 @@ description: <One-line description>
 <Continue with clear steps>
 ```
 
-### 5. Register the Skill
+### 4. Register the Skill
 
 Add to `.agent/skills-catalog.md` under Local Skills:
 
 ```markdown
 | `<skill-name>` | <One-line description> |
 ```
+
+### 5. Upload to Antigravity Skills Library
+
+**This step ensures the skill is available for all future projects.**
+
+If this is a general-purpose skill (not hyper-specific to this one project):
+
+1. Read the skill you just created
+2. Upload it to the Antigravity setup repo by creating/updating:
+   - `skills/<skill-name>/SKILL.md` in `https://github.com/ButchMenzies/antigravity-project-setup`
+3. Update `skills/README.md` in that repo — add the skill to the Available Skills table
+
+**How to upload:** If git access is available to the setup repo, clone/pull it, add the skill, commit, and push. If not, note it for the user to do manually.
 
 ### 6. Confirm
 
@@ -94,8 +110,9 @@ Add to `.agent/skills-catalog.md` under Local Skills:
 
 Location: .agent/skills/<skill-name>/SKILL.md
 Registered in: .agent/skills-catalog.md
+Uploaded to: antigravity-project-setup/skills/<skill-name>/ (if applicable)
 
-The skill will be available in future sessions.
+The skill will be available in this project and all future projects.
 
 → Continue working
 → /status — see project overview
@@ -106,5 +123,6 @@ The skill will be available in future sessions.
 - **Be specific, not generic.** Capture THIS project's way of doing things.
 - **Keep it actionable.** Every step should be executable without guessing.
 - **Include commands.** If it involves terminal work, include exact commands.
-- **One skill, one job.** If it's getting long, split it.
+- **One skill, one job.** A skill should do one thing well. If it's getting long, split it.
 - **Update, don't duplicate.** If an existing skill covers 80% of what you need, update it.
+- **Upload general skills.** If the skill would be useful in other projects, upload it to the Antigravity repo.

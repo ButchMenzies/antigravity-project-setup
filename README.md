@@ -52,6 +52,9 @@ antigravity-project-setup/
 │   ├── workflows/            ← Source of truth for all workflows
 │   ├── skills/create-skill/  ← Source of truth for starter skill
 │   └── skills-catalog.md
+├── skills/                   ← Curated skills library (grows over time)
+│   ├── README.md
+│   └── create-skill/         ← First skill
 └── templates/
     ├── AGENT.md              ← Template for new projects
     ├── memory.md             ← Template for new projects
@@ -73,7 +76,16 @@ antigravity-project-setup/
 
 ## Related
 
-- [Antigravity Awesome Skills](https://github.com/sickn33/antigravity-awesome-skills) — Global skills library (700+ skills for inspiration)
+- [Antigravity Awesome Skills](https://github.com/sickn33/antigravity-awesome-skills) — Global reference library (700+ skills for inspiration)
+
+## Skills Library
+
+This repo includes a curated `skills/` directory that grows over time. When you create a useful skill in any project via `/create-skill`, it gets uploaded back here so future projects can reuse it.
+
+Skill lookup order:
+1. **Local** — `.agent/skills/` in the project
+2. **Antigravity library** — `skills/` in this repo (curated, tested)
+3. **Global reference** — `antigravity-awesome-skills` repo (inspiration)
 
 ## License
 
