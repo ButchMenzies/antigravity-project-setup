@@ -20,7 +20,15 @@ Interactive onboarding for a new Antigravity project. Creates `AGENT.md`, `memor
      ```
    - If user chooses re-run: proceed with Q&A, overwrite AGENT.md, but **never overwrite memory.md**
    - If user chooses skip: read AGENT.md and memory.md, then proceed with the user's request
-3. Detect project type:
+3. Check `.gitignore` — if it contains `.agent/` (blanket ignore), remove that line and replace with selective ignores:
+   ```
+   .agent/memory.md
+   .agent/memory-archive.md
+   .agent/pending-skill-uploads.md
+   .agent/current-plan.md
+   ```
+   **Never blanket-ignore `.agent/`** — it breaks slash command autocomplete.
+4. Detect project type:
 
 ```bash
 ls -la

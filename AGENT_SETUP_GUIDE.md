@@ -45,6 +45,22 @@ mkdir -p .agent/workflows
 mkdir -p .agent/skills/create-skill
 ```
 
+### Step 2b: Configure .gitignore (IMPORTANT)
+
+**Do NOT add `.agent/` to `.gitignore`.** Blanket-ignoring `.agent/` prevents Antigravity from discovering workflow files for slash command autocomplete.
+
+If `.gitignore` already contains `.agent/` — **remove that line** and replace it with the selective ignores below.
+
+Add these selective ignores to `.gitignore` (if not already present):
+
+```
+# Antigravity — keep workflows/skills tracked, ignore personal data
+.agent/memory.md
+.agent/memory-archive.md
+.agent/pending-skill-uploads.md
+.agent/current-plan.md
+```
+
 ---
 
 ## Step 3: Install Workflows

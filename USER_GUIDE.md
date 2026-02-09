@@ -156,6 +156,6 @@ Even if you don't use slash commands, the agent follows these rules (from AGENT.
 
 **Agent forgot previous context:** Check `.agent/memory.md` — was `/end-session` run last time? If memory is empty, context was lost.
 
-**Slash commands not showing:** Check that `.agent/workflows/` has the `.md` files. Re-run the bootstrapper if needed.
+**Slash commands not showing:** Check that `.agent/workflows/` has the `.md` files. Re-run the bootstrapper if needed. Also check that `.gitignore` does NOT contain `.agent/` — blanket-ignoring it prevents Antigravity from discovering workflows. Use selective ignores instead (see setup guide).
 
 **Agent went off-plan:** Next time, use `/new-track` to create a plan first, then `/implement` to execute it with tracking.
