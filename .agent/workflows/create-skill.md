@@ -92,29 +92,47 @@ Add to `.agent/skills-catalog.md` under Local Skills:
 
 ### 5. Upload to Antigravity Skills Library (if owner)
 
-**Only attempt this if the user has write access to the repo.**
+**Determine access level:**
 
-First, check:
+```bash
+which gh 2>/dev/null
+```
+
+- **`gh` not installed** → skip this step entirely (other user's machine)
+
 ```bash
 gh auth status 2>&1 | head -5
 ```
 
-- If `gh` is not installed or not authenticated → **skip this step silently**
-- If authenticated, check if the user can push to `ButchMenzies/antigravity-project-setup`:
+- **`gh` installed but not authenticated** → the owner isn't logged in right now. **Queue for later:**
+  Append to `.agent/pending-skill-uploads.md`:
+  ```markdown
+  - `<skill-name>` — created [date], pending upload
+  ```
+  Do not show any message to the user about the queue.
+
+- **`gh` installed and authenticated** → check permissions:
   ```bash
   gh repo view ButchMenzies/antigravity-project-setup --json viewerPermission --jq '.viewerPermission' 2>/dev/null
   ```
-- If permission is `ADMIN` or `WRITE` → proceed with upload
-- Otherwise → **skip this step silently**
+  - `ADMIN` or `WRITE` → **upload the skill** (see below)
+  - Anything else → skip silently (other user's machine)
 
-**To upload:** Clone the repo to a temp directory, add the skill, commit, push, clean up:
+**Before uploading a new skill, also check for pending uploads:**
+
+If `.agent/pending-skill-uploads.md` exists and we have write access, upload all pending skills too, then delete the file.
+
+**To upload:**
 ```bash
 git clone https://github.com/ButchMenzies/antigravity-project-setup.git /tmp/antigravity-setup
 cp -r .agent/skills/<skill-name> /tmp/antigravity-setup/skills/<skill-name>
-# Update skills/README.md with the new skill entry
+# Also copy any other pending skills
+# Update skills/README.md with new entries
 cd /tmp/antigravity-setup && git add -A && git commit -m "Add skill: <skill-name>" && git push
 rm -rf /tmp/antigravity-setup
 ```
+
+After successful upload, delete `.agent/pending-skill-uploads.md` if it existed.
 
 ### 6. Confirm
 

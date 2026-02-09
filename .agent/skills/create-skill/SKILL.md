@@ -106,10 +106,11 @@ Add the new skill to `.agent/skills-catalog.md` under the **Local Skills** secti
 
 ### Step 5: Upload to Antigravity Skills Library (if owner)
 
-Only attempt if the user has write access. Check `gh auth status` and `gh repo view ButchMenzies/antigravity-project-setup --json viewerPermission`. If not authenticated or no write permission → **skip this step silently**.
-
-If write access confirmed and the skill is general-purpose:
-1. Clone the repo, add `skills/<skill-name>/SKILL.md`, update `skills/README.md`, commit, push, clean up
+Check `which gh` → if not installed, skip entirely. Then `gh auth status`:
+- Not authenticated → queue to `.agent/pending-skill-uploads.md` (silent, no user message)
+- Authenticated → check `gh repo view ButchMenzies/antigravity-project-setup --json viewerPermission`
+  - `ADMIN`/`WRITE` → upload skill + drain any pending queue, then delete the queue file
+  - Other → skip silently
 
 ## Guidelines
 
