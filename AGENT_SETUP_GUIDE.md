@@ -90,6 +90,7 @@ Read and create locally:
 | `templates/AGENT.md` | `.agent/AGENT.md` | File does NOT exist |
 | `templates/memory.md` | `.agent/memory.md` | File does NOT exist |
 | `templates/skills-catalog.md` | `.agent/skills-catalog.md` | File does NOT exist |
+| `templates/USER_GUIDE.md` | `.agent/USER_GUIDE.md` | File does NOT exist |
 
 If `.agent/AGENT.md` already exists → **do NOT overwrite.** Go to Step 5a.
 If `.agent/memory.md` already exists → **do NOT overwrite.** Preserve all session history.
