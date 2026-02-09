@@ -189,7 +189,9 @@ What would you like to do?
 → /edit — review or change the plan first
 ```
 
-## Track Storage
+## Plan Storage
+
+**Always write the plan to disk.** Plans must survive across chat sessions.
 
 If `conductor/tracks/` exists, create:
 
@@ -202,10 +204,10 @@ conductor/tracks/[trackId]/
 
 And add entry to `conductor/tracks.md`.
 
-If no conductor setup, store the plan in the conversation context and reference it during `/implement`.
+If no conductor setup, write the plan to **`.agent/current-plan.md`**. This file is the default location for plans. Overwrite any existing plan (the previous plan should be complete or archived).
 
 ## Error Handling
 
-- If user cancels mid-spec: Save what we have, offer to resume later
+- If user cancels mid-spec: Save what we have to `.agent/current-plan.md`, offer to resume later
 - If plan seems too large: Suggest splitting into multiple tracks
 - If context is unclear: Ask clarifying questions rather than assuming

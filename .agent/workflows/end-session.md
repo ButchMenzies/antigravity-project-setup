@@ -25,18 +25,20 @@ Blockers or open questions:
 - [Anything that needs user input next time]
 ```
 
-### 2. Update Memory
+### 2. Update Memory — MANDATORY
 
-Append a session log entry to `.agent/memory.md`:
+**Do not skip this step. The session cannot end without a memory update.**
+
+Append a session log entry to the `## Session Log` table in `.agent/memory.md`:
 
 ```markdown
 | [Date] | [Brief summary of what was accomplished] |
 ```
 
-Also add any decisions or lessons from this session that haven't been logged yet:
-- Were any important decisions made? → Add to Key Decisions
-- Were any tricky problems solved? → Add to Lessons Learned
-- Did we learn any user preferences? → Add to User Preferences
+Then check if any of these need logging (append to the specific sections):
+- Important decisions made? → Append under `## Key Decisions`
+- Tricky problems solved? → Append under `## Lessons Learned`
+- User preferences discovered? → Append as bullets under `## User Preferences`
 
 ### 3. Update Track Progress
 
@@ -77,10 +79,15 @@ Examples of patterns worth capturing:
 
 ### 6. Confirm
 
+Show the user what was logged so they can verify:
+
 ```
 ✅ Session wrapped up.
 
-- Memory updated
+Memory updated with:
+- Session log: [one-line summary]
+- [List any decisions, lessons, or preferences logged]
+
 - [Track progress saved] (if applicable)
 - Ready for next session
 

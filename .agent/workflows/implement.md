@@ -9,11 +9,13 @@ Execute tasks from an implementation plan with structured tracking.
 ## Pre-flight
 
 1. Read `.agent/AGENT.md` for project context
-2. Read `.agent/memory.md` for relevant history
-3. Locate the active plan:
-   - Check `conductor/tracks/` for track plans (read `tracks.md` to find active track)
-   - If no conductor tracks, check conversation context for the most recent plan
-4. If no plan found: suggest running `/new-track` first
+2. **Read `.agent/memory.md`** for relevant history — do not skip this
+3. **Scan `.agent/skills/`** — read the SKILL.md of any skill relevant to the current work
+4. Locate the active plan:
+   - Check `.agent/current-plan.md` first
+   - Then check `conductor/tracks/` for track plans (read `tracks.md` to find active track)
+   - If no plan files, check conversation context for the most recent plan
+5. If no plan found: suggest running `/new-track` first
 
 ## Track Selection (if multiple tracks exist)
 
@@ -85,14 +87,14 @@ Phase verification:
 
 **Run verification steps.** If verification fails, fix before moving on.
 
-### ⚠️ MEMORY CHECKPOINT (after each phase)
+### ⚠️ MEMORY CHECKPOINT (after each phase) — MANDATORY, DO NOT SKIP
 
-**This is mandatory.** After completing a phase:
+**You must complete this before moving to the next phase.** This is not optional.
 
-1. Update `.agent/memory.md` with:
-   - Any decisions made during this phase
-   - Any lessons learned or gotchas discovered
-   - Update the session log
+1. Update `.agent/memory.md`:
+   - **Decisions** → append under `## Key Decisions` using the format in the section comments
+   - **Lessons/gotchas** → append under `## Lessons Learned` using the format in the section comments
+   - **Session log** → append a row to the `## Session Log` table
 
 2. If you notice you've done a similar task pattern multiple times:
    ```
@@ -102,6 +104,8 @@ Phase verification:
    → /create-skill — capture this pattern for future use
    → Skip — continue with implementation
    ```
+
+3. **Do not proceed to the next phase until memory.md has been updated.**
 
 ### 7. Continue to Next Task
 

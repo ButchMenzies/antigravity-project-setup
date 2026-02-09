@@ -1,15 +1,16 @@
 # Project Configuration
 
-## ⚠️ New Chat? Start Here
-1. Read this file for project context
-2. Read `.agent/memory.md` for previous decisions and lessons
+## ⚠️ New Chat? Start Here — MANDATORY
+1. Read this file completely
+2. **Read `.agent/memory.md`** — this contains all decisions, lessons, and preferences from prior sessions. You MUST read it before doing any work.
 3. Run `/status` to see where things stand
 
 ## ⚠️ Core Rules (Always Apply)
 1. **Before implementation**: Read the plan if one exists (check `.agent/current-plan.md` or `conductor/tracks/`)
-2. **After completing a feature/fix**: Update `memory.md` — run `/update-memory`
-3. **Before ending a session**: Run `/end-session` to wrap up
-4. **When you notice repeating patterns**: Suggest creating a skill with `/create-skill`
+2. **Before starting any task**: Scan `.agent/skills/` — read the SKILL.md of any skill relevant to the work
+3. **After completing a feature/fix**: Update `memory.md` — run `/update-memory`. **Do not skip this.**
+4. **Before ending a session**: Run `/end-session` to wrap up. **Do not end a session without updating memory.**
+5. **When you notice repeating patterns**: Suggest creating a skill with `/create-skill`
 
 ## Available Commands
 - `/setup` — interactive project onboarding (run this first!)

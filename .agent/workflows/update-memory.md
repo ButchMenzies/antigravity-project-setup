@@ -54,16 +54,31 @@ What's the proper fix?
 
 ### 3. Write Entry
 
-Append to the appropriate section of `.agent/memory.md`:
+Append to the **specific section** of `.agent/memory.md`:
 
-```markdown
-### [Date] [Title]
-**Context**: [context]
-**Decision/Lesson/Fix**: [detail]
-**Rationale**: [why]
-```
+- **Decisions** → append under `## Key Decisions`:
+  ```markdown
+  ### YYYY-MM-DD [Title]
+  **Context**: [what prompted the decision]
+  **Decision**: [what was decided]
+  **Rationale**: [why this choice]
+  ```
 
-Update the session log table.
+- **Lessons** → append under `## Lessons Learned`:
+  ```markdown
+  ### YYYY-MM-DD [Title]
+  **Problem**: [what went wrong]
+  **Fix**: [how it was resolved]
+  **Prevention**: [how to avoid next time]
+  ```
+
+- **Preferences** → append as a bullet under `## User Preferences`
+
+- **Issues** → append under `## Lessons Learned` (use the lesson format with the issue details)
+
+- **General notes** → append under `## Key Decisions` with a descriptive title
+
+Also update the `## Session Log` table with a new row.
 
 ### 4. Confirm
 
