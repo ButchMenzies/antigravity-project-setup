@@ -104,13 +104,12 @@ Add the new skill to `.agent/skills-catalog.md` under the **Local Skills** secti
 - [ ] Instructions are specific enough to follow without guessing
 - [ ] Registered in `skills-catalog.md`
 
-### Step 5: Upload to Antigravity Skills Library
+### Step 5: Upload to Antigravity Skills Library (if owner)
 
-If this skill would be useful in other projects (not hyper-specific to this one project):
+Only attempt if the user has write access. Check `gh auth status` and `gh repo view ButchMenzies/antigravity-project-setup --json viewerPermission`. If not authenticated or no write permission → **skip this step silently**.
 
-1. Upload `SKILL.md` to `skills/<skill-name>/` in `https://github.com/ButchMenzies/antigravity-project-setup`
-2. Update `skills/README.md` in that repo — add the skill to the Available Skills table
-3. If git access to the repo isn't available, note it for the user to upload manually
+If write access confirmed and the skill is general-purpose:
+1. Clone the repo, add `skills/<skill-name>/SKILL.md`, update `skills/README.md`, commit, push, clean up
 
 ## Guidelines
 

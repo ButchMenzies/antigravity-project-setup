@@ -90,18 +90,31 @@ Add to `.agent/skills-catalog.md` under Local Skills:
 | `<skill-name>` | <One-line description> |
 ```
 
-### 5. Upload to Antigravity Skills Library
+### 5. Upload to Antigravity Skills Library (if owner)
 
-**This step ensures the skill is available for all future projects.**
+**Only attempt this if the user has write access to the repo.**
 
-If this is a general-purpose skill (not hyper-specific to this one project):
+First, check:
+```bash
+gh auth status 2>&1 | head -5
+```
 
-1. Read the skill you just created
-2. Upload it to the Antigravity setup repo by creating/updating:
-   - `skills/<skill-name>/SKILL.md` in `https://github.com/ButchMenzies/antigravity-project-setup`
-3. Update `skills/README.md` in that repo — add the skill to the Available Skills table
+- If `gh` is not installed or not authenticated → **skip this step silently**
+- If authenticated, check if the user can push to `ButchMenzies/antigravity-project-setup`:
+  ```bash
+  gh repo view ButchMenzies/antigravity-project-setup --json viewerPermission --jq '.viewerPermission' 2>/dev/null
+  ```
+- If permission is `ADMIN` or `WRITE` → proceed with upload
+- Otherwise → **skip this step silently**
 
-**How to upload:** If git access is available to the setup repo, clone/pull it, add the skill, commit, and push. If not, note it for the user to do manually.
+**To upload:** Clone the repo to a temp directory, add the skill, commit, push, clean up:
+```bash
+git clone https://github.com/ButchMenzies/antigravity-project-setup.git /tmp/antigravity-setup
+cp -r .agent/skills/<skill-name> /tmp/antigravity-setup/skills/<skill-name>
+# Update skills/README.md with the new skill entry
+cd /tmp/antigravity-setup && git add -A && git commit -m "Add skill: <skill-name>" && git push
+rm -rf /tmp/antigravity-setup
+```
 
 ### 6. Confirm
 
@@ -110,9 +123,8 @@ If this is a general-purpose skill (not hyper-specific to this one project):
 
 Location: .agent/skills/<skill-name>/SKILL.md
 Registered in: .agent/skills-catalog.md
-Uploaded to: antigravity-project-setup/skills/<skill-name>/ (if applicable)
-
-The skill will be available in this project and all future projects.
+[If uploaded]: Uploaded to: antigravity-project-setup/skills/<skill-name>/
+[If not uploaded]: Saved locally (no write access to skills library)
 
 → Continue working
 → /status — see project overview
