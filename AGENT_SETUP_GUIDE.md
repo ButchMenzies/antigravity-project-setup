@@ -97,7 +97,7 @@ If `.agent/skills-catalog.md` already exists → **do NOT overwrite.** Go to Ste
 
 ### Step 5a: Merge Core Rules (only if AGENT.md already existed)
 
-Read the existing `.agent/AGENT.md`. Add the following sections **at the very top** of the file, before any existing content. If similar sections already exist, replace them with these versions:
+Read the existing `.agent/AGENT.md`. Before adding new sections, search for and **remove** any existing sections whose headers contain the words "Start Here", "Core Rules", "Rules", or "Available Commands" (case-insensitive) — these will be replaced by the new versions. Then add the following sections **at the very top** of the file, before any remaining content:
 
 ```markdown
 ## ⚠️ New Chat? Start Here — MANDATORY

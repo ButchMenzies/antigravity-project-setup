@@ -9,8 +9,9 @@ Interactive onboarding for a new Antigravity project. Creates `AGENT.md`, `memor
 ## Pre-flight
 
 1. Verify `.agent/workflows/` exists (bootstrapper already ran)
-2. Check if `AGENT.md` already has populated content (not just the template)
-   - If populated: Ask user:
+2. Check if `AGENT.md` already has **real project data** (not just template placeholders).
+   A file is still a template if it contains placeholder text like *"Run `/setup` to populate this section"* or *"Project Configuration"* as the title. A file has real data if `## Project Overview` contains actual project information.
+   - If real data found: Ask user:
      ```
      AGENT.md already has project data. What would you like to do?
      
