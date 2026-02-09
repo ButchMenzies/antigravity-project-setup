@@ -10,7 +10,15 @@ Interactive onboarding for a new Antigravity project. Creates `AGENT.md`, `memor
 
 1. Verify `.agent/workflows/` exists (bootstrapper already ran)
 2. Check if `AGENT.md` already has populated content (not just the template)
-   - If populated: Ask user if they want to re-run setup or skip
+   - If populated: Ask user:
+     ```
+     AGENT.md already has project data. What would you like to do?
+     
+     1. Re-run setup — I'll update AGENT.md with fresh Q&A answers (memory.md will be preserved)
+     2. Skip setup — just read the existing files and start working
+     ```
+   - If user chooses re-run: proceed with Q&A, overwrite AGENT.md, but **never overwrite memory.md**
+   - If user chooses skip: read AGENT.md and memory.md, then proceed with the user's request
 3. Detect project type:
 
 ```bash
@@ -254,6 +262,14 @@ Populate with real answers (not placeholders):
 
 ---
 
+## Platform Notes
+[If Replit.md exists, extract and summarize key info here:
+- Run command (from .replit or Replit.md)
+- Environment variables mentioned
+- Deployment configuration
+- Any Replit-specific setup notes
+Do NOT modify or delete Replit.md — the project may be re-opened in Replit later.]
+
 ## Local Development
 
 - **Port**: [from Q&A]
@@ -272,27 +288,45 @@ Populate with real answers (not placeholders):
 
 ### memory.md
 
-Create with initial session entry:
+If `.agent/memory.md` already exists → **do NOT overwrite it**. Preserve all existing session history.
+
+Only create if the file does not exist:
 
 ```markdown
 # Project Memory
 
 > Agent-maintained record of decisions, lessons, and context.
 > Update after completing features, making decisions, or solving problems.
+>
+> **Maintenance:** When this file exceeds ~100 entries or becomes hard to scan,
+> archive older entries to `.agent/memory-archive.md` and keep only the last
+> 30 days of entries here. Always keep User Preferences — those never expire.
 
 ---
 
 ## Key Decisions
 
-<!-- Add decisions as they're made -->
+<!-- Append new decisions here using this format:
+### YYYY-MM-DD [Title]
+**Context**: [what prompted the decision]
+**Decision**: [what was decided]
+**Rationale**: [why this choice]
+-->
 
 ## Lessons Learned
 
-<!-- Add lessons as they're discovered -->
+<!-- Append new lessons here using this format:
+### YYYY-MM-DD [Title]
+**Problem**: [what went wrong]
+**Fix**: [how it was resolved]
+**Prevention**: [how to avoid next time]
+-->
 
 ## User Preferences
 
 - Work style: [from Q&A]
+
+<!-- Append new preferences as bullet points -->
 
 ## Session Log
 
