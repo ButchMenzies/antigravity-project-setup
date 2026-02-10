@@ -258,6 +258,7 @@ git clone --depth 1 https://github.com/ButchMenzies/antigravity-project-setup.gi
 ```bash
 mkdir -p .agent/workflows .agent/skills/planning
 cp /tmp/ag-setup/.agent/workflows/*.md .agent/workflows/
+rm -f .agent/workflows/setup.md
 cp /tmp/ag-setup/skills/planning/SKILL.md .agent/skills/planning/SKILL.md
 cp /tmp/ag-setup/templates/skills-catalog.md .agent/skills-catalog.md
 cp /tmp/ag-setup/templates/USER_GUIDE.md .agent/USER_GUIDE.md
@@ -482,7 +483,7 @@ git commit -m "Set up Antigravity agent"
 
 Created:
 - [framework] project with [language]
-- 9 slash command workflows
+- 8 slash command workflows
 - Planning skill
 - AGENT.md with project context
 - memory.md for session tracking

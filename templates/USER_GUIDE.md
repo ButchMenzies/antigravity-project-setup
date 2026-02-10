@@ -20,9 +20,9 @@ Antigravity is a lightweight project management system for AI coding agents. It 
 1. Open a new project in your IDE
 2. Paste the contents of `AGENT_SETUP_GUIDE.md` into the chat
 3. The agent bootstraps the system (creates folders, copies workflow files)
-4. Type `/setup` and answer the agent's questions about your project
+4. Close and reopen the project, then follow the onboarding instructions
 
-After `/setup`, your project will have context files, memory, and skill suggestions ready to go.
+After onboarding, your project will have context files, memory, and skill suggestions ready to go.
 
 ### Returning to a Project
 
@@ -37,9 +37,9 @@ Start a new chat. The agent will:
 
 Type `/` in the chat to see all available commands. Here's what each one does:
 
-### `/setup` — Project Onboarding
+### Project Onboarding (runs once during setup)
 **When**: First time setting up a project  
-**What it does**: Asks you questions about the project, scans the codebase, discovers relevant skills, and populates all project files.
+**What it does**: Asks you questions about the project, scans the codebase, discovers relevant skills, and populates all project files. This runs as part of the initial setup guide — it's not a slash command you'll see in the menu.
 
 ### `/new-track` — Plan New Work
 **When**: Starting a new feature, bug fix, or refactor  
@@ -74,7 +74,7 @@ Type `/` in the chat to see all available commands. Here's what each one does:
 ## The Typical Workflow
 
 ```
-1. Start project:     Paste setup guide → /setup
+1. Start project:     Paste setup guide → onboarding
 2. Plan work:         /new-track
 3. Refine (optional): /edit
 4. Build:             /implement
@@ -95,7 +95,6 @@ project/
 │   ├── skills/               ← Project-specific skills
 │   │   └── planning/         ← Planning skill
 │   └── workflows/            ← Slash command definitions
-│       ├── setup.md
 │       ├── new-track.md
 │       ├── edit.md
 │       ├── implement.md
@@ -120,7 +119,7 @@ The agent maintains `.agent/memory.md` with decisions, lessons, and preferences.
 
 ### Skills
 Skills are project-specific knowledge files that teach the agent how to do things your way. They live in `.agent/skills/` and are:
-- Suggested during `/setup` (based on your tech stack)
+- Suggested during onboarding (based on your tech stack)
 - Prompted during `/implement` (when patterns repeat)
 - Created on demand via `/create-skill`
 

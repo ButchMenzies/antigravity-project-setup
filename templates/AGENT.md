@@ -14,7 +14,6 @@
 5. **When you notice repeating patterns**: Suggest creating a skill with `/create-skill`
 
 ## Available Commands
-- `/setup` — interactive project onboarding (run this first!)
 - `/new-track` — plan a new piece of work
 - `/edit` — revise a plan before implementing
 - `/implement` — execute a plan with progress tracking
@@ -27,13 +26,13 @@
 ---
 
 ## Project Overview
-*Run `/setup` to populate this section.*
+*Populate this section during project onboarding.*
 
 ## Tech Stack
-*Run `/setup` to populate this section.*
+*Populate this section during project onboarding.*
 
 ## Local Development
-*Run `/setup` to populate this section.*
+*Populate this section during project onboarding.*
 
 ---
 

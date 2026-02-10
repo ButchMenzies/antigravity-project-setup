@@ -28,7 +28,6 @@ your-project/
 │   ├── memory.md             ← Persistent memory
 │   ├── skills-catalog.md     ← Skill index
 │   ├── workflows/            ← 8 slash command definitions
-│   │   ├── setup.md
 │   │   ├── new-track.md
 │   │   ├── edit.md
 │   │   ├── implement.md
@@ -64,7 +63,7 @@ antigravity-project-setup/
 
 | Command | What It Does |
 |---------|-------------|
-| `/setup` | Interactive project onboarding — scans codebase, configures AGENT.md |
+| `/setup` | Interactive project onboarding — runs once during initial setup (not installed locally) |
 | `/new-track` | Plan a new piece of work with spec and phased implementation plan |
 | `/edit` | Revise an implementation plan before executing |
 | `/implement` | Execute a plan with progress tracking and memory checkpoints |

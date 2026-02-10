@@ -86,6 +86,7 @@ git clone --depth 1 https://github.com/ButchMenzies/antigravity-project-setup.gi
 **Step B — Copy files (workflows, skills, and conditional templates):**
 ```bash
 cp /tmp/ag-setup/.agent/workflows/*.md .agent/workflows/
+rm -f .agent/workflows/setup.md
 cp /tmp/ag-setup/skills/planning/SKILL.md .agent/skills/planning/SKILL.md
 [ ! -f .agent/AGENT.md ] && cp /tmp/ag-setup/templates/AGENT.md .agent/AGENT.md
 [ ! -f .agent/memory.md ] && cp /tmp/ag-setup/templates/memory.md .agent/memory.md
@@ -173,7 +174,7 @@ Tell the user:
 ✅ Antigravity bootstrapped!
 
 Installed:
-- 9 slash command workflows
+- 8 slash command workflows
 - Planning skill (iterative planning principles)
 - Minimal AGENT.md with core rules
 
@@ -182,5 +183,6 @@ The IDE needs to re-scan the workspace to discover the new slash command workflo
 
 Next step:
 → Close the project and reopen it
-→ Run /setup for interactive project onboarding
+→ Then read and follow the onboarding workflow:
+  https://raw.githubusercontent.com/ButchMenzies/antigravity-project-setup/main/.agent/workflows/setup.md
 ```
