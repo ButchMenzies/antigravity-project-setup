@@ -39,9 +39,12 @@ ls *.* src/ app/ lib/ public/ 2>/dev/null
 ```
 
 - **If source files exist** → Proceed with full bootstrap (Steps 2-5), then run `/setup`
-- **If folder is completely empty** → **Do NOT run Steps 2-5.** Instead, read and follow the `/new-project` workflow directly from GitHub:
-  `https://raw.githubusercontent.com/ButchMenzies/antigravity-project-setup/main/.agent/workflows/new-project.md`
-  This workflow handles scaffolding, Antigravity bootstrap, and project onboarding in one pass. **Stop here — do not continue with Steps 2-5.**
+- **If folder is completely empty:**
+
+  > **⛔ STOP — Do NOT continue with Steps 2-5.**
+  > Read and follow the `/new-project` workflow directly from GitHub:
+  > `https://raw.githubusercontent.com/ButchMenzies/antigravity-project-setup/main/.agent/workflows/new-project.md`
+  > This workflow handles **everything** — scaffolding, Antigravity bootstrap, and project onboarding in one pass. You are done with this guide.
 
 ---
 
@@ -73,24 +76,28 @@ Add these selective ignores to `.gitignore` (if not already present):
 
 ## Step 3: Install Workflows, Skills & Templates
 
-Clone the repo and copy everything in one batch — this is much faster than downloading files individually.
+Clone the repo and copy everything in a few steps — much faster than downloading files individually.
 
+> **Run these as separate commands** — do not chain them with `&&`. Chained commands can hang in agent environments.
+
+**Step A — Clone the repo:**
 ```bash
-# Clone repo to temp dir
 git clone --depth 1 https://github.com/ButchMenzies/antigravity-project-setup.git /tmp/ag-setup
+```
 
-# Copy workflows and skills
+**Step B — Copy files (workflows, skills, and conditional templates):**
+```bash
 cp /tmp/ag-setup/.agent/workflows/*.md .agent/workflows/
 cp /tmp/ag-setup/.agent/skills/create-skill/SKILL.md .agent/skills/create-skill/SKILL.md
 cp /tmp/ag-setup/skills/planning/SKILL.md .agent/skills/planning/SKILL.md
-
-# Copy templates ONLY if they don't already exist (existing files have real project data)
 [ ! -f .agent/AGENT.md ] && cp /tmp/ag-setup/templates/AGENT.md .agent/AGENT.md
 [ ! -f .agent/memory.md ] && cp /tmp/ag-setup/templates/memory.md .agent/memory.md
 [ ! -f .agent/skills-catalog.md ] && cp /tmp/ag-setup/templates/skills-catalog.md .agent/skills-catalog.md
 [ ! -f .agent/USER_GUIDE.md ] && cp /tmp/ag-setup/templates/USER_GUIDE.md .agent/USER_GUIDE.md
+```
 
-# Clean up
+**Step C — Clean up:**
+```bash
 rm -rf /tmp/ag-setup
 ```
 

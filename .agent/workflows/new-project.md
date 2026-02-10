@@ -164,26 +164,20 @@ Happy with this?
 
 **Wait for user response before proceeding.**
 
-### Work Style (Q4)
+### Work Style & Scope (Q4)
 
 ```
-How do you prefer to work?
+Two quick preferences:
 
-1. Plan first, then implement (I'll review plans before you code)
-2. Just go — implement directly, I'll review as we go
-3. Depends on the task size
-```
+Work style:
+  a) Plan first, then implement (I'll review plans before you code)
+  b) Just go — implement directly, I'll review as we go
+  c) Depends on the task size
 
-**Wait for user response before proceeding.**
-
-### Project Scope (Q5)
-
-```
-Is this a project you'll maintain long-term, or a quick experiment?
-
-1. Long-term — I want full project management (tracks, specs, plans)
-2. Medium — I want basics but nothing too heavy
-3. Quick experiment — keep it minimal
+Project scope:
+  1. Long-term — I want full project management (tracks, specs, plans)
+  2. Medium — I want basics but nothing too heavy
+  3. Quick experiment — keep it minimal
 ```
 
 **Wait for user response before proceeding.**
@@ -193,10 +187,11 @@ Is this a project you'll maintain long-term, or a quick experiment?
 Follow these rules:
 
 - **Use the standard tooling.** Don't hand-roll folder structures when a CLI scaffolder exists. Use `npx create-*`, `npm init`, `cargo init`, etc.
-- **Non-interactive mode.** Run scaffolders with flags that avoid interactive prompts
+- **Non-interactive mode.** Run scaffolders with flags that avoid interactive prompts (e.g. `--yes`)
 - **Check the `--help` flag first.** Before running any scaffolder, run it with `--help` to see available options. Don't guess at flags
 - **Install in current directory.** Always scaffold into `./`, not a subdirectory
 - **TypeScript by default.** Unless the user specifically chose JavaScript
+- **Use npm.** Always use `--use-npm` (or equivalent) when the scaffolder supports it, to avoid pnpm/yarn ambiguity
 - **Git init.** If the scaffolder doesn't create a git repo, run `git init`
 
 #### Framework-Specific Notes
@@ -204,7 +199,7 @@ Follow these rules:
 **Next.js:**
 ```bash
 npx -y create-next-app@latest ./ --help  # Check available flags first
-npx -y create-next-app@latest ./ --ts --eslint --tailwind --app --src-dir --import-alias "@/*"
+npx -y create-next-app@latest ./ --ts --eslint --tailwind --app --src-dir --import-alias "@/*" --use-npm --yes
 ```
 
 **Vite + React:**
@@ -240,14 +235,7 @@ npx -y create-expo-app@latest ./ --template blank-typescript
 
 #### Additional Folders
 
-After the scaffolder runs, create these folders if they don't already exist:
-
-```bash
-mkdir -p docs/design          # UI mockups, screenshots, design exports
-mkdir -p public/assets         # Logo, favicon, images (web projects)
-```
-
-For web/full-stack projects, ensure there is a dedicated styles directory (e.g., `src/styles/`) for CSS variables and design tokens.
+Only create project-specific folders if the scaffolder didn't already provide them. Don't create empty placeholder folders (e.g. `docs/design/`, `src/styles/`) — they'll be created naturally when needed.
 
 #### Verify
 
@@ -257,23 +245,27 @@ Do **not** start the dev server during setup — trust the scaffolder. The user 
 
 ## Phase 2: Bootstrap Antigravity
 
-Now that the project has source files, install the Antigravity system using a single clone-and-copy approach.
+Now that the project has source files, install the Antigravity system.
 
+> **Run these as separate commands** — do not chain them with `&&`. Chained commands can hang in agent environments.
+
+**Step 1 — Clone the repo:**
 ```bash
-# Clone repo to temp dir
 git clone --depth 1 https://github.com/ButchMenzies/antigravity-project-setup.git /tmp/ag-setup
+```
 
-# Create directory structure
+**Step 2 — Create directories and copy files:**
+```bash
 mkdir -p .agent/workflows .agent/skills/create-skill .agent/skills/planning
-
-# Copy workflows, skills, and templates
 cp /tmp/ag-setup/.agent/workflows/*.md .agent/workflows/
 cp /tmp/ag-setup/.agent/skills/create-skill/SKILL.md .agent/skills/create-skill/SKILL.md
 cp /tmp/ag-setup/skills/planning/SKILL.md .agent/skills/planning/SKILL.md
 cp /tmp/ag-setup/templates/skills-catalog.md .agent/skills-catalog.md
 cp /tmp/ag-setup/templates/USER_GUIDE.md .agent/USER_GUIDE.md
+```
 
-# Clean up
+**Step 3 — Clean up:**
+```bash
 rm -rf /tmp/ag-setup
 ```
 
@@ -299,8 +291,80 @@ The scaffolder likely created a `.gitignore`. **Append** these Antigravity-speci
 
 We already know the project type, description, tech stack, work style, and scope from Phase 1. Generate the project files.
 
-If long-term (Q5): Create `conductor/` artifacts (product.md, tech-stack.md, workflow.md, tracks.md).
-If medium/quick (Q5): Skip conductor, rely on slash commands for workflow.
+If medium/quick (Q4 scope): Skip conductor, rely on slash commands for workflow.
+
+If long-term (Q4 scope): Create `conductor/` artifacts:
+
+```bash
+mkdir -p conductor/tracks
+```
+
+**conductor/product.md:**
+```markdown
+# Product Overview
+
+## Vision
+[From Q2 — one-line description expanded into a product vision]
+
+## Target Users
+[Who is this for?]
+
+## Core Features
+- [ ] [Feature 1 — from discussion]
+- [ ] [Feature 2]
+- [ ] [Feature 3]
+
+## Success Metrics
+[How will you know it's working?]
+```
+
+**conductor/tech-stack.md:**
+```markdown
+# Tech Stack
+
+## Core
+- **Framework**: [from Q3]
+- **Language**: [from Q3]
+- **Styling**: [Tailwind CSS / etc.]
+- **Database**: [if discussed, otherwise "TBD"]
+
+## Infrastructure
+- **Hosting**: [if discussed, otherwise "TBD"]
+- **Auth**: [if discussed, otherwise "TBD"]
+
+## Dev Tools
+- **Package manager**: npm
+- **Linting**: ESLint
+- **Type checking**: TypeScript
+```
+
+**conductor/workflow.md:**
+```markdown
+# Workflow
+
+## Branching Strategy
+- `main` — production-ready code
+- Feature branches for new work
+
+## Code Review
+[User preference from Q4 work style]
+
+## Deployment
+[TBD — to be decided when ready]
+```
+
+**conductor/tracks.md:**
+```markdown
+# Tracks
+
+Active work items. Each track gets its own spec in `conductor/tracks/`.
+
+| Track | Status | Spec |
+|-------|--------|------|
+| *No active tracks yet* | — | — |
+
+Use `/new-track` to create your first track.
+```
 
 ### Generate AGENT.md
 
@@ -423,10 +487,10 @@ Created:
 - Planning skill + Create-skill
 - AGENT.md with project context
 - memory.md for session tracking
+[- conductor/ project management artifacts (if long-term)]
 
-💡 Before building features, consider setting up your brand identity
-   and core UI as your first /new-track. Tools like Google Stitch
-   (stitch.withgoogle.com) can help generate UI mockups and ideas.
+💡 Tip: Before building features, consider setting up your brand
+   identity and core UI as your first /new-track.
 
 Next step:
 → /new-track to plan your first piece of work
