@@ -12,11 +12,6 @@ Scaffold a new project from a blank folder. This workflow handles **everything**
 
 ## Phase 1: Plan & Scaffold
 
-### Pre-flight
-
-Read the planning skill from GitHub and apply its principles throughout:
-`https://raw.githubusercontent.com/ButchMenzies/antigravity-project-setup/main/skills/planning/SKILL.md`
-
 ### Project Type (Q1)
 
 ```
@@ -50,18 +45,18 @@ Based on the project type, **recommend a default stack** with a brief explanatio
 ```
 For a web app, I'd recommend:
 
-→ Next.js with TypeScript (App Router)
+→ Next.js with TypeScript + Tailwind CSS (App Router)
 
 This gives you:
 - Server-side rendering and static generation
 - Built-in API routes (no separate backend)
-- Works well with Supabase, Stripe, and other services
+- Tailwind CSS for rapid, consistent styling
 - Largest ecosystem and community
 
 Happy with this?
 
-1. Sounds good — let's go with Next.js
-2. I want something lighter (Vite + React — pure client-side SPA)
+1. Sounds good — let's go with Next.js + Tailwind
+2. I want something lighter (Vite + React + Tailwind — pure client-side SPA)
 3. I want no framework (vanilla HTML/CSS/JS)
 4. I have something else in mind
 ```
@@ -71,17 +66,18 @@ Happy with this?
 ```
 For a website, I'd recommend:
 
-→ Next.js with TypeScript (static export)
+→ Astro with Tailwind CSS
 
 This gives you:
-- Fast static pages with optional dynamic sections
-- Easy to deploy to Vercel, Netlify, or any static host
-- Can add interactivity later without switching frameworks
+- Blazing fast — ships zero JavaScript by default
+- Perfect for marketing pages, portfolios, blogs, docs
+- Use React/Vue/Svelte components where you need interactivity
+- Best Core Web Vitals scores of any framework
 
 Happy with this?
 
-1. Sounds good — Next.js with static export
-2. I want something simpler (Astro — content-focused, minimal JS)
+1. Sounds good — Astro + Tailwind
+2. I want a React-based site (Next.js — heavier but more dynamic features)
 3. I want a pure static site (vanilla HTML/CSS/JS)
 4. I have something else in mind
 ```
@@ -168,6 +164,30 @@ Happy with this?
 
 **Wait for user response before proceeding.**
 
+### Work Style (Q4)
+
+```
+How do you prefer to work?
+
+1. Plan first, then implement (I'll review plans before you code)
+2. Just go — implement directly, I'll review as we go
+3. Depends on the task size
+```
+
+**Wait for user response before proceeding.**
+
+### Project Scope (Q5)
+
+```
+Is this a project you'll maintain long-term, or a quick experiment?
+
+1. Long-term — I want full project management (tracks, specs, plans)
+2. Medium — I want basics but nothing too heavy
+3. Quick experiment — keep it minimal
+```
+
+**Wait for user response before proceeding.**
+
 ### Scaffold
 
 Follow these rules:
@@ -184,7 +204,7 @@ Follow these rules:
 **Next.js:**
 ```bash
 npx -y create-next-app@latest ./ --help  # Check available flags first
-npx -y create-next-app@latest ./ --ts --eslint --app --src-dir --import-alias "@/*"
+npx -y create-next-app@latest ./ --ts --eslint --tailwind --app --src-dir --import-alias "@/*"
 ```
 
 **Vite + React:**
@@ -192,6 +212,14 @@ npx -y create-next-app@latest ./ --ts --eslint --app --src-dir --import-alias "@
 npx -y create-vite@latest ./ --help
 npx -y create-vite@latest ./ --template react-ts
 npm install
+npm install -D tailwindcss @tailwindcss/vite
+```
+
+**Astro:**
+```bash
+npx -y create-astro@latest ./ --help  # Check available flags first
+npx -y create-astro@latest ./ --template minimal --typescript strict --install --no-git
+npx astro add tailwind -y
 ```
 
 **Express:**
@@ -223,61 +251,31 @@ For web/full-stack projects, ensure there is a dedicated styles directory (e.g.,
 
 #### Verify
 
-```bash
-npm run dev  # or equivalent
-```
-
-If the dev server starts, kill it after confirming. If it fails, troubleshoot before proceeding.
+Do **not** start the dev server during setup — trust the scaffolder. The user will see any issues when they first run the project.
 
 ---
 
 ## Phase 2: Bootstrap Antigravity
 
-Now that the project has source files, install the Antigravity system.
-
-### Create Directory Structure
+Now that the project has source files, install the Antigravity system using a single clone-and-copy approach.
 
 ```bash
-mkdir -p .agent/workflows
-mkdir -p .agent/skills/create-skill
-mkdir -p .agent/skills/planning
+# Clone repo to temp dir
+git clone --depth 1 https://github.com/ButchMenzies/antigravity-project-setup.git /tmp/ag-setup
+
+# Create directory structure
+mkdir -p .agent/workflows .agent/skills/create-skill .agent/skills/planning
+
+# Copy workflows, skills, and templates
+cp /tmp/ag-setup/.agent/workflows/*.md .agent/workflows/
+cp /tmp/ag-setup/.agent/skills/create-skill/SKILL.md .agent/skills/create-skill/SKILL.md
+cp /tmp/ag-setup/skills/planning/SKILL.md .agent/skills/planning/SKILL.md
+cp /tmp/ag-setup/templates/skills-catalog.md .agent/skills-catalog.md
+cp /tmp/ag-setup/templates/USER_GUIDE.md .agent/USER_GUIDE.md
+
+# Clean up
+rm -rf /tmp/ag-setup
 ```
-
-### Install Workflows
-
-Read each file from the GitHub repo and create it locally:
-
-**Raw base:** `https://raw.githubusercontent.com/ButchMenzies/antigravity-project-setup/main`
-
-| Remote Path | Local Path |
-|------------|------------|
-| `.agent/workflows/setup.md` | `.agent/workflows/setup.md` |
-| `.agent/workflows/new-track.md` | `.agent/workflows/new-track.md` |
-| `.agent/workflows/edit.md` | `.agent/workflows/edit.md` |
-| `.agent/workflows/implement.md` | `.agent/workflows/implement.md` |
-| `.agent/workflows/status.md` | `.agent/workflows/status.md` |
-| `.agent/workflows/update-memory.md` | `.agent/workflows/update-memory.md` |
-| `.agent/workflows/end-session.md` | `.agent/workflows/end-session.md` |
-| `.agent/workflows/create-skill.md` | `.agent/workflows/create-skill.md` |
-| `.agent/workflows/new-project.md` | `.agent/workflows/new-project.md` |
-
-For each file: read `{raw base}/{remote path}` → write content to local path.
-
-### Install Skills
-
-| Remote Path | Local Path |
-|------------|------------|
-| `.agent/skills/create-skill/SKILL.md` | `.agent/skills/create-skill/SKILL.md` |
-| `skills/planning/SKILL.md` | `.agent/skills/planning/SKILL.md` |
-
-### Install Templates
-
-Read and create locally:
-
-| Remote Path | Local Path |
-|------------|------------|
-| `templates/skills-catalog.md` | `.agent/skills-catalog.md` |
-| `templates/USER_GUIDE.md` | `.agent/USER_GUIDE.md` |
 
 **Do NOT install `templates/AGENT.md` or `templates/memory.md`** — Phase 3 creates these with real project data.
 
@@ -299,34 +297,10 @@ The scaffolder likely created a `.gitignore`. **Append** these Antigravity-speci
 
 ## Phase 3: Project Onboarding
 
-We already know the project type, description, and tech stack from Phase 1. Gather the remaining context.
+We already know the project type, description, tech stack, work style, and scope from Phase 1. Generate the project files.
 
-### Work Style (Q4)
-
-```
-How do you prefer to work?
-
-1. Plan first, then implement (I'll review plans before you code)
-2. Just go — implement directly, I'll review as we go
-3. Depends on the task size
-```
-
-**Wait for user response before proceeding.**
-
-### Project Scope (Q5)
-
-```
-Is this a project you'll maintain long-term, or a quick experiment?
-
-1. Long-term — I want full project management (tracks, specs, plans)
-2. Medium — I want basics but nothing too heavy
-3. Quick experiment — keep it minimal
-```
-
-**Wait for user response before proceeding.**
-
-If long-term: Create `conductor/` artifacts (product.md, tech-stack.md, workflow.md, tracks.md).
-If medium/quick: Skip conductor, rely on slash commands for workflow.
+If long-term (Q5): Create `conductor/` artifacts (product.md, tech-stack.md, workflow.md, tracks.md).
+If medium/quick (Q5): Skip conductor, rely on slash commands for workflow.
 
 ### Generate AGENT.md
 

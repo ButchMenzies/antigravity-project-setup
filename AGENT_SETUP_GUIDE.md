@@ -25,12 +25,10 @@ Read `.agent/AGENT.md` and `.agent/memory.md`, then proceed with the user's requ
 **This project has existing data. Preserve it.**
 
 1. **Run Step 2** to create the directories
-2. **Run Step 3** to install workflows
-3. **Run Step 4** to install create-skill
-4. **Run Step 5** — but **only create files that don't already exist** (see Step 5 rules)
-5. **Merge Core Rules into the existing AGENT.md** (see Step 5a)
-6. **Scan existing skills** (see Step 5b)
-7. Tell the user: *"Your project has been upgraded to use slash commands. Run `/setup` to fill in any gaps, or `/status` to see where things stand."*
+2. **Run Step 3** to install workflows, skills & templates (existing files are preserved automatically)
+3. **Merge Core Rules into the existing AGENT.md** (see Step 4a)
+4. **Scan existing skills** (see Step 4b)
+5. Tell the user: *"Your project has been upgraded to use slash commands. Run `/setup` to fill in any gaps, or `/status` to see where things stand."*
 
 ### If no `.agent/` directory — **FRESH PROJECT**
 
@@ -40,10 +38,10 @@ Check if there are any existing source files:
 ls *.* src/ app/ lib/ public/ 2>/dev/null
 ```
 
-- **If source files exist** → Proceed with full bootstrap (Steps 2-6), then run `/setup`
-- **If folder is completely empty** → **Do NOT run Steps 2-6.** Instead, read and follow the `/new-project` workflow directly from GitHub:
+- **If source files exist** → Proceed with full bootstrap (Steps 2-5), then run `/setup`
+- **If folder is completely empty** → **Do NOT run Steps 2-5.** Instead, read and follow the `/new-project` workflow directly from GitHub:
   `https://raw.githubusercontent.com/ButchMenzies/antigravity-project-setup/main/.agent/workflows/new-project.md`
-  This workflow handles scaffolding, Antigravity bootstrap, and project onboarding in one pass. **Stop here — do not continue with Steps 2-6.**
+  This workflow handles scaffolding, Antigravity bootstrap, and project onboarding in one pass. **Stop here — do not continue with Steps 2-5.**
 
 ---
 
@@ -73,58 +71,38 @@ Add these selective ignores to `.gitignore` (if not already present):
 
 ---
 
-## Step 3: Install Workflows
+## Step 3: Install Workflows, Skills & Templates
 
-Read each file from the GitHub repo and create it locally. The repo is the source of truth.
+Clone the repo and copy everything in one batch — this is much faster than downloading files individually.
 
-**Repo:** `https://github.com/ButchMenzies/antigravity-project-setup`
-**Raw base:** `https://raw.githubusercontent.com/ButchMenzies/antigravity-project-setup/main`
+```bash
+# Clone repo to temp dir
+git clone --depth 1 https://github.com/ButchMenzies/antigravity-project-setup.git /tmp/ag-setup
 
-Read each of these URLs and write the content to the corresponding local path:
+# Copy workflows and skills
+cp /tmp/ag-setup/.agent/workflows/*.md .agent/workflows/
+cp /tmp/ag-setup/.agent/skills/create-skill/SKILL.md .agent/skills/create-skill/SKILL.md
+cp /tmp/ag-setup/skills/planning/SKILL.md .agent/skills/planning/SKILL.md
 
-| Remote Path | Local Path |
-|------------|------------|
-| `.agent/workflows/setup.md` | `.agent/workflows/setup.md` |
-| `.agent/workflows/new-track.md` | `.agent/workflows/new-track.md` |
-| `.agent/workflows/edit.md` | `.agent/workflows/edit.md` |
-| `.agent/workflows/implement.md` | `.agent/workflows/implement.md` |
-| `.agent/workflows/status.md` | `.agent/workflows/status.md` |
-| `.agent/workflows/update-memory.md` | `.agent/workflows/update-memory.md` |
-| `.agent/workflows/end-session.md` | `.agent/workflows/end-session.md` |
-| `.agent/workflows/create-skill.md` | `.agent/workflows/create-skill.md` |
-| `.agent/workflows/new-project.md` | `.agent/workflows/new-project.md` |
+# Copy templates ONLY if they don't already exist (existing files have real project data)
+[ ! -f .agent/AGENT.md ] && cp /tmp/ag-setup/templates/AGENT.md .agent/AGENT.md
+[ ! -f .agent/memory.md ] && cp /tmp/ag-setup/templates/memory.md .agent/memory.md
+[ ! -f .agent/skills-catalog.md ] && cp /tmp/ag-setup/templates/skills-catalog.md .agent/skills-catalog.md
+[ ! -f .agent/USER_GUIDE.md ] && cp /tmp/ag-setup/templates/USER_GUIDE.md .agent/USER_GUIDE.md
 
-For each file: read `{raw base}/{remote path}` → write content to local `{local path}`.
-
----
-
-## Step 4: Install Skills
-
-Read and create locally:
-
-| Remote Path | Local Path |
-|------------|------------|
-| `.agent/skills/create-skill/SKILL.md` | `.agent/skills/create-skill/SKILL.md` |
-| `skills/planning/SKILL.md` | `.agent/skills/planning/SKILL.md` |
+# Clean up
+rm -rf /tmp/ag-setup
+```
 
 ---
 
-## Step 5: Install Templates (CONDITIONAL)
+## Step 4: Post-Install Checks (CONDITIONAL)
 
-**Rule: Only create files that do NOT already exist.** Existing files contain real project data — never overwrite them.
+If `.agent/AGENT.md` already existed before Step 3 → **Go to Step 4a** to merge core rules.
+If `.agent/memory.md` already existed → it was preserved. No action needed.
+If `.agent/skills-catalog.md` already existed → **Go to Step 4b** to reconcile.
 
-| Remote Path | Local Path | Install If... |
-|------------|------------|---------------|
-| `templates/AGENT.md` | `.agent/AGENT.md` | File does NOT exist |
-| `templates/memory.md` | `.agent/memory.md` | File does NOT exist |
-| `templates/skills-catalog.md` | `.agent/skills-catalog.md` | File does NOT exist |
-| `templates/USER_GUIDE.md` | `.agent/USER_GUIDE.md` | File does NOT exist |
-
-If `.agent/AGENT.md` already exists → **do NOT overwrite.** Go to Step 5a.
-If `.agent/memory.md` already exists → **do NOT overwrite.** Preserve all session history.
-If `.agent/skills-catalog.md` already exists → **do NOT overwrite.** Go to Step 5b to reconcile.
-
-### Step 5a: Merge Core Rules (only if AGENT.md already existed)
+### Step 4a: Merge Core Rules (only if AGENT.md already existed)
 
 Read the existing `.agent/AGENT.md`. Before adding new sections, search for and **remove** any existing sections whose headers contain the words "Start Here", "Core Rules", "Rules", or "Available Commands" (case-insensitive) — these will be replaced by the new versions. Then add the following sections **at the very top** of the file, before any remaining content:
 
@@ -155,7 +133,7 @@ Read the existing `.agent/AGENT.md`. Before adding new sections, search for and 
 
 Keep all existing content (Project Overview, Tech Stack, etc.) intact below these new sections.
 
-### Step 5b: Scan Existing Skills (only if `.agent/skills/` has entries beyond `create-skill`)
+### Step 4b: Scan Existing Skills (only if `.agent/skills/` has entries beyond `create-skill`)
 
 ```bash
 ls .agent/skills/
@@ -183,7 +161,7 @@ Shall I upload the recommended ones to the Antigravity skills library for use in
 
 ---
 
-## Step 6: Done!
+## Step 5: Done!
 
 Tell the user:
 
