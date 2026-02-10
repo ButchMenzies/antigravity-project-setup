@@ -2,8 +2,8 @@
 
 > **Paste this into a new project chat to bootstrap Antigravity.**
 > Self-contained — works on any device, no local files needed.
-> Installs slash command workflows, the skill creator, and a minimal AGENT.md.
-> Then run `/setup` for interactive project onboarding.
+> For existing projects: installs workflows and skills, then run `/setup` for onboarding.
+> For blank projects: routes to `/new-project` which handles scaffolding and setup in one pass.
 
 ---
 
@@ -15,7 +15,7 @@ ls -la .agent/workflows/ 2>/dev/null
 ls -la .agent/skills/ 2>/dev/null
 ```
 
-### If `.agent/workflows/` exists with 8 workflow files — **FULLY SET UP**
+### If `.agent/workflows/` exists with 9 workflow files — **FULLY SET UP**
 
 This project already has the slash command system. Skip setup entirely.
 Read `.agent/AGENT.md` and `.agent/memory.md`, then proceed with the user's request.
@@ -41,7 +41,9 @@ ls *.* src/ app/ lib/ public/ 2>/dev/null
 ```
 
 - **If source files exist** → Proceed with full bootstrap (Steps 2-6), then run `/setup`
-- **If folder is completely empty** → Proceed with full bootstrap (Steps 2-6), then run `/new-project` to scaffold before `/setup`
+- **If folder is completely empty** → **Do NOT run Steps 2-6.** Instead, read and follow the `/new-project` workflow directly from GitHub:
+  `https://raw.githubusercontent.com/ButchMenzies/antigravity-project-setup/main/.agent/workflows/new-project.md`
+  This workflow handles scaffolding, Antigravity bootstrap, and project onboarding in one pass. **Stop here — do not continue with Steps 2-6.**
 
 ---
 
@@ -185,8 +187,6 @@ Shall I upload the recommended ones to the Antigravity skills library for use in
 
 Tell the user:
 
-**If the project has existing source files:**
-
 ```
 ✅ Antigravity bootstrapped!
 
@@ -199,20 +199,3 @@ Installed:
 Next step:
 → Run /setup for interactive project onboarding
 ```
-
-**If the project folder was blank:**
-
-```
-✅ Antigravity bootstrapped!
-
-Installed:
-- 9 slash command workflows
-- Planning skill (iterative planning principles)
-- Create-skill starter skill
-- Minimal AGENT.md with core rules
-
-This is a blank project — let's scaffold it first.
-→ Running /new-project to set up your project...
-```
-
-Then immediately read and follow `.agent/workflows/new-project.md`.
