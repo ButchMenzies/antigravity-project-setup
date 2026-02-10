@@ -254,6 +254,7 @@ Populate with real answers (not placeholders):
 - `/update-memory` — log a decision, lesson, or preference
 - `/end-session` — wrap up the current session
 - `/create-skill` — create a reusable local skill
+- `/new-project` — scaffold a blank project (choose framework, create structure)
 
 ---
 

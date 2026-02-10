@@ -34,7 +34,14 @@ Read `.agent/AGENT.md` and `.agent/memory.md`, then proceed with the user's requ
 
 ### If no `.agent/` directory — **FRESH PROJECT**
 
-Proceed with full bootstrap (Steps 2-6).
+Check if there are any existing source files:
+
+```bash
+ls *.* src/ app/ lib/ public/ 2>/dev/null
+```
+
+- **If source files exist** → Proceed with full bootstrap (Steps 2-6), then run `/setup`
+- **If folder is completely empty** → Proceed with full bootstrap (Steps 2-6), then run `/new-project` to scaffold before `/setup`
 
 ---
 
@@ -83,6 +90,7 @@ Read each of these URLs and write the content to the corresponding local path:
 | `.agent/workflows/update-memory.md` | `.agent/workflows/update-memory.md` |
 | `.agent/workflows/end-session.md` | `.agent/workflows/end-session.md` |
 | `.agent/workflows/create-skill.md` | `.agent/workflows/create-skill.md` |
+| `.agent/workflows/new-project.md` | `.agent/workflows/new-project.md` |
 
 For each file: read `{raw base}/{remote path}` → write content to local `{local path}`.
 
@@ -140,6 +148,7 @@ Read the existing `.agent/AGENT.md`. Before adding new sections, search for and 
 - `/update-memory` — log a decision, lesson, or preference
 - `/end-session` — wrap up the current session
 - `/create-skill` — create a reusable local skill
+- `/new-project` — scaffold a blank project (choose framework, create structure)
 ```
 
 Keep all existing content (Project Overview, Tech Stack, etc.) intact below these new sections.
@@ -176,11 +185,13 @@ Shall I upload the recommended ones to the Antigravity skills library for use in
 
 Tell the user:
 
+**If the project has existing source files:**
+
 ```
 ✅ Antigravity bootstrapped!
 
 Installed:
-- 8 slash command workflows (/setup, /new-track, /edit, /implement, /status, /update-memory, /end-session, /create-skill)
+- 9 slash command workflows
 - Planning skill (iterative planning principles)
 - Create-skill starter skill
 - Minimal AGENT.md with core rules
@@ -188,3 +199,20 @@ Installed:
 Next step:
 → Run /setup for interactive project onboarding
 ```
+
+**If the project folder was blank:**
+
+```
+✅ Antigravity bootstrapped!
+
+Installed:
+- 9 slash command workflows
+- Planning skill (iterative planning principles)
+- Create-skill starter skill
+- Minimal AGENT.md with core rules
+
+This is a blank project — let's scaffold it first.
+→ Running /new-project to set up your project...
+```
+
+Then immediately read and follow `.agent/workflows/new-project.md`.
