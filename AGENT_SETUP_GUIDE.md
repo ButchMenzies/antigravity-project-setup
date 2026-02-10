@@ -175,9 +175,12 @@ Tell the user:
 Installed:
 - 9 slash command workflows
 - Planning skill (iterative planning principles)
-- Planning skill
 - Minimal AGENT.md with core rules
 
+**⚠️ Action Required: Restart this chat session.**
+The IDE needs a fresh session to discover the new slash command workflows.
+
 Next step:
+→ Start a new chat
 → Run /setup for interactive project onboarding
 ```

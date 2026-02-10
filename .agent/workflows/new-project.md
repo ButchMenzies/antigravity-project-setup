@@ -488,10 +488,14 @@ Created:
 - memory.md for session tracking
 [- conductor/ project management artifacts (if long-term)]
 
+**⚠️ Action Required: Restart this chat session.**
+The IDE needs a fresh session to discover the new slash command workflows.
+
 💡 Tip: Before building features, consider setting up your brand
    identity and core UI as your first /new-track.
 
 Next step:
+→ Start a new chat
 → /new-track to plan your first piece of work
 ```
 
