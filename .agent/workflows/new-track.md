@@ -10,7 +10,8 @@ Create a spec and implementation plan for a new piece of work before coding begi
 
 1. Read `.agent/AGENT.md` for project context and tech stack
 2. Check if `conductor/tracks/` exists — if so, read `conductor/tracks.md` for active tracks
-3. Check `.agent/skills/` for skills relevant to this type of work
+3. **Read `.agent/skills/planning/SKILL.md`** — apply planning principles throughout this workflow
+4. Check `.agent/skills/` for other skills relevant to this type of work (especially `planning-*` project-specific skills)
 
 ## Track Classification
 

@@ -43,6 +43,7 @@ Proceed with full bootstrap (Steps 2-6).
 ```bash
 mkdir -p .agent/workflows
 mkdir -p .agent/skills/create-skill
+mkdir -p .agent/skills/planning
 ```
 
 ### Step 2b: Configure .gitignore (IMPORTANT)
@@ -87,13 +88,14 @@ For each file: read `{raw base}/{remote path}` → write content to local `{loca
 
 ---
 
-## Step 4: Install Create-Skill
+## Step 4: Install Skills
 
 Read and create locally:
 
 | Remote Path | Local Path |
 |------------|------------|
 | `.agent/skills/create-skill/SKILL.md` | `.agent/skills/create-skill/SKILL.md` |
+| `skills/planning/SKILL.md` | `.agent/skills/planning/SKILL.md` |
 
 ---
 
@@ -179,6 +181,7 @@ Tell the user:
 
 Installed:
 - 8 slash command workflows (/setup, /new-track, /edit, /implement, /status, /update-memory, /end-session, /create-skill)
+- Planning skill (iterative planning principles)
 - Create-skill starter skill
 - Minimal AGENT.md with core rules
 

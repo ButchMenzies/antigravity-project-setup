@@ -87,6 +87,19 @@ Phase verification:
 
 **Run verification steps.** If verification fails, fix before moving on.
 
+### 6a. Re-evaluate the Next Phase (BEFORE proceeding)
+
+Before moving on, review and refine the upcoming phase:
+
+1. Re-read the next phase's outline in the plan
+2. Consider what you learned during the phase you just completed
+3. Ask: Does the original plan for the next phase still make sense?
+4. Refine the next phase into concrete, actionable tasks
+5. Update the plan file with the refined tasks
+6. If the next phase has changed significantly, briefly tell the user what changed and why
+
+**Do not skip this.** Plans written before execution are guesses. Plans refined after execution are informed.
+
 ### ⚠️ MEMORY CHECKPOINT (after each phase) — MANDATORY, DO NOT SKIP
 
 **You must complete this before moving to the next phase.** This is not optional.
