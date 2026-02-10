@@ -177,10 +177,10 @@ Installed:
 - Planning skill (iterative planning principles)
 - Minimal AGENT.md with core rules
 
-**⚠️ Action Required: Restart this chat session.**
-The IDE needs a fresh session to discover the new slash command workflows.
+**⚠️ Action Required: Close and reopen the project.**
+The IDE needs to re-scan the workspace to discover the new slash command workflows.
 
 Next step:
-→ Start a new chat
+→ Close the project and reopen it
 → Run /setup for interactive project onboarding
 ```

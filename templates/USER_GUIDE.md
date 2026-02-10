@@ -160,4 +160,4 @@ Even if you don't use slash commands, the agent follows these rules (from AGENT.
 
 **Agent went off-plan:** Next time, use `/new-track` to create a plan first, then `/implement` to execute it with tracking.
 
-**Slash commands not showing:** If workflows don't appear in the `/` menu after setup, try restarting the chat session to force a re-scan.
+**Slash commands not showing after setup:** Close and reopen the project to force the IDE to re-scan the workspace.

@@ -4,7 +4,7 @@
 1. Read this file completely
 2. **Read `.agent/memory.md`** — this contains all decisions, lessons, and preferences from prior sessions. You MUST read it before doing any work.
 3. Run `/status` to see where things stand
-4. **If slash commands (like /status) don't appear in the autocomplete**, try restarting the chat session.
+4. **If slash commands (like /status) don't appear in the autocomplete**, close and reopen the project.
 
 ## ⚠️ Core Rules (Always Apply)
 1. **Before implementation**: Read the plan if one exists (check `.agent/current-plan.md` or `conductor/tracks/`)
