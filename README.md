@@ -37,7 +37,7 @@ your-project/
 │   │   ├── end-session.md
 │   │   └── create-skill.md
 │   └── skills/
-│       └── create-skill/     ← Starter skill
+│       └── planning/         ← Planning skill
 │           └── SKILL.md
 ```
 
@@ -50,11 +50,10 @@ antigravity-project-setup/
 ├── README.md                 ← This file
 ├── .agent/
 │   ├── workflows/            ← Source of truth for all workflows
-│   ├── skills/create-skill/  ← Source of truth for starter skill
 │   └── skills-catalog.md
 ├── skills/                   ← Curated skills library (grows over time)
 │   ├── README.md
-│   └── create-skill/         ← First skill
+│   └── planning/             ← Planning skill
 └── templates/
     ├── AGENT.md              ← Template for new projects
     ├── memory.md             ← Template for new projects

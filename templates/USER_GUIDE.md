@@ -93,7 +93,7 @@ project/
 │   ├── memory.md             ← Decisions, lessons, preferences
 │   ├── skills-catalog.md     ← Index of available skills
 │   ├── skills/               ← Project-specific skills
-│   │   └── create-skill/     ← Pre-installed skill creator
+│   │   └── planning/         ← Planning skill
 │   └── workflows/            ← Slash command definitions
 │       ├── setup.md
 │       ├── new-track.md

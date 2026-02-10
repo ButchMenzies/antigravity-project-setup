@@ -6,7 +6,6 @@ Project-specific skills in `.agent/skills/`:
 
 | Skill | Description |
 |-------|-------------|
-| `create-skill` | Meta-skill for creating new project-local skills |
 | `planning` | Principles for iterative, grounded planning — plan what you can see, learn first, then re-plan |
 
 ## Antigravity Skills Library (Curated)

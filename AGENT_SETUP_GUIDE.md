@@ -51,9 +51,7 @@ ls *.* src/ app/ lib/ public/ 2>/dev/null
 ## Step 2: Create Directory Structure
 
 ```bash
-mkdir -p .agent/workflows
-mkdir -p .agent/skills/create-skill
-mkdir -p .agent/skills/planning
+mkdir -p .agent/workflows .agent/skills/planning
 ```
 
 ### Step 2b: Configure .gitignore (IMPORTANT)
@@ -88,7 +86,6 @@ git clone --depth 1 https://github.com/ButchMenzies/antigravity-project-setup.gi
 **Step B — Copy files (workflows, skills, and conditional templates):**
 ```bash
 cp /tmp/ag-setup/.agent/workflows/*.md .agent/workflows/
-cp /tmp/ag-setup/.agent/skills/create-skill/SKILL.md .agent/skills/create-skill/SKILL.md
 cp /tmp/ag-setup/skills/planning/SKILL.md .agent/skills/planning/SKILL.md
 [ ! -f .agent/AGENT.md ] && cp /tmp/ag-setup/templates/AGENT.md .agent/AGENT.md
 [ ! -f .agent/memory.md ] && cp /tmp/ag-setup/templates/memory.md .agent/memory.md
@@ -140,7 +137,7 @@ Read the existing `.agent/AGENT.md`. Before adding new sections, search for and 
 
 Keep all existing content (Project Overview, Tech Stack, etc.) intact below these new sections.
 
-### Step 4b: Scan Existing Skills (only if `.agent/skills/` has entries beyond `create-skill`)
+### Step 4b: Scan Existing Skills (only if `.agent/skills/` has entries beyond `planning`)
 
 ```bash
 ls .agent/skills/
@@ -178,7 +175,7 @@ Tell the user:
 Installed:
 - 9 slash command workflows
 - Planning skill (iterative planning principles)
-- Create-skill starter skill
+- Planning skill
 - Minimal AGENT.md with core rules
 
 Next step:
