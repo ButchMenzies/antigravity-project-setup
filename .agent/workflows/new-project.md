@@ -22,12 +22,13 @@ Read the planning skill from GitHub and apply its principles throughout:
 ```
 What are you building?
 
-1. Web app — browser-based application (or full-stack with API)
-2. API / backend — server-side service or REST/GraphQL API
-3. Mobile app — iOS, Android, or cross-platform
-4. CLI tool — command-line utility
-5. Library / package — reusable module
-6. Something else — describe it
+1. Web app — interactive browser-based application (dashboards, SaaS, portals)
+2. Website — static or content site (marketing, portfolio, blog, landing pages)
+3. API / backend — server-side service or REST/GraphQL API
+4. Mobile app — iOS, Android, or cross-platform
+5. CLI tool — command-line utility
+6. Library / package — reusable module
+7. Something else — describe it
 ```
 
 **Wait for user response before proceeding.**
@@ -62,6 +63,26 @@ Happy with this?
 1. Sounds good — let's go with Next.js
 2. I want something lighter (Vite + React — pure client-side SPA)
 3. I want no framework (vanilla HTML/CSS/JS)
+4. I have something else in mind
+```
+
+#### Website (Static / Content)
+
+```
+For a website, I'd recommend:
+
+→ Next.js with TypeScript (static export)
+
+This gives you:
+- Fast static pages with optional dynamic sections
+- Easy to deploy to Vercel, Netlify, or any static host
+- Can add interactivity later without switching frameworks
+
+Happy with this?
+
+1. Sounds good — Next.js with static export
+2. I want something simpler (Astro — content-focused, minimal JS)
+3. I want a pure static site (vanilla HTML/CSS/JS)
 4. I have something else in mind
 ```
 
