@@ -29,7 +29,7 @@
 
 ## User Preferences
 
-- Work style: [from /setup Q&A]
+- Work style: [from onboarding Q&A]
 
 <!-- Append new preferences as bullet points -->
 
@@ -37,4 +37,4 @@
 
 | Date | Summary |
 |------|---------|
-| [today] | Initial project setup via /setup |
+| [today] | Initial project setup |

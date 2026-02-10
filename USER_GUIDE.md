@@ -102,7 +102,7 @@ project/
 │       ├── update-memory.md
 │       ├── end-session.md
 │       └── create-skill.md
-└── conductor/                ← Only if you chose long-term project during /setup
+└── conductor/                ← Only if you chose long-term project during onboarding
     ├── tracks.md
     ├── product.md
     ├── tech-stack.md

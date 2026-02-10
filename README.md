@@ -7,7 +7,7 @@ An agent workflow system that gives AI coding assistants structured memory, reus
 When bootstrapped into a project, Antigravity gives your AI agent:
 
 - **Persistent memory** (`memory.md`) — decisions, lessons, and preferences survive across chat sessions
-- **Slash command workflows** — `/new-track`, `/implement`, `/edit`, `/status`, `/update-memory`, `/end-session`, `/create-skill`, `/setup`
+- **Slash command workflows** — `/new-track`, `/implement`, `/edit`, `/status`, `/update-memory`, `/end-session`, `/create-skill`, `/new-project`
 - **Local skills** — project-specific patterns the agent can reference and reuse
 - **Structured planning** — phased implementation plans with progress tracking
 
@@ -17,7 +17,7 @@ Paste the contents of [`AGENT_SETUP_GUIDE.md`](AGENT_SETUP_GUIDE.md) into a new 
 
 1. Create the `.agent/` directory structure
 2. Download all workflows and templates from this repo
-3. Run `/setup` for interactive project onboarding
+3. Follow the onboarding workflow for project setup
 
 ## What Gets Installed
 
@@ -63,7 +63,6 @@ antigravity-project-setup/
 
 | Command | What It Does |
 |---------|-------------|
-| `/setup` | Interactive project onboarding — runs once during initial setup (not installed locally) |
 | `/new-track` | Plan a new piece of work with spec and phased implementation plan |
 | `/edit` | Revise an implementation plan before executing |
 | `/implement` | Execute a plan with progress tracking and memory checkpoints |
@@ -71,6 +70,7 @@ antigravity-project-setup/
 | `/update-memory` | Log a decision, lesson, preference, or issue |
 | `/end-session` | Wrap up — update memory, note progress, prepare for next session |
 | `/create-skill` | Create a reusable project-local skill from a repeating pattern |
+| `/new-project` | Scaffold a brand new project — choose framework, create structure |
 
 ## Related
 

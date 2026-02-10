@@ -2,7 +2,7 @@
 
 > **Paste this into a new project chat to bootstrap Antigravity.**
 > Self-contained — works on any device, no local files needed.
-> For existing projects: installs workflows and skills, then run `/setup` for onboarding.
+> For existing projects: installs workflows and skills, then follow the onboarding workflow.
 > For blank projects: routes to `/new-project` which handles scaffolding and setup in one pass.
 
 ---
@@ -15,7 +15,7 @@ ls -la .agent/workflows/ 2>/dev/null
 ls -la .agent/skills/ 2>/dev/null
 ```
 
-### If `.agent/workflows/` exists with 9 workflow files — **FULLY SET UP**
+### If `.agent/workflows/` exists with 8 workflow files — **FULLY SET UP**
 
 This project already has the slash command system. Skip setup entirely.
 Read `.agent/AGENT.md` and `.agent/memory.md`, then proceed with the user's request.
@@ -28,7 +28,7 @@ Read `.agent/AGENT.md` and `.agent/memory.md`, then proceed with the user's requ
 2. **Run Step 3** to install workflows, skills & templates (existing files are preserved automatically)
 3. **Merge Core Rules into the existing AGENT.md** (see Step 4a)
 4. **Scan existing skills** (see Step 4b)
-5. Tell the user: *"Your project has been upgraded to use slash commands. Run `/setup` to fill in any gaps, or `/status` to see where things stand."*
+5. Tell the user: *"Your project has been upgraded to use slash commands. Close and reopen the project, then follow the onboarding workflow to fill in any gaps."*
 
 ### If no `.agent/` directory — **FRESH PROJECT**
 
@@ -38,7 +38,7 @@ Check if there are any existing source files:
 ls *.* src/ app/ lib/ public/ 2>/dev/null
 ```
 
-- **If source files exist** → Proceed with full bootstrap (Steps 2-5), then run `/setup`
+- **If source files exist** → Proceed with full bootstrap (Steps 2-5), then follow the onboarding workflow
 - **If folder is completely empty:**
 
   > **⛔ STOP — Do NOT continue with Steps 2-5.**
@@ -125,7 +125,6 @@ Read the existing `.agent/AGENT.md`. Before adding new sections, search for and 
 5. **When you notice repeating patterns**: Suggest creating a skill with `/create-skill`
 
 ## Available Commands
-- `/setup` — interactive project onboarding (run this first!)
 - `/new-track` — plan a new piece of work
 - `/edit` — revise a plan before implementing
 - `/implement` — execute a plan with progress tracking
