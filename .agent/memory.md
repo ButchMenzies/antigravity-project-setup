@@ -50,6 +50,7 @@
 - Prefers interactive Q&A over template-filling
 - Values single source of truth — avoids maintaining duplicate files
 - Wants the system to work on any device, not just the local machine
+- **IDE is always Antigravity** — all setup/restart instructions should reference Antigravity behavior (e.g., "close and reopen the project" not "start a new chat")
 
 ## Session Log
 
@@ -57,3 +58,4 @@
 |------|---------|
 | 2026-02-09 | Implemented local-first skills architecture, created create-skill meta-skill, update document |
 | 2026-02-10 | Built slash command system (8 workflows), rewrote bootstrapper, created USER_GUIDE.md, switched to GitHub skills, unified setup guides |
+| 2026-02-11 | Upgraded create-skill: merged skill into workflow, added depth tiers (Quick/Solid/Deep), fuzzy discovery, research phase, resources folder. Added project restart instructions for Antigravity IDE. |
