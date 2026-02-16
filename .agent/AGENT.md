@@ -13,6 +13,7 @@
 2. **After completing a feature/fix**: Update `memory.md`
 3. **Before ending a session**: Run `/end-session`
 4. **When you notice repeating patterns**: Suggest creating a skill
+5. **Don't guess about tools, settings, or platform behaviour.** If you're unsure, say so and verify first. Trust your coding knowledge; verify everything else.
 
 ## Available Commands
 - `/setup` — interactive project onboarding
@@ -23,6 +24,7 @@
 - `/update-memory` — log decisions, lessons, preferences
 - `/end-session` — wrap up session
 - `/create-skill` — create a local skill
+- `/ux-design` — define your product's design direction (personas, brand, visual identity)
 
 ---
 

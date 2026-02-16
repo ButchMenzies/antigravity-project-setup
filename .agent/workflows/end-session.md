@@ -10,7 +10,7 @@ Checklist to run before ending a chat session. Ensures context is preserved for 
 
 ### 1. Summarize What Was Done
 
-Review the conversation and create a brief summary:
+**Scope: THIS project only.** Review the current conversation and summarize work done in this specific project. Do NOT pull in work from other projects or other workspaces — each project has its own memory.
 
 ```
 📝 Session Summary

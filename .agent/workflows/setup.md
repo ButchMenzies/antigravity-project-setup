@@ -158,6 +158,10 @@ curl -s https://raw.githubusercontent.com/sickn33/antigravity-awesome-skills/mai
 curl -s https://raw.githubusercontent.com/sickn33/antigravity-awesome-skills/main/skills_index.json | grep -i "<language>" | head -5
 ```
 
+**Step 3: Check the Superpowers library (development workflow skills):**
+Read: `https://raw.githubusercontent.com/obra/superpowers/main/README.md`
+Look for skills that match the project's development workflow needs. Superpowers has strong skills for: TDD, systematic debugging, code review, git workflows, planning, and subagent-driven development.
+
 **Present findings:**
 
 ```
@@ -168,12 +172,17 @@ From Antigravity library (ready to copy):
 |-------|--------------|
 | `<skill>` | <description> |
 
+From Superpowers library (development workflow skills):
+| Skill | What it does |
+|-------|--------------|
+| `<skill>` | <description> |
+
 From global library (can create local version):
 | Skill | What it does |
 |-------|--------------|
 | `<skill>` | <description> |
 
-Shall I install the Antigravity skills and/or create local versions of any global skills?
+Shall I install any of these skills?
 
 1. Yes, install all recommended
 2. Let me choose which ones
@@ -184,7 +193,26 @@ If user agrees:
 - For Antigravity library skills: copy directly from the repo into `.agent/skills/`
 - For global library skills: run `/create-skill` using the global version as reference
 
-### Section 5: MCP Detection
+### Section 5: UX Design Foundation
+
+If the project involves user-facing UI (detected from framework, or ask):
+
+```
+Would you like to establish a design direction for this product?
+
+This helps me build screens that feel intentional — connected to your users,
+your brand, and your product's emotional identity. It covers personas, brand
+voice, color, typography, and more.
+
+1. Yes — let's define the design direction (/ux-design)
+2. Later — I'll run /ux-design when ready
+3. Skip — this project doesn't have user-facing UI
+```
+
+If yes → run `/ux-design` workflow inline (it will create `.agent/ux/` with design artifacts).
+If later → note in memory that UX design is pending.
+
+### Section 6: MCP Detection
 
 ```bash
 # Scan for MCP-compatible services
@@ -198,7 +226,7 @@ If services detected:
 I detected these services that could benefit from MCP integration:
 
 | Service | Recommended MCP | Benefit |
-|---------|-----------------|---------|
+|---------|-----------------|---------| 
 | [detected] | [MCP name] | [benefit] |
 
 MCPs give me direct access to these services. Want to set any up?
@@ -207,7 +235,7 @@ MCPs give me direct access to these services. Want to set any up?
 2. Skip for now
 ```
 
-### Section 6: Project Scope
+### Section 7: Project Scope
 
 ```
 One last question: is this a project you'll maintain long-term, or a quick experiment?

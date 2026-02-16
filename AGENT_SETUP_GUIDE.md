@@ -51,7 +51,7 @@ ls *.* src/ app/ lib/ public/ 2>/dev/null
 ## Step 2: Create Directory Structure
 
 ```bash
-mkdir -p .agent/workflows .agent/skills/planning
+mkdir -p .agent/workflows .agent/skills/planning .agent/skills/ux-design
 ```
 
 ### Step 2b: Configure .gitignore (IMPORTANT)
@@ -88,6 +88,7 @@ git clone --depth 1 https://github.com/ButchMenzies/antigravity-project-setup.gi
 cp /tmp/ag-setup/.agent/workflows/*.md .agent/workflows/
 rm -f .agent/workflows/setup.md
 cp /tmp/ag-setup/skills/planning/SKILL.md .agent/skills/planning/SKILL.md
+cp /tmp/ag-setup/skills/ux-design/SKILL.md .agent/skills/ux-design/SKILL.md
 [ ! -f .agent/AGENT.md ] && cp /tmp/ag-setup/templates/AGENT.md .agent/AGENT.md
 [ ! -f .agent/memory.md ] && cp /tmp/ag-setup/templates/memory.md .agent/memory.md
 [ ! -f .agent/skills-catalog.md ] && cp /tmp/ag-setup/templates/skills-catalog.md .agent/skills-catalog.md
@@ -123,6 +124,7 @@ Read the existing `.agent/AGENT.md`. Before adding new sections, search for and 
 3. **After completing a feature/fix**: Update `memory.md` — run `/update-memory`. **Do not skip this.**
 4. **Before ending a session**: Run `/end-session` to wrap up. **Do not end a session without updating memory.**
 5. **When you notice repeating patterns**: Suggest creating a skill with `/create-skill`
+6. **Don't guess about tools, settings, or platform behaviour.** If you're unsure how something works — especially IDE features, APIs, or config options — say so and verify first. Trust your coding knowledge; verify everything else.
 
 ## Available Commands
 - `/new-track` — plan a new piece of work

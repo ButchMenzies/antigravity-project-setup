@@ -76,6 +76,10 @@ This skill covers universal planning principles. For project-specific knowledge 
 
 If you notice recurring project-specific patterns during planning, suggest creating a `planning-*` skill via `/create-skill` to capture them for future sessions.
 
+### 7. Design-First for UI Work
+
+Before planning UI features, check if `.agent/ux/` exists. If it does, read `design-direction.md` and `persona.md`. Every screen should contribute to the user's transformation, not just display data. If no design foundation exists, suggest running `/ux-design` before detailed UI planning.
+
 ### Do I Need Skills Before Starting?
 
 During planning, ask: *Does this work require domain knowledge I don't have?* Check `.agent/skills/` for relevant skills. If none exist and the work involves a specialised domain (payments, auth, deployment, etc.), consider whether to:

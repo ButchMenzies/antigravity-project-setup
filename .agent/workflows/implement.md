@@ -109,7 +109,15 @@ Before moving on, review and refine the upcoming phase:
    - **Lessons/gotchas** → append under `## Lessons Learned` using the format in the section comments
    - **Session log** → append a row to the `## Session Log` table
 
-2. If you notice you've done a similar task pattern multiple times:
+2. **UX knowledge update** (if this phase involved UI work and `.agent/ux/` exists):
+   Check if the work revealed anything new about the product's design:
+   - New UI pattern established → update `patterns.md`
+   - New journey mapped → create `journeys/[feature-name].md`
+   - Color or typography usage refined → update `colors.md` or `typography.md`
+   - Persona insight discovered → update `persona.md`
+   - Brand voice evolved → update `brand.md`
+
+3. If you notice you've done a similar task pattern multiple times:
    ```
    I've noticed a repeating pattern: [describe pattern].
    
@@ -118,7 +126,7 @@ Before moving on, review and refine the upcoming phase:
    → Skip — continue with implementation
    ```
 
-3. **Do not proceed to the next phase until memory.md has been updated.**
+4. **Do not proceed to the next phase until memory.md has been updated.**
 
 ### 7. Continue to Next Task
 

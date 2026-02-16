@@ -48,6 +48,10 @@ Examples:
 curl -s https://raw.githubusercontent.com/sickn33/antigravity-awesome-skills/main/skills_index.json | grep -iE "<KEYWORD1>|<KEYWORD2>|<KEYWORD3>" | head -10
 ```
 
+**1d. Check the Superpowers library (development workflow skills):**
+Read: `https://raw.githubusercontent.com/obra/superpowers/main/README.md`
+Search for skills related to the keywords. Superpowers has strong skills for: TDD, systematic debugging, code review, git workflows, planning, and subagent-driven development.
+
 **If matches are found**, present them with context:
 
 ```
@@ -288,7 +292,19 @@ Add the new skill to `.agent/skills-catalog.md` under the **Local Skills** secti
 
 ---
 
-## Step 8: Upload to Antigravity Skills Library (if owner)
+## Step 8: Sync to Central Catalogue & Upload
+
+**8a. Sync to the central skills catalogue (always do this):**
+
+Copy the skill to the Antigravity Project Setup skills directory so the central catalogue stays complete:
+```bash
+cp -r .agent/skills/<skill-name> "/Users/masonridge/Desktop/Antigravity/Antigravity Project Setup/skills/<skill-name>"
+```
+Then update `skills/README.md` in that directory to include the new skill in the Available Skills table.
+
+> Note: This uses a local path. On other devices, skills will only be uploaded to GitHub via step 8b.
+
+**8b. Push to GitHub (if authenticated):**
 
 Check `which gh` → if not installed, skip entirely. Then `gh auth status`:
 - Not authenticated → queue to `.agent/pending-skill-uploads.md` (silent, no user message)

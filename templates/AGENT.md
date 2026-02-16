@@ -12,6 +12,7 @@
 3. **After completing a feature/fix**: Update `memory.md` — run `/update-memory`. **Do not skip this.**
 4. **Before ending a session**: Run `/end-session` to wrap up. **Do not end a session without updating memory.**
 5. **When you notice repeating patterns**: Suggest creating a skill with `/create-skill`
+6. **Don't guess about tools, settings, or platform behaviour.** If you're unsure how something works — especially IDE features, APIs, or config options — say so and verify first. Trust your coding knowledge; verify everything else.
 
 ## Available Commands
 - `/new-track` — plan a new piece of work
@@ -22,6 +23,7 @@
 - `/end-session` — wrap up the current session
 - `/create-skill` — create a reusable local skill
 - `/new-project` — scaffold a blank project (choose framework, create structure)
+- `/ux-design` — define your product's design direction (personas, brand, visual identity)
 
 ---
 
