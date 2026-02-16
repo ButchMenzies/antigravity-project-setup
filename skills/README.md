@@ -38,7 +38,7 @@ Curated, tested skills from real Antigravity projects. When bootstrapping a new 
 ### Content & Copy
 | Skill | Description |
 |-------|-------------|
-| `copywriting` | Grammar, tone, and punctuation conventions for user-facing text |
+| `copywriting` | Voice, tone, and writing conventions for all user-facing text — reads `.agent/ux/` for design direction |
 
 ## Structure
 
