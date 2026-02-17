@@ -40,6 +40,12 @@ Curated, tested skills from real Antigravity projects. When bootstrapping a new 
 |-------|-------------|
 | `copywriting` | Voice, tone, and writing conventions for all user-facing text — reads `.agent/ux/` for design direction |
 
+### Strategy & Growth
+| Skill | Description |
+|-------|-------------|
+| `offer-strategy` | Frameworks for building irresistible offers — Value Equation, Grand Slam Offer, enhancers. Reads `.agent/offer/` |
+| `lead-strategy` | Frameworks for lead generation — Core Four channels, lead magnets, scaling. Reads `.agent/leads/` |
+
 ## Structure
 
 Each skill follows this structure:

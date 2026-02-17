@@ -24,6 +24,8 @@
 - `/create-skill` — create a reusable local skill
 - `/new-project` — scaffold a blank project (choose framework, create structure)
 - `/ux-design` — define your product's design direction (personas, brand, visual identity)
+- `/offer-strategy` — build a Grand Slam Offer (value stack, bonuses, guarantee, pricing)
+- `/lead-strategy` — define lead generation channels, lead magnets, and outreach
 
 ---
 

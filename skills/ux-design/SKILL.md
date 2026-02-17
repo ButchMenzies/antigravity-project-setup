@@ -1,11 +1,11 @@
 ---
 name: ux-design
-description: Reference checklist for applying the product's design direction during UI implementation — reads and updates .agent/ux/ artifacts.
+description: Reference checklist for applying the product's design direction during UI implementation — reads and updates the project's brand/design files.
 ---
 
 # UX Design
 
-Ensures every UI decision connects to the product's design foundation. Read the `.agent/ux/` knowledge base before building, and update it after.
+Ensures every UI decision connects to the product's design foundation. Read the project's brand/design files before building, and update them after.
 
 ## Use this skill when
 
@@ -19,23 +19,25 @@ Ensures every UI decision connects to the product's design foundation. Read the 
 
 - Working on backend/API code only
 - Building internal tooling where design direction doesn't apply
-- The project has no `.agent/ux/` folder (suggest running `/ux-design` first)
+- The project has no brand/design files (suggest running `/ux-design` first)
 
 ## Instructions
 
 ### Step 1: Read the Design Foundation
 
-Before any UI work, read these files (if they exist):
+Before any UI work, find and read the project's brand/design files. Check common locations: `brand/`, `branding/`, `design/`, `.agent/ux/`, or project root.
 
-1. **`.agent/ux/persona.md`** — Who am I building for? What are they feeling?
-2. **`.agent/ux/design-direction.md`** — What emotional pillar guides this product? What's the transformation?
-3. **`.agent/ux/brand.md`** — How should this product sound and feel?
-4. **`.agent/ux/colors.md`** — What palette am I using and what does each color mean?
-5. **`.agent/ux/typography.md`** — What fonts and scale?
-6. **`.agent/ux/patterns.md`** — Is there an established pattern for this type of UI?
-7. **`.agent/ux/journeys/`** — Is there a journey map for this feature?
+Look for these files (if they exist):
 
-If any critical file is missing (persona, design-direction, brand), suggest running `/ux-design` before proceeding.
+1. **`persona.md`** — Who am I building for? What are they feeling?
+2. **`design-direction.md`** — What emotional pillar guides this product? What's the transformation?
+3. **`brand.md`** — How should this product sound and feel?
+4. **`colors.md`** — What palette am I using and what does each color mean?
+5. **`typography.md`** — What fonts and scale?
+6. **`patterns.md`** — Is there an established pattern for this type of UI?
+7. **`journeys/`** — Is there a journey map for this feature?
+
+If critical files are missing (persona, design-direction, brand), suggest running `/ux-design` before proceeding.
 
 ### Step 2: Pre-Build Checklist
 
@@ -71,7 +73,7 @@ When building a new feature, map the emotional journey before designing screens:
 4. **Reward** — What's the "I did it" moment?
 5. **Return** — Why do they come back?
 
-Save the journey map to `.agent/ux/journeys/[feature-name].md`.
+Save the journey map to `journeys/[feature-name].md` in the same design folder.
 
 ### Step 5: Post-Build Update
 
@@ -102,7 +104,7 @@ Update the relevant files. This keeps the design knowledge growing with the prod
 
 ## References
 
-- `.agent/ux/` — the product's design knowledge base
+- Project brand/design files — the product's design knowledge base (location varies by project)
 - `/ux-design` workflow — run to create or update the design foundation
 - `copywriting` skill — for tone and grammar rules
 - `tailwind-design-tokens` skill — for implementation-level design patterns (if using Tailwind)

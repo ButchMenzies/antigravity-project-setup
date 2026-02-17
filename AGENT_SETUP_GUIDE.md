@@ -1,122 +1,104 @@
 # 🚀 Antigravity Agent Setup
 
-> **Paste this into a new project chat to bootstrap Antigravity.**
-> Self-contained — works on any device, no local files needed.
-> For existing projects: installs workflows and skills, then follow the onboarding workflow.
-> For blank projects: routes to `/new-project` which handles scaffolding and setup in one pass.
+> **Paste this into any project chat.** Handles fresh installs and updates automatically.
+> Sources everything from GitHub — works on any device.
+
+**Latest version: 3** (2026-02-17)
 
 ---
 
-## Step 1: Detect Existing Setup
+## Step 1: Detect Current State
 
 ```bash
-ls -la .agent/ 2>/dev/null
-ls -la .agent/workflows/ 2>/dev/null
-ls -la .agent/skills/ 2>/dev/null
+cat .agent/version 2>/dev/null || echo "none"
+ls .agent/AGENT.md 2>/dev/null
 ```
 
-### If `.agent/workflows/` exists with 8 workflow files — **FULLY SET UP**
+### If version = 3 → **ALREADY CURRENT**
 
-This project already has the slash command system. Skip setup entirely.
-Read `.agent/AGENT.md` and `.agent/memory.md`, then proceed with the user's request.
+Read `.agent/AGENT.md` and `.agent/memory.md`, then proceed with the user's request. You are done with this guide.
 
-### If `.agent/AGENT.md` exists but `.agent/workflows/` is missing or empty — **NEEDS UPGRADE**
+### If version = 1, 2, or "none" with `.agent/AGENT.md` → **NEEDS UPDATE**
 
-**This project has existing data. Preserve it.**
+Proceed to Step 2. Existing data will be preserved.
 
-1. **Run Step 2** to create the directories
-2. **Run Step 3** to install workflows, skills & templates (existing files are preserved automatically)
-3. **Merge Core Rules into the existing AGENT.md** (see Step 4a)
-4. **Scan existing skills** (see Step 4b)
-5. Tell the user: *"Your project has been upgraded to use slash commands. Close and reopen the project, then follow the onboarding workflow to fill in any gaps."*
+### If no `.agent/` directory → **FRESH PROJECT**
 
-### If no `.agent/` directory — **FRESH PROJECT**
-
-Check if there are any existing source files:
+Check if there are source files:
 
 ```bash
 ls *.* src/ app/ lib/ public/ 2>/dev/null
 ```
 
-- **If source files exist** → Proceed with full bootstrap (Steps 2-5), then follow the onboarding workflow
-- **If folder is completely empty:**
+- **Source files exist** → Proceed to Step 2 (full bootstrap)
+- **Folder is completely empty:**
 
   > **⛔ STOP — Do NOT continue with Steps 2-5.**
   > Read and follow the `/new-project` workflow directly from GitHub:
   > `https://raw.githubusercontent.com/ButchMenzies/antigravity-project-setup/main/.agent/workflows/new-project.md`
-  > This workflow handles **everything** — scaffolding, Antigravity bootstrap, and project onboarding in one pass. You are done with this guide.
+  > This handles scaffolding, bootstrap, and onboarding in one pass. You are done with this guide.
 
 ---
 
-## Step 2: Create Directory Structure
+## Step 2: Create Directories
 
 ```bash
-mkdir -p .agent/workflows .agent/skills/planning .agent/skills/ux-design
-```
-
-### Step 2b: Configure .gitignore (IMPORTANT)
-
-**Do NOT add `.agent/` to `.gitignore`.** Blanket-ignoring `.agent/` prevents Antigravity from discovering workflow files for slash command autocomplete.
-
-If `.gitignore` already contains `.agent/` — **remove that line** and replace it with the selective ignores below.
-
-Add these selective ignores to `.gitignore` (if not already present):
-
-```
-# Antigravity — keep workflows/skills tracked, ignore personal data
-.agent/memory.md
-.agent/memory-archive.md
-.agent/pending-skill-uploads.md
-.agent/current-plan.md
+mkdir -p .agent/workflows .agent/skills/planning .agent/skills/ux-design .agent/skills/offer-strategy .agent/skills/lead-strategy .agent/skills/voice-notes-triage
 ```
 
 ---
 
-## Step 3: Install Workflows, Skills & Templates
+## Step 3: Install from GitHub
 
-Clone the repo and copy everything in a few steps — much faster than downloading files individually.
+> **Run these as separate commands** — do not chain with `&&`.
 
-> **Run these as separate commands** — do not chain them with `&&`. Chained commands can hang in agent environments.
-
-**Step A — Clone the repo:**
+**Step A — Clone:**
 ```bash
 git clone --depth 1 https://github.com/ButchMenzies/antigravity-project-setup.git /tmp/ag-setup
 ```
 
-**Step B — Copy files (workflows, skills, and conditional templates):**
+**Step B — Copy workflows and skills:**
 ```bash
 cp /tmp/ag-setup/.agent/workflows/*.md .agent/workflows/
 rm -f .agent/workflows/setup.md
 cp /tmp/ag-setup/skills/planning/SKILL.md .agent/skills/planning/SKILL.md
 cp /tmp/ag-setup/skills/ux-design/SKILL.md .agent/skills/ux-design/SKILL.md
+cp -r /tmp/ag-setup/skills/offer-strategy/* .agent/skills/offer-strategy/
+cp -r /tmp/ag-setup/skills/lead-strategy/* .agent/skills/lead-strategy/
+cp /tmp/ag-setup/skills/voice-notes-triage/SKILL.md .agent/skills/voice-notes-triage/SKILL.md
+```
+
+**Step C — Copy templates (only if files don't exist yet):**
+```bash
 [ ! -f .agent/AGENT.md ] && cp /tmp/ag-setup/templates/AGENT.md .agent/AGENT.md
 [ ! -f .agent/memory.md ] && cp /tmp/ag-setup/templates/memory.md .agent/memory.md
 [ ! -f .agent/skills-catalog.md ] && cp /tmp/ag-setup/templates/skills-catalog.md .agent/skills-catalog.md
 [ ! -f .agent/USER_GUIDE.md ] && cp /tmp/ag-setup/templates/USER_GUIDE.md .agent/USER_GUIDE.md
 ```
 
-**Step C — Clean up:**
+**Step D — Clean up:**
 ```bash
 rm -rf /tmp/ag-setup
 ```
 
 ---
 
-## Step 4: Post-Install Checks (CONDITIONAL)
+## Step 4: Update AGENT.md (CONDITIONAL)
 
-If `.agent/AGENT.md` already existed before Step 3 → **Go to Step 4a** to merge core rules.
-If `.agent/memory.md` already existed → it was preserved. No action needed.
-If `.agent/skills-catalog.md` already existed → **Go to Step 4b** to reconcile.
+### If AGENT.md was just created (fresh install) → Skip to Step 5
 
-### Step 4a: Merge Core Rules (only if AGENT.md already existed)
+The template already has the latest core rules and commands.
 
-Read the existing `.agent/AGENT.md`. Before adding new sections, search for and **remove** any existing sections whose headers contain the words "Start Here", "Core Rules", "Rules", or "Available Commands" (case-insensitive) — these will be replaced by the new versions. Then add the following sections **at the very top** of the file, before any remaining content:
+### If AGENT.md already existed → Merge core rules
+
+Read the existing `.agent/AGENT.md`. Search for and **remove** any existing sections whose headers contain "Start Here", "Core Rules", "Rules", or "Available Commands" (case-insensitive) — these will be replaced. Then add these sections **at the very top**, before any remaining content:
 
 ```markdown
 ## ⚠️ New Chat? Start Here — MANDATORY
 1. Read this file completely
 2. **Read `.agent/memory.md`** — this contains all decisions, lessons, and preferences from prior sessions. You MUST read it before doing any work.
 3. Run `/status` to see where things stand
+4. **If slash commands (like /status) don't appear in the autocomplete**, close and reopen the project.
 
 ## ⚠️ Core Rules (Always Apply)
 1. **Before implementation**: Read the plan if one exists (check `.agent/current-plan.md` or `conductor/tracks/`)
@@ -135,55 +117,68 @@ Read the existing `.agent/AGENT.md`. Before adding new sections, search for and 
 - `/end-session` — wrap up the current session
 - `/create-skill` — create a reusable local skill
 - `/new-project` — scaffold a blank project (choose framework, create structure)
+- `/ux-design` — define your product's design direction (personas, brand, visual identity)
+- `/offer-strategy` — build a Grand Slam Offer (value stack, bonuses, guarantee, pricing)
+- `/lead-strategy` — define lead generation channels, lead magnets, and outreach
 ```
 
-Keep all existing content (Project Overview, Tech Stack, etc.) intact below these new sections.
+Keep all existing content (Project Overview, Tech Stack, etc.) intact below these sections.
 
-### Step 4b: Scan Existing Skills (only if `.agent/skills/` has entries beyond `planning`)
+### Scan existing skills
 
 ```bash
 ls .agent/skills/
 ```
 
-For each existing skill found:
-1. Read its `SKILL.md` to understand what it does
-2. Add it to `.agent/skills-catalog.md` if not already listed
-3. Check if it's a general-purpose skill (not hyper-specific to this project)
-4. If general-purpose, offer to upload it to the Antigravity skills library:
+For each skill beyond the standard set (planning, ux-design, offer-strategy, lead-strategy):
+1. Read its SKILL.md
+2. Add to `.agent/skills-catalog.md` if not listed
+
+---
+
+## Step 5: Configure .gitignore
+
+**Do NOT add `.agent/` to `.gitignore`.** If it's already there, remove it and add selective ignores:
 
 ```
-I found these existing skills in your project:
-
-| Skill | Description | Upload to library? |
-|-------|-------------|-------------------|
-| `<skill>` | <from SKILL.md> | Recommended / Skip |
-
-Shall I upload the recommended ones to the Antigravity skills library for use in future projects?
-
-1. Yes, upload all recommended
-2. Let me choose
-3. Skip — keep them local only
+# Antigravity — keep workflows/skills tracked, ignore personal data
+.agent/memory.md
+.agent/memory-archive.md
+.agent/pending-skill-uploads.md
+.agent/current-plan.md
 ```
 
 ---
 
-## Step 5: Done!
+## Step 6: Write Version + Log + Done
+
+Write the version file:
+
+```bash
+echo "3" > .agent/version
+```
+
+Add to `.agent/memory.md` under Session Log:
+
+```markdown
+### [TODAY'S DATE] Antigravity updated to v3
+**Changes**: All workflows and skills updated to latest. See CHANGELOG: https://github.com/ButchMenzies/antigravity-project-setup/blob/main/CHANGELOG.md
+```
 
 Tell the user:
 
 ```
-✅ Antigravity bootstrapped!
+✅ Antigravity installed/updated to v3!
 
 Installed:
-- 8 slash command workflows
-- Planning skill (iterative planning principles)
-- Minimal AGENT.md with core rules
+- 12 slash command workflows (including /ux-design, /offer-strategy, /lead-strategy)
+- 4 skills (planning, ux-design, offer-strategy, lead-strategy)
+- Core rules and Available Commands updated
 
 **⚠️ Action Required: Close and reopen the project.**
-The IDE needs to re-scan the workspace to discover the new slash command workflows.
+The IDE needs to re-scan to discover the new slash commands.
 
 Next step:
-→ Close the project and reopen it
-→ Then read and follow the onboarding workflow:
-  https://raw.githubusercontent.com/ButchMenzies/antigravity-project-setup/main/.agent/workflows/setup.md
+→ Close and reopen the project
+→ Then run /setup for interactive onboarding (or /status if already onboarded)
 ```
