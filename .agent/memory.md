@@ -47,6 +47,16 @@
 **Decision**: Created `/ux-design` workflow (interactive discovery → creates `.agent/ux/` knowledge base) + `ux-design` skill (two-way — reads artifacts before building UI, prompts updates after). Integrated into `/setup`, `/new-track`, `/implement`, and `planning`.
 **Rationale**: The workflow captures the vision once, artifacts persist it, and the skill enforces it every time UI is built. Living documents that grow with the product.
 
+### 2026-02-17 Offer + Lead Strategy skills and unified setup guide
+**Context**: Needed Hormozi frameworks baked into the agent system. Also had a fragile update process — separate update files with local paths.
+**Decision**: Created `/offer-strategy` and `/lead-strategy` workflows + skills. All three workflows (UX, offer, leads) now use smart folder detection. Unified the setup guide with a version system (`.agent/version`) so one file handles both fresh installs and updates, all from GitHub.
+**Rationale**: Smart folders put output where humans look (not buried in `.agent/`). Unified guide eliminates update patches and works for external users too.
+
+### 2026-02-18 v4 — Terminal discipline, browser URLs, port management
+**Context**: Terminal commands frequently freeze the agent in polling loops. Browser tool opens separate Chrome profiles. Dev server ports are random and conflicting.
+**Decision**: Added Core Rules 7 (categorised terminal timeouts), 8 (always share dev URL with user), 9 (port assigned during /setup, enforced via lsof check). Port question added to both `/setup` and `/new-project` workflows. Default port: 5010.
+**Rationale**: Categorised timeouts are better than a blanket rule — dev servers and install commands need different handling. Port-in-AGENT.md is simple and always-visible. 5010 avoids conflicts with common services (3000, 5173, 5432, 8080).
+
 ## Lessons Learned
 
 ### 2026-02-10 Passive setup guides don't enforce behavior
@@ -80,3 +90,5 @@
 | 2026-02-15 | End-session wrap-up. Authenticated `gh` CLI as ButchMenzies. Logged preference: don't shortcut issues. |
 | 2026-02-16 | Imported 13 skills from 5 projects into central `skills/` catalogue. Added Superpowers as third discovery source. Added auto-sync to create-skill workflow (Step 8a). Added Core Rule 6 (honesty over confidence) to templates/AGENT.md, AGENT_SETUP_GUIDE.md, and .agent/AGENT.md. Created update patch for existing projects. Fixed end-session scoping to prevent cross-project memory contamination. |
 | 2026-02-16 | Created UX Design Foundation: `/ux-design` workflow + `ux-design` skill + 8 UX templates. Integrated into `/setup` (Section 5), `/new-track` (pre-flight), `/implement` (UX checkpoint), `planning` (design-first). Updated bootstrapper and created update patch for existing projects. |
+| 2026-02-17 | Created `/offer-strategy` and `/lead-strategy` skills + workflows (Hormozi frameworks). Updated all three workflows (UX, offer, leads) with smart folder detection and single-file output. Unified `AGENT_SETUP_GUIDE.md` with version system — one guide handles fresh installs and updates from GitHub. Created `CHANGELOG.md`. Added `voice-notes-triage` to standard install. Committed and pushed v3. |
+| 2026-02-18 | v4: Added Core Rules 7 (terminal command discipline), 8 (browser URL sharing), 9 (dev server port management). Updated templates/AGENT.md, AGENT_SETUP_GUIDE.md, setup.md, and new-project.md. Port question added to both /setup and /new-project workflows. Default port 5010. |

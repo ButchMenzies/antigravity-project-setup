@@ -3,7 +3,7 @@
 > **Paste this into any project chat.** Handles fresh installs and updates automatically.
 > Sources everything from GitHub — works on any device.
 
-**Latest version: 3** (2026-02-17)
+**Latest version: 4** (2026-02-18)
 
 ---
 
@@ -14,11 +14,11 @@ cat .agent/version 2>/dev/null || echo "none"
 ls .agent/AGENT.md 2>/dev/null
 ```
 
-### If version = 3 → **ALREADY CURRENT**
+### If version = 4 → **ALREADY CURRENT**
 
 Read `.agent/AGENT.md` and `.agent/memory.md`, then proceed with the user's request. You are done with this guide.
 
-### If version = 1, 2, or "none" with `.agent/AGENT.md` → **NEEDS UPDATE**
+### If version = 1, 2, 3, or "none" with `.agent/AGENT.md` → **NEEDS UPDATE**
 
 Proceed to Step 2. Existing data will be preserved.
 
@@ -107,6 +107,16 @@ Read the existing `.agent/AGENT.md`. Search for and **remove** any existing sect
 4. **Before ending a session**: Run `/end-session` to wrap up. **Do not end a session without updating memory.**
 5. **When you notice repeating patterns**: Suggest creating a skill with `/create-skill`
 6. **Don't guess about tools, settings, or platform behaviour.** If you're unsure how something works — especially IDE features, APIs, or config options — say so and verify first. Trust your coding knowledge; verify everything else.
+7. **Terminal command discipline:**
+   - **Before running**: Tell the user what you're about to run and why.
+   - **Short commands** (`ls`, `cat`, `mkdir`, file reads): Run synchronously (< 2s). If nothing returns, terminate.
+   - **Install/build commands** (`npm install`, `git clone`, `npm run build`): 10s initial wait. Poll at most twice (15s each). If still running, tell the user — never silently keep polling.
+   - **Dev servers / watchers** (`npm run dev`): 5s initial wait to catch startup errors. Don't poll for completion — these run until stopped.
+   - **Never chain commands with `&&`** — if the first command hangs, you lose visibility. Run them separately.
+   - **Always use non-interactive mode** (`-y`, `--yes`). If a command produces no output for 10s, assume it's waiting for input — terminate and retry with correct flags.
+   - **Maximum 2 status checks on any background command.** After that, terminate and tell the user.
+8. **Browser & URLs**: When testing with the browser tool, always share the dev URL with the user afterward so they can check in their own browser. Format: `🔗 Dev server: http://localhost:<port>`
+9. **Dev server port**: Always use the port from "Local Development" in this file. Pass it explicitly when starting the dev server (e.g. `--port`, `-p`, or `PORT=` — use the right flag for your framework). Before starting, check if the port is free: `lsof -i :<port> | head -5`. If occupied by a previous dev server (e.g. `node`), ask the user if you should kill it. If occupied by something else, tell the user — don't silently use another port.
 
 ## Available Commands
 - `/new-track` — plan a new piece of work
@@ -155,25 +165,28 @@ For each skill beyond the standard set (planning, ux-design, offer-strategy, lea
 Write the version file:
 
 ```bash
-echo "3" > .agent/version
+echo "4" > .agent/version
 ```
 
 Add to `.agent/memory.md` under Session Log:
 
 ```markdown
-### [TODAY'S DATE] Antigravity updated to v3
-**Changes**: All workflows and skills updated to latest. See CHANGELOG: https://github.com/ButchMenzies/antigravity-project-setup/blob/main/CHANGELOG.md
+### [TODAY'S DATE] Antigravity updated to v4
+**Changes**: Added terminal command discipline, browser URL sharing, and dev server port management. See CHANGELOG: https://github.com/ButchMenzies/antigravity-project-setup/blob/main/CHANGELOG.md
 ```
 
 Tell the user:
 
 ```
-✅ Antigravity installed/updated to v3!
+✅ Antigravity installed/updated to v4!
 
 Installed:
 - 12 slash command workflows (including /ux-design, /offer-strategy, /lead-strategy)
 - 4 skills (planning, ux-design, offer-strategy, lead-strategy)
 - Core rules and Available Commands updated
+- NEW: Terminal command discipline (Rule 7) — no more frozen commands
+- NEW: Browser URL sharing (Rule 8) — always get the dev URL
+- NEW: Dev server port management (Rule 9) — consistent ports per project
 
 **⚠️ Action Required: Close and reopen the project.**
 The IDE needs to re-scan to discover the new slash commands.

@@ -12,6 +12,8 @@ Antigravity is a lightweight project management system for AI coding agents. It 
 - **Structured workflows** for planning and building features
 - **Skills** — reusable project-specific knowledge
 - **Slash commands** to control the agent's workflow
+- **Terminal discipline** — prevents the agent from freezing on stuck commands
+- **Port management** — consistent dev server ports per project
 
 ## Getting Started
 
@@ -37,37 +39,32 @@ Start a new chat. The agent will:
 
 Type `/` in the chat to see all available commands. Here's what each one does:
 
-### Project Onboarding (runs once during setup)
-**When**: First time setting up a project  
-**What it does**: Asks you questions about the project, scans the codebase, discovers relevant skills, and populates all project files. This runs as part of the initial setup guide — it's not a slash command you'll see in the menu.
+### Core Workflow
 
-### `/new-track` — Plan New Work
-**When**: Starting a new feature, bug fix, or refactor  
-**What it does**: Guides you through defining what to build, then creates a phased plan with tasks. Always do this before the agent starts coding — it prevents the agent from going off in the wrong direction.
+| Command | When to Use | What It Does |
+|---------|-------------|--------------|
+| `/new-track` | Starting new work | Guides you through defining what to build, creates a phased plan |
+| `/edit` | Plan needs tweaking | Shows the current plan and walks through changes |
+| `/implement` | Ready to build | Executes the plan task by task with memory checkpoints |
+| `/status` | Checking progress | Shows active tracks, recent memory, available skills |
+| `/update-memory` | Something worth remembering | Adds structured entry to memory.md |
+| `/end-session` | Before closing chat | Saves progress, updates memory, notes what to resume |
+| `/create-skill` | Repeating pattern spotted | Creates a reusable skill for future sessions |
 
-### `/edit` — Revise a Plan  
-**When**: A plan needs tweaking before you implement  
-**What it does**: Shows the current plan and walks through changes. Use this instead of saying "change step 3" — it keeps the plan document consistent.
+### Project Setup
 
-### `/implement` — Build with Tracking
-**When**: Ready to execute a plan  
-**What it does**: Works through the plan task by task, tracking progress. Includes **automatic memory checkpoints** after each phase and prompts to create skills when it notices repeating patterns.
+| Command | When to Use | What It Does |
+|---------|-------------|--------------|
+| `/new-project` | Empty folder, starting fresh | Scaffolds framework, creates structure, bootstraps Antigravity |
+| `/setup` | Existing project, first onboarding | Interactive Q&A to populate project context |
 
-### `/status` — Project Overview
-**When**: Checking where things stand  
-**What it does**: Shows active tracks, recent memory entries, available skills, and suggested next actions.
+### Strategy & Design
 
-### `/update-memory` — Log Something Important
-**When**: The agent made a decision worth remembering, or you solved a tricky problem  
-**What it does**: Adds a structured entry to `memory.md` so future sessions have the context.
-
-### `/end-session` — Wrap Up
-**When**: Before ending a chat session  
-**What it does**: Updates memory, saves track progress, notes unfinished work for next time. **This is how context transfers between sessions.**
-
-### `/create-skill` — Capture a Pattern
-**When**: You notice the agent doing the same multi-step process repeatedly  
-**What it does**: Creates a reusable skill file that the agent can reference in future sessions.
+| Command | When to Use | What It Does |
+|---------|-------------|--------------|
+| `/ux-design` | Before building UI | Interactive design foundation — personas, brand, colors, typography |
+| `/offer-strategy` | Defining your product offer | Grand Slam Offer creation — value stack, bonuses, guarantee, pricing |
+| `/lead-strategy` | Planning lead generation | Lead channels, lead magnets, outreach, and scaling plan |
 
 ---
 
@@ -92,8 +89,13 @@ project/
 │   ├── AGENT.md              ← Project context (agent reads this first)
 │   ├── memory.md             ← Decisions, lessons, preferences
 │   ├── skills-catalog.md     ← Index of available skills
+│   ├── version               ← Current Antigravity version
 │   ├── skills/               ← Project-specific skills
-│   │   └── planning/         ← Planning skill
+│   │   ├── planning/         ← Planning principles
+│   │   ├── ux-design/        ← UX design foundation
+│   │   ├── offer-strategy/   ← Offer creation framework
+│   │   ├── lead-strategy/    ← Lead generation framework
+│   │   └── voice-notes-triage/ ← Voice note processing
 │   └── workflows/            ← Slash command definitions
 │       ├── new-track.md
 │       ├── edit.md
@@ -101,8 +103,12 @@ project/
 │       ├── status.md
 │       ├── update-memory.md
 │       ├── end-session.md
-│       └── create-skill.md
-└── conductor/                ← Only if you chose long-term project during onboarding
+│       ├── create-skill.md
+│       ├── new-project.md
+│       ├── ux-design.md
+│       ├── offer-strategy.md
+│       └── lead-strategy.md
+└── conductor/                ← Only if using long-term project tracking
     ├── tracks.md
     ├── product.md
     ├── tech-stack.md
@@ -131,11 +137,16 @@ For long-term projects, tracks provide structured project management:
 - Tracks live in `conductor/tracks/`
 
 ### Core Rules
-Even if you don't use slash commands, the agent follows these rules (from AGENT.md):
+The agent always follows these rules (from AGENT.md):
 1. Read the plan before implementing (if one exists)
-2. Update memory after completing work
-3. Run end-session checklist before finishing
-4. Suggest skills when patterns repeat
+2. Scan skills before starting any task
+3. Update memory after completing work
+4. Run end-session checklist before finishing
+5. Suggest skills when patterns repeat
+6. Don't guess about tools or platform behaviour — verify first
+7. **Terminal discipline** — categorised timeouts, max 2 polls, no command chaining
+8. **Browser URLs** — always share the dev URL after testing
+9. **Port management** — use the assigned port, check before starting, clean up orphans
 
 ---
 
@@ -146,6 +157,7 @@ Even if you don't use slash commands, the agent follows these rules (from AGENT.
 - **Don't worry about `/update-memory` during work** — `/implement` handles it automatically at phase boundaries.
 - **Use `/edit` instead of "change step 3"** — it keeps the plan document consistent.
 - **Skills compound over time.** The more skills you create, the better the agent gets at your specific project.
+- **Port conflicts?** The agent checks before starting dev servers. If a port is stuck from a previous session, it'll offer to clean it up.
 
 ---
 
@@ -160,3 +172,7 @@ Even if you don't use slash commands, the agent follows these rules (from AGENT.
 **Agent went off-plan:** Next time, use `/new-track` to create a plan first, then `/implement` to execute it with tracking.
 
 **Slash commands not showing after setup:** Close and reopen the project to force the IDE to re-scan the workspace.
+
+**Agent freezing on commands:** This should be fixed by Core Rule 7 (terminal discipline). If it still happens, check that AGENT.md has the v4 core rules section.
+
+**Port conflict:** The agent uses `lsof` to check the port before starting. If you see a conflict, it's likely an orphaned dev server from a previous session — let the agent kill it, or run `kill <PID>` manually.

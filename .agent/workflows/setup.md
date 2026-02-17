@@ -115,7 +115,7 @@ Is this correct? Anything to add or change?
 ```
 What port should the dev server run on?
 
-1. 5010 (Antigravity default)
+1. 5010 (Antigravity default — avoids common port conflicts)
 2. [Detected from package.json scripts]
 3. Type your own
 ```
@@ -272,6 +272,17 @@ Populate with real answers (not placeholders):
 3. **After completing a feature/fix**: Update `memory.md` — run `/update-memory`. **Do not skip this.**
 4. **Before ending a session**: Run `/end-session` to wrap up. **Do not end a session without updating memory.**
 5. **When you notice repeating patterns**: Suggest creating a skill with `/create-skill`
+6. **Don't guess about tools, settings, or platform behaviour.** If you're unsure how something works — especially IDE features, APIs, or config options — say so and verify first. Trust your coding knowledge; verify everything else.
+7. **Terminal command discipline:**
+   - **Before running**: Tell the user what you're about to run and why.
+   - **Short commands** (`ls`, `cat`, `mkdir`, file reads): Run synchronously (< 2s). If nothing returns, terminate.
+   - **Install/build commands** (`npm install`, `git clone`, `npm run build`): 10s initial wait. Poll at most twice (15s each). If still running, tell the user — never silently keep polling.
+   - **Dev servers / watchers** (`npm run dev`): 5s initial wait to catch startup errors. Don't poll for completion — these run until stopped.
+   - **Never chain commands with `&&`** — if the first command hangs, you lose visibility. Run them separately.
+   - **Always use non-interactive mode** (`-y`, `--yes`). If a command produces no output for 10s, assume it's waiting for input — terminate and retry with correct flags.
+   - **Maximum 2 status checks on any background command.** After that, terminate and tell the user.
+8. **Browser & URLs**: When testing with the browser tool, always share the dev URL with the user afterward so they can check in their own browser. Format: `🔗 Dev server: http://localhost:<port>`
+9. **Dev server port**: Always use the port from "Local Development" in this file. Pass it explicitly when starting the dev server (e.g. `--port`, `-p`, or `PORT=` — use the right flag for your framework). Before starting, check if the port is free: `lsof -i :<port> | head -5`. If occupied by a previous dev server (e.g. `node`), ask the user if you should kill it. If occupied by something else, tell the user — don't silently use another port.
 
 ## Available Commands
 - `/new-track` — plan a new piece of work
@@ -282,6 +293,9 @@ Populate with real answers (not placeholders):
 - `/end-session` — wrap up the current session
 - `/create-skill` — create a reusable local skill
 - `/new-project` — scaffold a blank project (choose framework, create structure)
+- `/ux-design` — define your product's design direction (personas, brand, visual identity)
+- `/offer-strategy` — build a Grand Slam Offer (value stack, bonuses, guarantee, pricing)
+- `/lead-strategy` — define lead generation channels, lead magnets, and outreach
 
 ---
 
@@ -309,8 +323,9 @@ Do NOT modify or delete Replit.md — the project may be re-opened in Replit lat
 
 ## Local Development
 
-- **Port**: [from Q&A]
-- **Start command**: [detected]
+- **Dev port**: [from Q&A]
+- **Dev URL**: http://localhost:[port]
+- **Start command**: [detected, with explicit port flag]
 - **Key scripts**: [from package.json]
 
 ---

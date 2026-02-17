@@ -4,6 +4,22 @@ All notable changes to the Antigravity agent system.
 
 ---
 
+## v4 — 2026-02-18
+
+### Added
+- Core Rule 7: **Terminal command discipline** — categorised timeouts for short/install/dev-server commands, max 2 status polls, no `&&` chaining, non-interactive mode enforcement
+- Core Rule 8: **Browser & URLs** — always share the dev URL with the user after browser testing
+- Core Rule 9: **Dev server port management** — port assigned during `/setup` or `/new-project`, enforced via `lsof` pre-check, default port 5010
+
+### Changed
+- `/setup` workflow: Updated port Q&A with Antigravity default (5010) and conflict note
+- `/new-project` workflow: Added Development Port question (Q5) to Phase 1
+- Both workflows: Updated generated AGENT.md templates with rules 6-9 and new Local Development section format (`Dev port`, `Dev URL`, `Start command`, `Key scripts`)
+- `templates/AGENT.md`: Added rules 7-9, restructured Local Development section
+- `AGENT_SETUP_GUIDE.md`: Bumped to v4, updated core rules merge block, updated completion message
+
+---
+
 ## v3 — 2026-02-17
 
 ### Added
