@@ -4,6 +4,21 @@ All notable changes to the Antigravity agent system.
 
 ---
 
+## v5 — 2026-02-19
+
+### Added
+- `/capture-target` workflow — exhaustive design data capture from live sites (CSS values, typography, spacing, colours, layout)
+- `/recreate-site` workflow — full pipeline to rebuild a site from captured data in any tech stack (Static HTML, React+Vite, Next.js)
+- `/compare-site` workflow — compare and fix an existing build against captured target data
+- `visual-qa` skill — shared engine for building Section Briefs, applying data to code, and gap analysis
+
+### Details
+- Capture workflow includes: two-layer extraction (container + elements), inner wrapper detection, hover state capture, font/meta capture, 5-screenshot-per-round limit, agent file renaming
+- Both downstream workflows check for existing capture data before proceeding
+- All three workflows are technology-agnostic — same captured data, different code output
+
+---
+
 ## v4 — 2026-02-18
 
 ### Added

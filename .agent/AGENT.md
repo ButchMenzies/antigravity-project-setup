@@ -17,6 +17,7 @@
 
 ## Available Commands
 - `/setup` — interactive project onboarding
+- `/new-project` — scaffold a new project
 - `/new-track` — plan a new piece of work
 - `/edit` — revise a plan
 - `/implement` — execute with tracking
@@ -25,6 +26,11 @@
 - `/end-session` — wrap up session
 - `/create-skill` — create a local skill
 - `/ux-design` — define your product's design direction (personas, brand, visual identity)
+- `/offer-strategy` — build a Grand Slam Offer
+- `/lead-strategy` — plan lead generation strategy
+- `/capture-target` — capture design data from a live site
+- `/recreate-site` — rebuild a site from captured data
+- `/compare-site` — fix an existing build against captured target data
 
 ---
 
@@ -50,21 +56,30 @@ Antigravity Project Setup/
 ├── AGENT_SETUP_GUIDE.md        # Bootstrap prompt (paste into new chats)
 ├── USER_GUIDE.md               # Human-readable guide
 ├── README.md                   # GitHub repo readme
+├── CHANGELOG.md                # Version history
 ├── .agent/
 │   ├── AGENT.md                # This file
 │   ├── memory.md               # Change history
 │   ├── skills-catalog.md       # Skills reference
 │   ├── skills/
-│   │   └── create-skill/       # Meta-skill
-│   └── workflows/              # Slash commands (8 total — source of truth)
-│       ├── setup.md            # /setup
-│       ├── new-track.md        # /new-track
-│       ├── edit.md             # /edit
-│       ├── implement.md        # /implement
-│       ├── status.md           # /status
-│       ├── update-memory.md    # /update-memory
-│       ├── end-session.md      # /end-session
-│       └── create-skill.md     # /create-skill
+│   │   ├── create-skill/       # Meta-skill
+│   │   └── visual-qa/          # Visual QA & design audit engine
+│   └── workflows/              # Slash commands (16 total — source of truth)
+│       ├── setup.md
+│       ├── new-project.md
+│       ├── new-track.md
+│       ├── edit.md
+│       ├── implement.md
+│       ├── status.md
+│       ├── update-memory.md
+│       ├── end-session.md
+│       ├── create-skill.md
+│       ├── ux-design.md
+│       ├── offer-strategy.md
+│       ├── lead-strategy.md
+│       ├── capture-target.md   # Visual QA: capture design data
+│       ├── recreate-site.md    # Visual QA: build from captured data
+│       └── compare-site.md     # Visual QA: fix build against target
 ├── templates/                  # Templates copied into new projects
 │   ├── AGENT.md                # Starter AGENT.md
 │   ├── memory.md               # Starter memory.md

@@ -12,6 +12,7 @@
 
 | Date | File | Summary |
 |------|------|---------|
+| 2026-02-19 | `2026-02-19_visual-qa-workflows.md` | Visual QA system — capture design data, recreate sites, compare builds |
 | 2026-02-09 | `2026-02-09T1255_local-first-skills.md` | Local-first skills architecture — agents create project-specific skills instead of relying on global library |
 
 ## Naming Convention

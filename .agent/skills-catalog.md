@@ -11,6 +11,7 @@ Skills created specifically for this project, stored in `.agent/skills/`.
 | Skill | Purpose |
 |-------|---------|
 | `create-skill` | Create new project-local skills from repeating patterns |
+| `visual-qa` | Build Section Briefs from captured data, apply to code, run gap analysis |
 
 <!-- Add new local skills here as they are created -->
 
