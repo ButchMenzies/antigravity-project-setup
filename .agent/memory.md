@@ -57,6 +57,11 @@
 **Decision**: Added Core Rules 7 (categorised terminal timeouts), 8 (always share dev URL with user), 9 (port assigned during /setup, enforced via lsof check). Port question added to both `/setup` and `/new-project` workflows. Default port: 5010.
 **Rationale**: Categorised timeouts are better than a blanket rule — dev servers and install commands need different handling. Port-in-AGENT.md is simple and always-visible. 5010 avoids conflicts with common services (3000, 5173, 5432, 8080).
 
+### 2026-02-19 v5 — Visual QA workflow system
+**Context**: Rebuilding websites from reference requires capturing exhaustive CSS data, then generating code from that data. Live test proved the approach works (7 sections rebuilt from data alone) but revealed gaps in capture (missing inner wrappers, nested backgrounds, hover states, font sources).
+**Decision**: Created three-workflow pipeline: `/capture-target` (standalone input) → `/recreate-site` (build from scratch) or `/compare-site` (fix existing build). Plus `visual-qa` skill as the shared engine. Renamed `/design-audit` to `/compare-site` for clarity.
+**Rationale**: Technology-agnostic capture means same data works for any stack. Both downstream workflows check for capture data before proceeding, guiding users to `/capture-target` first.
+
 ## Lessons Learned
 
 ### 2026-02-10 Passive setup guides don't enforce behavior
@@ -92,3 +97,4 @@
 | 2026-02-16 | Created UX Design Foundation: `/ux-design` workflow + `ux-design` skill + 8 UX templates. Integrated into `/setup` (Section 5), `/new-track` (pre-flight), `/implement` (UX checkpoint), `planning` (design-first). Updated bootstrapper and created update patch for existing projects. |
 | 2026-02-17 | Created `/offer-strategy` and `/lead-strategy` skills + workflows (Hormozi frameworks). Updated all three workflows (UX, offer, leads) with smart folder detection and single-file output. Unified `AGENT_SETUP_GUIDE.md` with version system — one guide handles fresh installs and updates from GitHub. Created `CHANGELOG.md`. Added `voice-notes-triage` to standard install. Committed and pushed v3. |
 | 2026-02-18 | v4: Added Core Rules 7 (terminal command discipline), 8 (browser URL sharing), 9 (dev server port management). Updated templates/AGENT.md, AGENT_SETUP_GUIDE.md, setup.md, and new-project.md. Port question added to both /setup and /new-project workflows. Default port 5010. |
+| 2026-02-19 | v5: Created Visual QA workflow system. Built and live-tested capture-target, recreate-site and compare-site workflows + visual-qa skill. Live test rebuilt empoweredgrowth.co.nz from captured data (7 sections, all verified). Critical analysis found and fixed 3 P0 bugs + 4 P1 gaps. Renamed design-audit to compare-site. Updated AGENT.md (16 commands), CHANGELOG, skills-catalog, AGENT_SETUP_GUIDE.md (v5 bootstrapper). Created BOOTSTRAP.md — tiny 4-line snippet for Wispr Flow instead of pasting the full guide. Committed and pushed. |
