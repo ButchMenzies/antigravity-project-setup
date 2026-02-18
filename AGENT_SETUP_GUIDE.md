@@ -3,7 +3,7 @@
 > **Paste this into any project chat.** Handles fresh installs and updates automatically.
 > Sources everything from GitHub — works on any device.
 
-**Latest version: 4** (2026-02-18)
+**Latest version: 5** (2026-02-19)
 
 ---
 
@@ -14,11 +14,11 @@ cat .agent/version 2>/dev/null || echo "none"
 ls .agent/AGENT.md 2>/dev/null
 ```
 
-### If version = 4 → **ALREADY CURRENT**
+### If version = 5 → **ALREADY CURRENT**
 
 Read `.agent/AGENT.md` and `.agent/memory.md`, then proceed with the user's request. You are done with this guide.
 
-### If version = 1, 2, 3, or "none" with `.agent/AGENT.md` → **NEEDS UPDATE**
+### If version = 1, 2, 3, 4, or "none" with `.agent/AGENT.md` → **NEEDS UPDATE**
 
 Proceed to Step 2. Existing data will be preserved.
 
@@ -43,7 +43,7 @@ ls *.* src/ app/ lib/ public/ 2>/dev/null
 ## Step 2: Create Directories
 
 ```bash
-mkdir -p .agent/workflows .agent/skills/planning .agent/skills/ux-design .agent/skills/offer-strategy .agent/skills/lead-strategy .agent/skills/voice-notes-triage
+mkdir -p .agent/workflows .agent/skills/planning .agent/skills/ux-design .agent/skills/offer-strategy .agent/skills/lead-strategy .agent/skills/voice-notes-triage .agent/skills/visual-qa
 ```
 
 ---
@@ -66,6 +66,7 @@ cp /tmp/ag-setup/skills/ux-design/SKILL.md .agent/skills/ux-design/SKILL.md
 cp -r /tmp/ag-setup/skills/offer-strategy/* .agent/skills/offer-strategy/
 cp -r /tmp/ag-setup/skills/lead-strategy/* .agent/skills/lead-strategy/
 cp /tmp/ag-setup/skills/voice-notes-triage/SKILL.md .agent/skills/voice-notes-triage/SKILL.md
+cp /tmp/ag-setup/.agent/skills/visual-qa/SKILL.md .agent/skills/visual-qa/SKILL.md
 ```
 
 **Step C — Copy templates (only if files don't exist yet):**
@@ -130,6 +131,9 @@ Read the existing `.agent/AGENT.md`. Search for and **remove** any existing sect
 - `/ux-design` — define your product's design direction (personas, brand, visual identity)
 - `/offer-strategy` — build a Grand Slam Offer (value stack, bonuses, guarantee, pricing)
 - `/lead-strategy` — define lead generation channels, lead magnets, and outreach
+- `/capture-target` — capture design data from a live site
+- `/recreate-site` — rebuild a site from captured data
+- `/compare-site` — fix an existing build against captured target data
 ```
 
 Keep all existing content (Project Overview, Tech Stack, etc.) intact below these sections.
@@ -140,7 +144,7 @@ Keep all existing content (Project Overview, Tech Stack, etc.) intact below thes
 ls .agent/skills/
 ```
 
-For each skill beyond the standard set (planning, ux-design, offer-strategy, lead-strategy):
+For each skill beyond the standard set (planning, ux-design, offer-strategy, lead-strategy, visual-qa):
 1. Read its SKILL.md
 2. Add to `.agent/skills-catalog.md` if not listed
 
@@ -165,28 +169,29 @@ For each skill beyond the standard set (planning, ux-design, offer-strategy, lea
 Write the version file:
 
 ```bash
-echo "4" > .agent/version
+echo "5" > .agent/version
 ```
 
 Add to `.agent/memory.md` under Session Log:
 
 ```markdown
-### [TODAY'S DATE] Antigravity updated to v4
-**Changes**: Added terminal command discipline, browser URL sharing, and dev server port management. See CHANGELOG: https://github.com/ButchMenzies/antigravity-project-setup/blob/main/CHANGELOG.md
+### [TODAY'S DATE] Antigravity updated to v5
+**Changes**: Added Visual QA workflow system (/capture-target, /recreate-site, /compare-site) and visual-qa skill. See CHANGELOG: https://github.com/ButchMenzies/antigravity-project-setup/blob/main/CHANGELOG.md
 ```
 
 Tell the user:
 
 ```
-✅ Antigravity installed/updated to v4!
+✅ Antigravity installed/updated to v5!
 
 Installed:
-- 12 slash command workflows (including /ux-design, /offer-strategy, /lead-strategy)
-- 4 skills (planning, ux-design, offer-strategy, lead-strategy)
+- 16 slash command workflows
+- 6 skills (planning, ux-design, offer-strategy, lead-strategy, voice-notes-triage, visual-qa)
 - Core rules and Available Commands updated
-- NEW: Terminal command discipline (Rule 7) — no more frozen commands
-- NEW: Browser URL sharing (Rule 8) — always get the dev URL
-- NEW: Dev server port management (Rule 9) — consistent ports per project
+- NEW: /capture-target — capture design data from live sites
+- NEW: /recreate-site — rebuild a site from captured data in any tech stack
+- NEW: /compare-site — fix an existing build against captured target data
+- NEW: visual-qa skill — shared engine for applying design data to code
 
 **⚠️ Action Required: Close and reopen the project.**
 The IDE needs to re-scan to discover the new slash commands.
