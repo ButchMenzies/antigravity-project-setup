@@ -8,9 +8,24 @@ description: Guide the user to capture high-quality, standardized reference imag
 
 > **Beginner Friendly**: This workflow includes step-by-step instructions. No prior Dev Tools experience required.
 
+> [!CAUTION]
+> **Agent capability boundary**: The agent CANNOT access DevTools, read computed CSS values, or execute JavaScript in the browser. ALL CSS values must come from the **user** via their browser's Computed tab. The agent's role is to tell the user what to inspect, receive their screenshots/values, and store the results. Do NOT attempt to use the browser tool to capture design data.
+
 ---
 
 ## Phase 1: Setup
+
+### Step 0: Platform Detection (Agent Action)
+**Agent Action**: Open the target URL in the browser tool and read the DOM. Check for:
+- `<meta name="generator">` → Squarespace, WordPress, Wix, etc.
+- Class patterns → `sqs-` (Squarespace), `wp-` (WordPress), `wix-` (Wix)
+- Asset URLs → `static1.squarespace.com`, `cdn.shopify.com`, `/_next/` (Next.js)
+- Page structure → `<div id="__next">` (Next.js/React)
+
+Report the detected platform to the user. Save to `metadata.md`.
+
+> [!WARNING]
+> **Template-builder sites** (Squarespace, WordPress, Wix) use deeply nested DOM with auto-generated wrappers. Each wrapper can contribute spacing. The capture will need to inspect **2-3 inner wrappers per section**, not just the outermost container. See the Layer 1 nesting guidance below.
 
 ### Step 1: Context
 > "**1. What page are we capturing?** (e.g., Home, About, Pricing)"
@@ -39,7 +54,8 @@ Create the directory and metadata file:
 2.  **Dock to Right**: Click the **⋮ menu** (top-right of Dev Tools panel) → select the **Dock to right** icon.
 3.  **Set Width to 1440px**: Drag the vertical divider between page and Dev Tools. Watch the dimension indicator at the top-right of the content area. Stop at **`1440`**.
 4.  **Reset Zoom**: `Cmd+0` (Mac) / `Ctrl+0` (Windows).
-5.  **Keep Dev Tools open** for the rest of this session.
+5.  **Click the Computed tab** (next to "Styles" in the bottom panel). This is the tab we'll use for ALL data capture — it shows final resolved values, not CSS rules.
+6.  **Keep Dev Tools open** for the rest of this session.
 
 ---
 
@@ -48,7 +64,7 @@ Create the directory and metadata file:
 Repeat the **A → B → C** loop for each section of the page.
 
 > [!IMPORTANT]
-> **One section at a time.** The user can upload a maximum of **5 images per round**. You may run **unlimited rounds** — a page with 20 sections might take 4+ rounds. Never request more than 5 images in a single prompt. If a section needs 6+ data files, split the requests across two rounds.
+> **Upload limit: 5 images per message.** The user can attach a maximum of 5 images to a single chat message. If a section needs 8 screenshots, ask for 5, then ask for the remaining 3. A full page capture may take many messages — that's fine. There is no limit on total screenshots, only on how many the user can upload at once.
 
 > [!NOTE]
 > **File Naming**: The user will upload screenshots with default names (e.g., `Screenshot 2026-02-19...`). The **agent must rename** all files to the structured convention (e.g., `home-01-hero-visual.png`, `home-01-hero-data-container.png`) when saving to `.agent/targets/[page]/`.
@@ -89,7 +105,10 @@ Every section has an outermost wrapper. **Always** ask the user to inspect it.
 | `text-align` | Computed → filter "text-align" | Left, center, right |
 
 > [!TIP]
-> **Inner content wrapper**: Many sections have an outer `<section>` (full-width background) and an inner `<div>` that constrains the content (e.g., `max-width: 1200px; margin: 0 auto`). If the content doesn't span the full viewport, ask the user to also inspect the **inner wrapper** for its `max-width`, `margin`, and `padding`.
+> **Inner content wrapper**: Many sections have an outer `<section>` (full-width background) and an inner `<div>` that constrains the content (e.g., `max-width: 1200px; margin: 0 auto`). If the content doesn't span the full viewport, ask the user to also inspect the **inner wrapper** for its `max-width`, `margin`, `padding`, and `height`.
+
+> [!WARNING]
+> **Template-builder nesting** (Squarespace, WordPress, Wix): These platforms insert multiple nested wrappers between the section and the visible content. Each wrapper can add its own padding, margin, and gaps. If the platform was detected as a template builder in Step 0, ask the user to inspect **at least 2-3 wrappers deep** — the outermost section, the inner row/content wrapper, and the column/block wrapper. Capture `height`, `padding`, `margin`, and `gap` for each level.
 
 > "Screenshot the **full Computed panel** (Box Model + properties). Upload it now — I'll rename the file for you."
 
@@ -111,6 +130,7 @@ After capturing the container, ask for specific elements based on what's visible
 | **Image** | The `<img>` | `width`, `height`, `object-fit`, `border-radius` |
 | **Video** | The `<video>` | `width`, `height`, `object-fit`, `aspect-ratio` |
 | **Navigation / Header** | The `<nav>` or `<header>` | `height`, `padding`, `background-color`, `position` (`fixed`/`sticky`/`relative`), `z-index` |
+| **Positioned / Overlapping Element** | Any element overlapping another (e.g., title over image) | `position`, `top`, `right`, `bottom`, `left`, `z-index`, `transform`, `order` (if flex child) |
 | **Overlay / Gradient** | The overlay `<div>` | `background` (gradient value), `opacity` |
 | **List / Links** | A `<ul>` or `<a>` group | `gap` (between items), `font-size`, `font-weight`, `color`, `text-decoration` |
 

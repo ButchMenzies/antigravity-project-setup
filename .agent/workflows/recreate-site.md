@@ -38,10 +38,10 @@ Based on the chosen stack:
 - **IF no data exists**: "No capture data found. Let's capture the site now."
 
 ### Step 4: Run Capture (if needed)
-Run `/capture-target` to gather data from the live site.
+**Guide the user** through `/capture-target` to gather data from the live site. The agent orchestrates the capture but the **user** does all browser/DevTools work.
 
 - Capture **every section** of the page, top to bottom.
-- One section per round, max 5 screenshots per round.
+- One section at a time, max 5 screenshot uploads per message.
 - All data saved to `.agent/targets/[page]/`.
 
 > [!IMPORTANT]
