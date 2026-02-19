@@ -74,6 +74,11 @@
 **Fix**: Unified into a single self-contained guide.
 **Prevention**: If content must appear in multiple places, have one source of truth.
 
+### 2026-02-19 Agent cannot access DevTools or computed CSS
+**Problem**: Agent tried to capture design data itself using the browser tool — opening DevTools, estimating heights, taking screenshots of CSS panels. It can't do any of this.
+**Fix**: Added explicit agent capability boundary rule to `capture-target.md`. Agent orchestrates capture (tells user what to inspect), user does all DevTools work.
+**Prevention**: Any workflow that requires browser data beyond DOM structure must explicitly state that the user provides the data.
+
 ## User Preferences
 
 - Work style: Plan first, then implement — reviews plans before coding
@@ -98,3 +103,4 @@
 | 2026-02-17 | Created `/offer-strategy` and `/lead-strategy` skills + workflows (Hormozi frameworks). Updated all three workflows (UX, offer, leads) with smart folder detection and single-file output. Unified `AGENT_SETUP_GUIDE.md` with version system — one guide handles fresh installs and updates from GitHub. Created `CHANGELOG.md`. Added `voice-notes-triage` to standard install. Committed and pushed v3. |
 | 2026-02-18 | v4: Added Core Rules 7 (terminal command discipline), 8 (browser URL sharing), 9 (dev server port management). Updated templates/AGENT.md, AGENT_SETUP_GUIDE.md, setup.md, and new-project.md. Port question added to both /setup and /new-project workflows. Default port 5010. |
 | 2026-02-19 | v5: Created Visual QA workflow system. Built and live-tested capture-target, recreate-site and compare-site workflows + visual-qa skill. Live test rebuilt empoweredgrowth.co.nz from captured data (7 sections, all verified). Critical analysis found and fixed 3 P0 bugs + 4 P1 gaps. Renamed design-audit to compare-site. Updated AGENT.md (16 commands), CHANGELOG, skills-catalog, AGENT_SETUP_GUIDE.md (v5 bootstrapper). Created BOOTSTRAP.md — tiny 4-line snippet for Wispr Flow instead of pasting the full guide. Committed and pushed. |
+| 2026-02-19 | Capture workflow v2: Live test on Squarespace site revealed agent trying to capture data itself and poor spacing enforcement. Added agent capability boundary rule, platform detection (Step 0), template-builder nesting guidance, positioning properties, upload limit clarification, Computed tab emphasis. Added build enforcement to recreate-site (min-height rule, Tailwind bracket warning, vertical sanity check). Tested agent DOM/JS capabilities — confirmed no DevTools access. Committed and pushed. |
