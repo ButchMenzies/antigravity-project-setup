@@ -73,6 +73,16 @@ For each captured section (in page order: 01, 02, 03...):
 > [!IMPORTANT]
 > Use the **exact captured values**. Do not approximate. `padding: 80px` stays as `80px`, not `5rem`, unless the project uses a token system where `5rem = 80px`.
 
+
+
+> [!CAUTION]
+> **Section height rule**: Every captured section has a rendered height. Apply this as `min-height` on the section container. If the target is 1829px tall, your section must be approximately 1829px tall. Do NOT substitute with arbitrary spacing.
+
+> [!WARNING]
+> **Tailwind / utility class trap**: Do NOT use arbitrary spacing classes (`py-12`, `space-y-8`, `gap-8`) when exact pixel values are captured. Use bracket notation: `min-h-[1829px]`, `gap-[200px]`, `py-[80px]`. The captured data is the source of truth, not framework defaults.
+
+**Vertical sanity check**: After building each section, compare your output's expected height against the captured height. If the captured height is 1829px and your section would render at ~400px, stop — check gaps, padding, content sizing, and min-height.
+
 ### Step 7: Serve Locally
 Start the dev server and confirm the page loads:
 - **Static**: `python3 -m http.server 8080` or similar.

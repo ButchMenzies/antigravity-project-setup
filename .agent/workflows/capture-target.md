@@ -48,7 +48,7 @@ Create the directory and metadata file:
 Repeat the **A → B → C** loop for each section of the page.
 
 > [!IMPORTANT]
-> **One section at a time.** The user can upload a maximum of **5 images per round**. Never request more than 5 data captures in a single prompt. If a section needs 6+ data files, split the requests across two rounds.
+> **One section at a time.** The user can upload a maximum of **5 images per round**. You may run **unlimited rounds** — a page with 20 sections might take 4+ rounds. Never request more than 5 images in a single prompt. If a section needs 6+ data files, split the requests across two rounds.
 
 > [!NOTE]
 > **File Naming**: The user will upload screenshots with default names (e.g., `Screenshot 2026-02-19...`). The **agent must rename** all files to the structured convention (e.g., `home-01-hero-visual.png`, `home-01-hero-data-container.png`) when saving to `.agent/targets/[page]/`.
@@ -76,6 +76,7 @@ Every section has an outermost wrapper. **Always** ask the user to inspect it.
 
 | Property | Where to find it | Why |
 |:---|:---|:---|
+| `height` (rendered) | Computed → Box Model (blue area, bottom number) | Section height — becomes `min-height` during build |
 | `padding` (all sides) | Computed → Box Model (green area) | Vertical/horizontal breathing room |
 | `margin` (all sides) | Computed → Box Model (orange area) | Space between sections |
 | `max-width` | Computed → filter "max-width" | Content constraint |
