@@ -216,9 +216,21 @@ grep "installed/updated to" AGENT_SETUP_GUIDE.md
 echo ""
 echo "Version in 'already current' check:"
 grep "version =" AGENT_SETUP_GUIDE.md | head -1
+echo ""
+echo "Memory log template version:"
+grep "updated to v" AGENT_SETUP_GUIDE.md
 ```
 
-All four must reference the same version number.
+All five must reference the same version number.
+
+### 7b. Version bump check
+
+If any setup system files have been modified since the last commit tagged with a version bump, the version **must** be incremented. Check:
+
+1. **Version number** — bumped from previous (e.g., v5 → v6)
+2. **Date** — header date matches today's date (when the version was bumped)
+3. **Memory log template** — the `**Changes**:` description accurately describes what changed in this version, not the previous version's changes
+4. **Completion message** — new features or changes listed match actual changes
 
 ---
 
