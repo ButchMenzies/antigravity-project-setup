@@ -3,7 +3,7 @@
 > **Paste this into any project chat.** Handles fresh installs and updates automatically.
 > Sources everything from GitHub — works on any device.
 
-**Latest version: 5** (2026-02-19)
+**Latest version: 6** (2026-02-22)
 
 ---
 
@@ -14,7 +14,7 @@ cat .agent/version 2>/dev/null || echo "none"
 ls .agent/AGENT.md 2>/dev/null
 ```
 
-### If version = 5 → **ALREADY CURRENT**
+### If version = 6 → **ALREADY CURRENT**
 
 Read `.agent/AGENT.md` and `.agent/memory.md`, then proceed with the user's request. You are done with this guide.
 
@@ -137,20 +137,20 @@ For each skill beyond the standard set (planning, ux-design, offer-strategy, lea
 Write the version file:
 
 ```bash
-echo "5" > .agent/version
+echo "6" > .agent/version
 ```
 
 Add to `.agent/memory.md` under Session Log:
 
 ```markdown
-### [TODAY'S DATE] Antigravity updated to v5
-**Changes**: Added Visual QA workflow system (/capture-target, /recreate-site, /compare-site) and visual-qa skill. See CHANGELOG: https://github.com/ButchMenzies/antigravity-project-setup/blob/main/CHANGELOG.md
+### [TODAY'S DATE] Antigravity updated to v6
+**Changes**: Restructured onboarding — extracted templates (AGENT-code.md, AGENT-workspace.md), added workspace project support, synced commands/skills across all paths. See CHANGELOG: https://github.com/ButchMenzies/antigravity-project-setup/blob/main/CHANGELOG.md
 ```
 
 Tell the user:
 
 ```
-✅ Antigravity installed/updated to v5!
+✅ Antigravity installed/updated to v6!
 
 Installed:
 - 13 slash command workflows

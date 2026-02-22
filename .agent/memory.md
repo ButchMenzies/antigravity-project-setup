@@ -62,6 +62,21 @@
 **Decision**: Created three-workflow pipeline: `/capture-target` (standalone input) → `/recreate-site` (build from scratch) or `/compare-site` (fix existing build). Plus `visual-qa` skill as the shared engine. Renamed `/design-audit` to `/compare-site` for clarity.
 **Rationale**: Technology-agnostic capture means same data works for any stack. Both downstream workflows check for capture data before proceeding, guiding users to `/capture-target` first.
 
+### 2026-02-22 Template extraction — eliminate duplication
+**Context**: AGENT.md core rules (~2,600 chars) were duplicated in 4 files. Both `setup.md` (13,553) and `new-project.md` (16,182) were over the 12K workflow limit. No path for non-code projects.
+**Decision**: Extracted core rules into `templates/AGENT-code.md` and `templates/AGENT-workspace.md`. Workflows now reference templates instead of inlining. `templates/AGENT.md` kept as a copy of AGENT-code.md for backwards compatibility.
+**Rationale**: Single source of truth for rules. Halved both workflow sizes. Workspace template enables strategy/content/research projects.
+
+### 2026-02-22 Exclude setup-only workflows from user installs
+**Context**: `setup.md`, `new-project.md`, `update-guide.md` were being installed into every user project even though they're only used during initial setup or for maintaining this repo.
+**Decision**: These plus `critical-analysis.md` are now excluded via `rm -f` after the wildcard copy. 17 total → 13 installed.
+**Rationale**: Users don't need meta-workflows cluttering their slash command list.
+
+### 2026-02-22 Critical analysis workflow for self-verification
+**Context**: After making changes to the setup system, multiple consistency issues were discovered only through manual analysis (command lists out of sync, skill installs missing, stale paths).
+**Decision**: Created `/critical-analysis` — a 10-step verification workflow that checks character counts, cross-references, template sync, hardcoded paths, scenario traces, version consistency, and GitHub URLs.
+**Rationale**: Codifies all known failure modes. Ensures nothing gets missed regardless of session context.
+
 ## Lessons Learned
 
 ### 2026-02-10 Passive setup guides don't enforce behavior
@@ -104,3 +119,4 @@
 | 2026-02-18 | v4: Added Core Rules 7 (terminal command discipline), 8 (browser URL sharing), 9 (dev server port management). Updated templates/AGENT.md, AGENT_SETUP_GUIDE.md, setup.md, and new-project.md. Port question added to both /setup and /new-project workflows. Default port 5010. |
 | 2026-02-19 | v5: Created Visual QA workflow system. Built and live-tested capture-target, recreate-site and compare-site workflows + visual-qa skill. Live test rebuilt empoweredgrowth.co.nz from captured data (7 sections, all verified). Critical analysis found and fixed 3 P0 bugs + 4 P1 gaps. Renamed design-audit to compare-site. Updated AGENT.md (16 commands), CHANGELOG, skills-catalog, AGENT_SETUP_GUIDE.md (v5 bootstrapper). Created BOOTSTRAP.md — tiny 4-line snippet for Wispr Flow instead of pasting the full guide. Committed and pushed. |
 | 2026-02-19 | Capture workflow v2: Live test on Squarespace site revealed agent trying to capture data itself and poor spacing enforcement. Added agent capability boundary rule, platform detection (Step 0), template-builder nesting guidance, positioning properties, upload limit clarification, Computed tab emphasis. Added build enforcement to recreate-site (min-height rule, Tailwind bracket warning, vertical sanity check). Tested agent DOM/JS capabilities — confirmed no DevTools access. Committed and pushed. |
+| 2026-02-22 | Restructured onboarding: extracted AGENT.md core rules into `AGENT-code.md` and `AGENT-workspace.md` templates. Rewrote setup.md (13,553→6,248), new-project.md (16,182→8,682), create-skill.md (12,138→11,196). Added workspace/non-code project support. Synced Available Commands across all templates, matched skill installs between both paths. Excluded 4 setup-only workflows from user installs (13 installed). Created `/critical-analysis` workflow (10-step verification). Fixed hardcoded paths. Committed and pushed. |
