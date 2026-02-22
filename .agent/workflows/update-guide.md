@@ -26,9 +26,9 @@ What needs to be updated?
 
 ### 2. Review Current Guide
 
-Read the current guide:
+Read the current guide — it's at the repo root:
 ```
-~/Desktop/Antigravity/Antigravity Project Setup/AGENT_SETUP_GUIDE.md
+AGENT_SETUP_GUIDE.md
 ```
 
 Identify the specific section(s) that need changes.

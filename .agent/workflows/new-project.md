@@ -4,9 +4,9 @@ description: Scaffold a brand new project — choose what to build, create folde
 
 # New Project
 
-Scaffold a new project from a blank folder. This workflow handles **everything** for blank projects: scaffolding, Antigravity bootstrap, and project onboarding. **No need to run `/setup` afterward.**
+Scaffold a new project from a blank folder. Handles scaffolding, Antigravity bootstrap, and project onboarding in one pass. **No need to run `/setup` afterward.**
 
-> This workflow is triggered by the setup guide when it detects a completely empty project directory. At this point, `.agent/` does NOT exist — the folder is empty.
+> This workflow is triggered by the setup guide when it detects a completely empty project directory. At this point, `.agent/` does NOT exist.
 
 ---
 
@@ -14,7 +14,6 @@ Scaffold a new project from a blank folder. This workflow handles **everything**
 
 ### Project Type (Q1)
 
-```
 What are you building?
 
 1. Web app — interactive browser-based application (dashboards, SaaS, portals)
@@ -23,195 +22,64 @@ What are you building?
 4. Mobile app — iOS, Android, or cross-platform
 5. CLI tool — command-line utility
 6. Library / package — reusable module
-7. Something else — describe it
-```
+7. Workspace — strategy, planning, brainstorming, or content (no code)
+8. Something else — describe it
 
 **Wait for user response before proceeding.**
+
+If user chose **Workspace (7)** → skip to [Phase 1W: Workspace Setup](#phase-1w-workspace-setup).
 
 ### Description (Q2)
 
-```
-Describe what it should do in one or two sentences.
-```
+"Describe what it should do in one or two sentences."
 
-**Wait for user response before proceeding.**
+**Wait for user response.**
 
 ### Tech Stack (Q3)
 
-Based on the project type, **recommend a default stack** with a brief explanation. The user can accept or change it.
+Based on project type, **recommend a default stack** with a brief explanation. The user can accept or change it.
 
-#### Web App / Full-Stack
+| Project Type | Default Recommendation | Alternatives to Offer |
+|-------------|----------------------|----------------------|
+| Web app | Next.js + TypeScript + Tailwind (App Router) | Vite + React + Tailwind; Vanilla HTML/CSS/JS |
+| Website | Astro + Tailwind | Next.js; Vanilla HTML/CSS/JS |
+| API / backend | Express + TypeScript | Fastify; FastAPI (Python) |
+| Mobile app | React Native + Expo (TypeScript) | Flutter; Native Swift/Kotlin |
+| CLI tool | Node.js + TypeScript | Go; Rust; Python |
+| Library | TypeScript npm package | Python (PyPI); Go module |
 
-```
-For a web app, I'd recommend:
-
-→ Next.js with TypeScript + Tailwind CSS (App Router)
-
-This gives you:
-- Server-side rendering and static generation
-- Built-in API routes (no separate backend)
-- Tailwind CSS for rapid, consistent styling
-- Largest ecosystem and community
-
-Happy with this?
-
-1. Sounds good — let's go with Next.js + Tailwind
-2. I want something lighter (Vite + React + Tailwind — pure client-side SPA)
-3. I want no framework (vanilla HTML/CSS/JS)
-4. I have something else in mind
-```
-
-#### Website (Static / Content)
-
-```
-For a website, I'd recommend:
-
-→ Astro with Tailwind CSS
-
-This gives you:
-- Blazing fast — ships zero JavaScript by default
-- Perfect for marketing pages, portfolios, blogs, docs
-- Use React/Vue/Svelte components where you need interactivity
-- Best Core Web Vitals scores of any framework
-
-Happy with this?
-
-1. Sounds good — Astro + Tailwind
-2. I want a React-based site (Next.js — heavier but more dynamic features)
-3. I want a pure static site (vanilla HTML/CSS/JS)
-4. I have something else in mind
-```
-
-#### API / Backend
-
-```
-For an API, I'd recommend:
-
-→ Express with TypeScript
-
-This gives you:
-- Most widely supported Node.js framework
-- Huge middleware ecosystem
-- Easy to extend with auth, validation, etc.
-
-Happy with this?
-
-1. Sounds good — let's go with Express
-2. I want something faster (Fastify)
-3. I'd prefer Python (FastAPI)
-4. I have something else in mind
-```
-
-#### Mobile App
-
-```
-For a mobile app, I'd recommend:
-
-→ React Native with Expo (TypeScript)
-
-This gives you:
-- Cross-platform (iOS + Android from one codebase)
-- JavaScript ecosystem (same as web)
-- Expo handles the painful native tooling
-
-Happy with this?
-
-1. Sounds good — let's go with React Native + Expo
-2. I'd prefer Flutter (Dart)
-3. I want native iOS only (Swift)
-4. I want native Android only (Kotlin)
-5. I have something else in mind
-```
-
-#### CLI Tool
-
-```
-For a CLI tool, I'd recommend:
-
-→ Node.js with TypeScript
-
-This gives you:
-- Fast to build, easy to distribute via npm
-- Great CLI libraries (commander, inquirer)
-
-Happy with this?
-
-1. Sounds good — Node.js + TypeScript
-2. I want a compiled binary (Go)
-3. I want a compiled binary (Rust)
-4. I'd prefer Python
-5. I have something else in mind
-```
-
-#### Library / Package
-
-```
-For a library, I'd recommend:
-
-→ TypeScript npm package
-
-This gives you:
-- Type-safe API for consumers
-- Easy publishing to npm
-
-Happy with this?
-
-1. Sounds good — TypeScript npm package
-2. I'd prefer a Python package (PyPI)
-3. I'd prefer a Go module
-4. I have something else in mind
-```
-
-**Wait for user response before proceeding.**
+**Wait for user response.**
 
 ### Work Style & Scope (Q4)
 
-```
-Two quick preferences:
+Ask both in one question:
+- **Work style**: Plan first / Just go / Depends on size
+- **Project scope**: Long-term (full project management) / Medium / Quick experiment
 
-Work style:
-  a) Plan first, then implement (I'll review plans before you code)
-  b) Just go — implement directly, I'll review as we go
-  c) Depends on the task size
-
-Project scope:
-  1. Long-term — I want full project management (tracks, specs, plans)
-  2. Medium — I want basics but nothing too heavy
-  3. Quick experiment — keep it minimal
-```
-
-**Wait for user response before proceeding.**
+**Wait for user response.**
 
 ### Development Port (Q5)
 
-```
-What port should the dev server run on?
+What port? Default: 5010 (Antigravity default — avoids conflicts).
 
-1. 5010 (Antigravity default — avoids common port conflicts)
-2. Type your own
-
-I’ll configure the project to always use this port.
-```
-
-**Wait for user response before proceeding.**
+**Wait for user response.**
 
 ### Scaffold
 
-Follow these rules:
+Rules:
+- **Use standard tooling** — `npx create-*`, `npm init`, `cargo init`, etc. Don't hand-roll when a CLI scaffolder exists
+- **Non-interactive mode** — use `--yes`, `-y` flags
+- **Check `--help` first** — before running any scaffolder
+- **Install in current directory** — always `./`, not a subdirectory
+- **TypeScript by default** unless user chose otherwise
+- **Use npm** — always `--use-npm` when supported
+- **Git init** if scaffolder doesn't create a repo
 
-- **Use the standard tooling.** Don't hand-roll folder structures when a CLI scaffolder exists. Use `npx create-*`, `npm init`, `cargo init`, etc.
-- **Non-interactive mode.** Run scaffolders with flags that avoid interactive prompts (e.g. `--yes`)
-- **Check the `--help` flag first.** Before running any scaffolder, run it with `--help` to see available options. Don't guess at flags
-- **Install in current directory.** Always scaffold into `./`, not a subdirectory
-- **TypeScript by default.** Unless the user specifically chose JavaScript
-- **Use npm.** Always use `--use-npm` (or equivalent) when the scaffolder supports it, to avoid pnpm/yarn ambiguity
-- **Git init.** If the scaffolder doesn't create a git repo, run `git init`
-
-#### Framework-Specific Notes
+#### Framework Commands
 
 **Next.js:**
 ```bash
-npx -y create-next-app@latest ./ --help  # Check available flags first
+npx -y create-next-app@latest ./ --help
 npx -y create-next-app@latest ./ --ts --eslint --tailwind --app --src-dir --import-alias "@/*" --use-npm --yes
 ```
 
@@ -225,7 +93,7 @@ npm install -D tailwindcss @tailwindcss/vite
 
 **Astro:**
 ```bash
-npx -y create-astro@latest ./ --help  # Check available flags first
+npx -y create-astro@latest ./ --help
 npx -y create-astro@latest ./ --template minimal --typescript strict --install --no-git
 npx astro add tailwind -y
 ```
@@ -246,33 +114,69 @@ npx -y create-expo-app@latest ./ --help
 npx -y create-expo-app@latest ./ --template blank-typescript
 ```
 
-#### Additional Folders
+Only create additional folders if the scaffolder didn't provide them. Don't create empty placeholder folders. Do **not** start the dev server during setup.
 
-Only create project-specific folders if the scaffolder didn't already provide them. Don't create empty placeholder folders (e.g. `docs/design/`, `src/styles/`) — they'll be created naturally when needed.
+---
 
-#### Verify
+## Phase 1W: Workspace Setup
 
-Do **not** start the dev server during setup — trust the scaffolder. The user will see any issues when they first run the project.
+For non-code projects (strategy, planning, brainstorming, content).
+
+### Description (Q2W)
+
+"What's the purpose of this workspace? Describe in a sentence or two."
+
+**Wait for user response.**
+
+### Workspace Category (Q3W)
+
+What kind of workspace?
+
+1. Strategy / Business — marketing plans, offer design, consulting
+2. Content / Writing — courses, blog, copywriting, email sequences
+3. Research / Analysis — market research, data analysis, competitive analysis
+4. General planning — brainstorming, project coordination
+
+**Wait for user response.**
+
+### Work Style & Scope (Q4W)
+
+Same as Q4 above (plan first vs. just go, project scope).
+
+**Wait for user response.**
+
+### Create Structure
+
+```bash
+mkdir -p docs research output references
+```
+
+Create a `README.md` with the project description from Q2W.
+
+Skip dev port question — not applicable.
 
 ---
 
 ## Phase 2: Bootstrap Antigravity
 
-Now that the project has source files, install the Antigravity system.
+> **Run these as separate commands** — do not chain with `&&`.
 
-> **Run these as separate commands** — do not chain them with `&&`. Chained commands can hang in agent environments.
-
-**Step 1 — Clone the repo:**
+**Step 1 — Clone:**
 ```bash
 git clone --depth 1 https://github.com/ButchMenzies/antigravity-project-setup.git /tmp/ag-setup
 ```
 
 **Step 2 — Create directories and copy files:**
 ```bash
-mkdir -p .agent/workflows .agent/skills/planning
+mkdir -p .agent/workflows .agent/skills/planning .agent/skills/ux-design .agent/skills/offer-strategy .agent/skills/lead-strategy .agent/skills/voice-notes-triage .agent/skills/visual-qa
 cp /tmp/ag-setup/.agent/workflows/*.md .agent/workflows/
-rm -f .agent/workflows/setup.md
+rm -f .agent/workflows/setup.md .agent/workflows/new-project.md .agent/workflows/update-guide.md .agent/workflows/critical-analysis.md
 cp /tmp/ag-setup/skills/planning/SKILL.md .agent/skills/planning/SKILL.md
+cp /tmp/ag-setup/skills/ux-design/SKILL.md .agent/skills/ux-design/SKILL.md
+cp -r /tmp/ag-setup/skills/offer-strategy/* .agent/skills/offer-strategy/
+cp -r /tmp/ag-setup/skills/lead-strategy/* .agent/skills/lead-strategy/
+cp /tmp/ag-setup/skills/voice-notes-triage/SKILL.md .agent/skills/voice-notes-triage/SKILL.md
+cp /tmp/ag-setup/.agent/skills/visual-qa/SKILL.md .agent/skills/visual-qa/SKILL.md
 cp /tmp/ag-setup/templates/skills-catalog.md .agent/skills-catalog.md
 cp /tmp/ag-setup/templates/USER_GUIDE.md .agent/USER_GUIDE.md
 ```
@@ -282,12 +186,11 @@ cp /tmp/ag-setup/templates/USER_GUIDE.md .agent/USER_GUIDE.md
 rm -rf /tmp/ag-setup
 ```
 
-**Do NOT install `templates/AGENT.md` or `templates/memory.md`** — Phase 3 creates these with real project data.
+**Do NOT install templates/AGENT.md or templates/memory.md** — Phase 3 creates these with real project data.
 
 ### Configure .gitignore
 
-The scaffolder likely created a `.gitignore`. **Append** these Antigravity-specific ignores to the existing file (do not replace existing content):
-
+Append to existing `.gitignore` (don't replace existing content):
 ```
 # Antigravity — keep workflows/skills tracked, ignore personal data
 .agent/memory.md
@@ -296,202 +199,32 @@ The scaffolder likely created a `.gitignore`. **Append** these Antigravity-speci
 .agent/current-plan.md
 ```
 
-**Important:** If the `.gitignore` contains `.agent/` as a blanket ignore, remove that line and keep only the selective ignores above. Blanket-ignoring `.agent/` breaks slash command autocomplete.
+If `.gitignore` contains `.agent/` as a blanket ignore, remove that line — it breaks slash command autocomplete.
 
 ---
 
 ## Phase 3: Project Onboarding
 
-We already know the project type, description, tech stack, work style, and scope from Phase 1. Generate the project files.
+We already know everything from Phase 1. Generate project files directly.
 
-If medium/quick (Q4 scope): Skip conductor, rely on slash commands for workflow.
+### AGENT.md
 
-If long-term (Q4 scope): Create `conductor/` artifacts:
+Use the appropriate template based on project type:
+- **Code projects (Q1 options 1–6)** → Fetch `templates/AGENT-code.md` from `https://raw.githubusercontent.com/ButchMenzies/antigravity-project-setup/main/templates/AGENT-code.md`
+- **Workspace projects (Q1 option 7)** → Fetch `templates/AGENT-workspace.md` from `https://raw.githubusercontent.com/ButchMenzies/antigravity-project-setup/main/templates/AGENT-workspace.md`
+
+Populate all placeholder sections with real answers from the Q&A. Replace the title with the actual project name. For code projects, fill in Tech Stack, Local Development (port from Q5, start command from scaffold), Architecture, and Conventions. For workspace projects, fill in Goals, Audience, and Key Resources.
+
+### memory.md
+
+Use `templates/memory.md` as the base. Set work style from Q4/Q4W and add today's date to session log.
+
+### Conductor (long-term projects only)
+
+If scope = long-term (Q4/Q4W), create `conductor/` with: `product.md`, `tech-stack.md` (code) or `strategy.md` (workspace), `workflow.md`, `tracks.md`. Populate from Q&A answers.
 
 ```bash
 mkdir -p conductor/tracks
-```
-
-**conductor/product.md:**
-```markdown
-# Product Overview
-
-## Vision
-[From Q2 — one-line description expanded into a product vision]
-
-## Target Users
-[Who is this for?]
-
-## Core Features
-- [ ] [Feature 1 — from discussion]
-- [ ] [Feature 2]
-- [ ] [Feature 3]
-
-## Success Metrics
-[How will you know it's working?]
-```
-
-**conductor/tech-stack.md:**
-```markdown
-# Tech Stack
-
-## Core
-- **Framework**: [from Q3]
-- **Language**: [from Q3]
-- **Styling**: [Tailwind CSS / etc.]
-- **Database**: [if discussed, otherwise "TBD"]
-
-## Infrastructure
-- **Hosting**: [if discussed, otherwise "TBD"]
-- **Auth**: [if discussed, otherwise "TBD"]
-
-## Dev Tools
-- **Package manager**: npm
-- **Linting**: ESLint
-- **Type checking**: TypeScript
-```
-
-**conductor/workflow.md:**
-```markdown
-# Workflow
-
-## Branching Strategy
-- `main` — production-ready code
-- Feature branches for new work
-
-## Code Review
-[User preference from Q4 work style]
-
-## Deployment
-[TBD — to be decided when ready]
-```
-
-**conductor/tracks.md:**
-```markdown
-# Tracks
-
-Active work items. Each track gets its own spec in `conductor/tracks/`.
-
-| Track | Status | Spec |
-|-------|--------|------|
-| *No active tracks yet* | — | — |
-
-Use `/new-track` to create your first track.
-```
-
-### Generate AGENT.md
-
-Create `.agent/AGENT.md` with real answers (not placeholders):
-
-```markdown
-# [Project Name — from directory name or Q2]
-
-## ⚠️ New Chat? Start Here — MANDATORY
-1. Read this file completely
-2. **Read `.agent/memory.md`** — this contains all decisions, lessons, and preferences from prior sessions. You MUST read it before doing any work.
-3. Run `/status` to see where things stand
-
-## ⚠️ Core Rules (Always Apply)
-1. **Before implementation**: Read the plan if one exists (check `.agent/current-plan.md` or `conductor/tracks/`)
-2. **Before starting any task**: Scan `.agent/skills/` — read the SKILL.md of any skill relevant to the work
-3. **After completing a feature/fix**: Update `memory.md` — run `/update-memory`. **Do not skip this.**
-4. **Before ending a session**: Run `/end-session` to wrap up. **Do not end a session without updating memory.**
-5. **When you notice repeating patterns**: Suggest creating a skill with `/create-skill`
-6. **Don't guess about tools, settings, or platform behaviour.** If you're unsure how something works — especially IDE features, APIs, or config options — say so and verify first. Trust your coding knowledge; verify everything else.
-7. **Terminal command discipline:**
-   - **Before running**: Tell the user what you're about to run and why.
-   - **Short commands** (`ls`, `cat`, `mkdir`, file reads): Run synchronously (< 2s). If nothing returns, terminate.
-   - **Install/build commands** (`npm install`, `git clone`, `npm run build`): 10s initial wait. Poll at most twice (15s each). If still running, tell the user — never silently keep polling.
-   - **Dev servers / watchers** (`npm run dev`): 5s initial wait to catch startup errors. Don't poll for completion — these run until stopped.
-   - **Never chain commands with `&&`** — if the first command hangs, you lose visibility. Run them separately.
-   - **Always use non-interactive mode** (`-y`, `--yes`). If a command produces no output for 10s, assume it's waiting for input — terminate and retry with correct flags.
-   - **Maximum 2 status checks on any background command.** After that, terminate and tell the user.
-8. **Browser & URLs**: When testing with the browser tool, always share the dev URL with the user afterward so they can check in their own browser. Format: `🔗 Dev server: http://localhost:<port>`
-9. **Dev server port**: Always use the port from "Local Development" in this file. Pass it explicitly when starting the dev server (e.g. `--port`, `-p`, or `PORT=` — use the right flag for your framework). Before starting, check if the port is free: `lsof -i :<port> | head -5`. If occupied by a previous dev server (e.g. `node`), ask the user if you should kill it. If occupied by something else, tell the user — don't silently use another port.
-
-## Available Commands
-- `/new-track` — plan a new piece of work
-- `/edit` — revise a plan before implementing
-- `/implement` — execute a plan with progress tracking
-- `/status` — show project status
-- `/update-memory` — log a decision, lesson, or preference
-- `/end-session` — wrap up the current session
-- `/create-skill` — create a reusable local skill
-- `/new-project` — scaffold a blank project (choose framework, create structure)
-- `/ux-design` — define your product's design direction (personas, brand, visual identity)
-- `/offer-strategy` — build a Grand Slam Offer (value stack, bonuses, guarantee, pricing)
-- `/lead-strategy` — define lead generation channels, lead magnets, and outreach
-
----
-
-## Project Overview
-[From Q2 — project description]
-
-## Tech Stack
-[From Q3 — framework, language, key dependencies from package.json]
-
-## Local Development
-
-- **Dev port**: [from Q5]
-- **Dev URL**: http://localhost:[port]
-- **Start command**: [detected from scaffold, with explicit port flag]
-- **Key scripts**: [from package.json scripts section]
-
----
-
-## Resources
-
-- **Local Skills**: `.agent/skills/`
-- **Skills Catalog**: `.agent/skills-catalog.md`
-- **Memory**: `.agent/memory.md`
-- **Global Skills Reference**: https://github.com/sickn33/antigravity-awesome-skills
-```
-
-### Generate memory.md
-
-Create `.agent/memory.md`:
-
-```markdown
-# Project Memory
-
-> Agent-maintained record of decisions, lessons, and context.
-> Update after completing features, making decisions, or solving problems.
->
-> **Maintenance:** When this file exceeds ~100 entries or becomes hard to scan,
-> archive older entries to `.agent/memory-archive.md` and keep only the last
-> 30 days of entries here. Always keep User Preferences — those never expire.
-
----
-
-## Key Decisions
-
-<!-- Append new decisions here using this format:
-### YYYY-MM-DD [Title]
-**Context**: [what prompted the decision]
-**Decision**: [what was decided]
-**Rationale**: [why this choice]
--->
-
-## Lessons Learned
-
-<!-- Append new lessons here using this format:
-### YYYY-MM-DD [Title]
-**Problem**: [what went wrong]
-**Fix**: [how it was resolved]
-**Prevention**: [how to avoid next time]
--->
-
-## User Preferences
-
-- Work style: [from Q4]
-
-<!-- Append new preferences as bullet points -->
-
-## Session Log
-
-| Date | Summary |
-|------|---------|
-| [today] | Project scaffolded and set up via /new-project |
 ```
 
 ### Final Commit
@@ -509,26 +242,23 @@ git commit -m "Set up Antigravity agent"
 ✅ Project scaffolded and set up!
 
 Created:
-- [framework] project with [language]
-- 8 slash command workflows
+- [framework/workspace] project
+- Slash command workflows
 - Planning skill
 - AGENT.md with project context
 - memory.md for session tracking
 [- conductor/ project management artifacts (if long-term)]
 
-**⚠️ Action Required: Close and reopen the project.**
-The IDE needs to re-scan the workspace to discover the new slash command workflows.
-
-💡 Tip: Before building features, consider setting up your brand
-   identity and core UI as your first /new-track.
+⚠️ Action Required: Close and reopen the project.
+The IDE needs to re-scan to discover the new slash commands.
 
 Next step:
-→ Close the project and reopen it
+→ Close and reopen the project
 → /new-track to plan your first piece of work
 ```
 
 ## Error Handling
 
-- **If scaffolding fails:** Show the error, suggest an alternative framework or manual setup
-- **If the user isn't sure what to build:** Skip scaffolding, just set up a minimal structure (README.md, src/ folder), and proceed to Phase 2
-- **If the user changes their mind mid-flow:** Start over from the relevant question — don't force them through the whole flow again
+- **If scaffolding fails:** Show error, suggest alternative framework or manual setup
+- **If user isn't sure what to build:** Skip scaffolding, set up minimal structure (README, src/), proceed to Phase 2
+- **If user changes mind mid-flow:** Restart from the relevant question, don't force the full flow

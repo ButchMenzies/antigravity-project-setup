@@ -36,7 +36,7 @@ ls *.* src/ app/ lib/ public/ 2>/dev/null
   > **⛔ STOP — Do NOT continue with Steps 2-5.**
   > Read and follow the `/new-project` workflow directly from GitHub:
   > `https://raw.githubusercontent.com/ButchMenzies/antigravity-project-setup/main/.agent/workflows/new-project.md`
-  > This handles scaffolding, bootstrap, and onboarding in one pass. You are done with this guide.
+  > This handles scaffolding (or workspace setup for non-code projects), bootstrap, and onboarding in one pass. You are done with this guide.
 
 ---
 
@@ -60,7 +60,7 @@ git clone --depth 1 https://github.com/ButchMenzies/antigravity-project-setup.gi
 **Step B — Copy workflows and skills:**
 ```bash
 cp /tmp/ag-setup/.agent/workflows/*.md .agent/workflows/
-rm -f .agent/workflows/setup.md
+rm -f .agent/workflows/setup.md .agent/workflows/new-project.md .agent/workflows/update-guide.md .agent/workflows/critical-analysis.md
 cp /tmp/ag-setup/skills/planning/SKILL.md .agent/skills/planning/SKILL.md
 cp /tmp/ag-setup/skills/ux-design/SKILL.md .agent/skills/ux-design/SKILL.md
 cp -r /tmp/ag-setup/skills/offer-strategy/* .agent/skills/offer-strategy/
@@ -71,10 +71,10 @@ cp /tmp/ag-setup/.agent/skills/visual-qa/SKILL.md .agent/skills/visual-qa/SKILL.
 
 **Step C — Copy templates (only if files don't exist yet):**
 ```bash
-[ ! -f .agent/AGENT.md ] && cp /tmp/ag-setup/templates/AGENT.md .agent/AGENT.md
-[ ! -f .agent/memory.md ] && cp /tmp/ag-setup/templates/memory.md .agent/memory.md
-[ ! -f .agent/skills-catalog.md ] && cp /tmp/ag-setup/templates/skills-catalog.md .agent/skills-catalog.md
-[ ! -f .agent/USER_GUIDE.md ] && cp /tmp/ag-setup/templates/USER_GUIDE.md .agent/USER_GUIDE.md
+if [ ! -f .agent/AGENT.md ]; then cp /tmp/ag-setup/templates/AGENT.md .agent/AGENT.md; fi
+if [ ! -f .agent/memory.md ]; then cp /tmp/ag-setup/templates/memory.md .agent/memory.md; fi
+if [ ! -f .agent/skills-catalog.md ]; then cp /tmp/ag-setup/templates/skills-catalog.md .agent/skills-catalog.md; fi
+if [ ! -f .agent/USER_GUIDE.md ]; then cp /tmp/ag-setup/templates/USER_GUIDE.md .agent/USER_GUIDE.md; fi
 ```
 
 **Step D — Clean up:**
@@ -92,49 +92,17 @@ The template already has the latest core rules and commands.
 
 ### If AGENT.md already existed → Merge core rules
 
-Read the existing `.agent/AGENT.md`. Search for and **remove** any existing sections whose headers contain "Start Here", "Core Rules", "Rules", or "Available Commands" (case-insensitive) — these will be replaced. Then add these sections **at the very top**, before any remaining content:
+Read the existing `.agent/AGENT.md`. Determine the project type:
+- If AGENT.md has **Tech Stack** and **Local Development** sections → code project → use `templates/AGENT-code.md`
+- If AGENT.md has **Goals** and **Key Resources** sections → workspace project → use `templates/AGENT-workspace.md`
+- If unclear → default to `templates/AGENT-code.md`
 
-```markdown
-## ⚠️ New Chat? Start Here — MANDATORY
-1. Read this file completely
-2. **Read `.agent/memory.md`** — this contains all decisions, lessons, and preferences from prior sessions. You MUST read it before doing any work.
-3. Run `/status` to see where things stand
-4. **If slash commands (like /status) don't appear in the autocomplete**, close and reopen the project.
+Fetch the appropriate template from the Antigravity repo:
+`https://raw.githubusercontent.com/ButchMenzies/antigravity-project-setup/main/templates/AGENT-code.md`
+or
+`https://raw.githubusercontent.com/ButchMenzies/antigravity-project-setup/main/templates/AGENT-workspace.md`
 
-## ⚠️ Core Rules (Always Apply)
-1. **Before implementation**: Read the plan if one exists (check `.agent/current-plan.md` or `conductor/tracks/`)
-2. **Before starting any task**: Scan `.agent/skills/` — read the SKILL.md of any skill relevant to the work
-3. **After completing a feature/fix**: Update `memory.md` — run `/update-memory`. **Do not skip this.**
-4. **Before ending a session**: Run `/end-session` to wrap up. **Do not end a session without updating memory.**
-5. **When you notice repeating patterns**: Suggest creating a skill with `/create-skill`
-6. **Don't guess about tools, settings, or platform behaviour.** If you're unsure how something works — especially IDE features, APIs, or config options — say so and verify first. Trust your coding knowledge; verify everything else.
-7. **Terminal command discipline:**
-   - **Before running**: Tell the user what you're about to run and why.
-   - **Short commands** (`ls`, `cat`, `mkdir`, file reads): Run synchronously (< 2s). If nothing returns, terminate.
-   - **Install/build commands** (`npm install`, `git clone`, `npm run build`): 10s initial wait. Poll at most twice (15s each). If still running, tell the user — never silently keep polling.
-   - **Dev servers / watchers** (`npm run dev`): 5s initial wait to catch startup errors. Don't poll for completion — these run until stopped.
-   - **Never chain commands with `&&`** — if the first command hangs, you lose visibility. Run them separately.
-   - **Always use non-interactive mode** (`-y`, `--yes`). If a command produces no output for 10s, assume it's waiting for input — terminate and retry with correct flags.
-   - **Maximum 2 status checks on any background command.** After that, terminate and tell the user.
-8. **Browser & URLs**: When testing with the browser tool, always share the dev URL with the user afterward so they can check in their own browser. Format: `🔗 Dev server: http://localhost:<port>`
-9. **Dev server port**: Always use the port from "Local Development" in this file. Pass it explicitly when starting the dev server (e.g. `--port`, `-p`, or `PORT=` — use the right flag for your framework). Before starting, check if the port is free: `lsof -i :<port> | head -5`. If occupied by a previous dev server (e.g. `node`), ask the user if you should kill it. If occupied by something else, tell the user — don't silently use another port.
-
-## Available Commands
-- `/new-track` — plan a new piece of work
-- `/edit` — revise a plan before implementing
-- `/implement` — execute a plan with progress tracking
-- `/status` — show project status
-- `/update-memory` — log a decision, lesson, or preference
-- `/end-session` — wrap up the current session
-- `/create-skill` — create a reusable local skill
-- `/new-project` — scaffold a blank project (choose framework, create structure)
-- `/ux-design` — define your product's design direction (personas, brand, visual identity)
-- `/offer-strategy` — build a Grand Slam Offer (value stack, bonuses, guarantee, pricing)
-- `/lead-strategy` — define lead generation channels, lead magnets, and outreach
-- `/capture-target` — capture design data from a live site
-- `/recreate-site` — rebuild a site from captured data
-- `/compare-site` — fix an existing build against captured target data
-```
+Search for and **remove** any existing sections whose headers contain "Start Here", "Core Rules", "Rules", or "Available Commands" (case-insensitive). Then copy the "Start Here", "Core Rules", and "Available Commands" sections from the template and add them **at the very top**, before any remaining content.
 
 Keep all existing content (Project Overview, Tech Stack, etc.) intact below these sections.
 
@@ -185,7 +153,7 @@ Tell the user:
 ✅ Antigravity installed/updated to v5!
 
 Installed:
-- 16 slash command workflows
+- 13 slash command workflows
 - 6 skills (planning, ux-design, offer-strategy, lead-strategy, voice-notes-triage, visual-qa)
 - Core rules and Available Commands updated
 - NEW: /capture-target — capture design data from live sites

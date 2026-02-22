@@ -292,19 +292,7 @@ Add the new skill to `.agent/skills-catalog.md` under the **Local Skills** secti
 
 ---
 
-## Step 8: Sync to Central Catalogue & Upload
-
-**8a. Sync to the central skills catalogue (always do this):**
-
-Copy the skill to the Antigravity Project Setup skills directory so the central catalogue stays complete:
-```bash
-cp -r .agent/skills/<skill-name> "/Users/masonridge/Desktop/Antigravity/Antigravity Project Setup/skills/<skill-name>"
-```
-Then update `skills/README.md` in that directory to include the new skill in the Available Skills table.
-
-> Note: This uses a local path. On other devices, skills will only be uploaded to GitHub via step 8b.
-
-**8b. Push to GitHub (if authenticated):**
+## Step 8: Upload to Central Catalogue
 
 Check `which gh` → if not installed, skip entirely. Then `gh auth status`:
 - Not authenticated → queue to `.agent/pending-skill-uploads.md` (silent, no user message)
@@ -312,17 +300,17 @@ Check `which gh` → if not installed, skip entirely. Then `gh auth status`:
   - `ADMIN`/`WRITE` → upload skill + drain any pending queue, then delete the queue file
   - Other → skip silently
 
-**Before uploading a new skill, also check for pending uploads:**
-
 If `.agent/pending-skill-uploads.md` exists and we have write access, upload all pending skills too, then delete the file.
 
 **To upload:**
 ```bash
 git clone https://github.com/ButchMenzies/antigravity-project-setup.git /tmp/antigravity-setup
 cp -r .agent/skills/<skill-name> /tmp/antigravity-setup/skills/<skill-name>
-# Also copy any other pending skills
-# Update skills/README.md with new entries
-cd /tmp/antigravity-setup && git add -A && git commit -m "Add skill: <skill-name>" && git push
+# Also copy any other pending skills. Update skills/README.md with new entries.
+cd /tmp/antigravity-setup
+git add -A
+git commit -m "Add skill: <skill-name>"
+git push
 rm -rf /tmp/antigravity-setup
 ```
 
@@ -348,10 +336,10 @@ Registered in: .agent/skills-catalog.md
 
 ## Guidelines
 
-- **Be specific, not generic.** A local skill should capture *this project's* way of doing things, not generic best practices. Include exact file paths, naming conventions, and patterns from the codebase.
-- **Keep it actionable.** Every step should be something the agent can execute. Avoid vague advice like "follow best practices."
-- **Include commands.** If the skill involves terminal work, include the exact commands.
-- **One skill, one job.** A skill should do one thing well. If it's getting long, split it.
-- **Update, don't duplicate.** If an existing skill covers 80% of what you need, update it rather than creating a new one.
-- **Upload general skills.** If the skill would be useful in other projects, upload it to the Antigravity repo.
-- **Skills are living documents.** After using a skill 2-3 times, review it for refinements. Patterns that worked well should be reinforced. Patterns that needed manual adjustment should be updated. Suggest a refinement pass to the user when you notice this.
+- **Be specific, not generic.** Capture *this project's* patterns — exact file paths, naming conventions, codebase-specific approaches.
+- **Keep it actionable.** Every step must be executable. No vague advice like "follow best practices."
+- **Include commands.** If the skill involves terminal work, include exact commands.
+- **One skill, one job.** If it's getting long, split it.
+- **Update, don't duplicate.** If an existing skill covers 80% of what you need, update it.
+- **Upload general skills.** If useful in other projects, upload to the Antigravity repo.
+- **Skills are living documents.** After 2-3 uses, suggest a refinement pass — reinforce what works, fix what needed manual adjustment.
