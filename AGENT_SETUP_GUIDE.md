@@ -3,7 +3,7 @@
 > **Paste this into any project chat.** Handles fresh installs and updates automatically.
 > Sources everything from GitHub — works on any device.
 
-**Latest version: 6** (2026-02-22)
+**Latest version: 7** (2026-02-27)
 
 ---
 
@@ -14,11 +14,11 @@ cat .agent/version 2>/dev/null || echo "none"
 ls .agent/AGENT.md 2>/dev/null
 ```
 
-### If version = 6 → **ALREADY CURRENT**
+### If version = 7 → **ALREADY CURRENT**
 
 Read `.agent/AGENT.md` and `.agent/memory.md`, then proceed with the user's request. You are done with this guide.
 
-### If version = 1, 2, 3, 4, or "none" with `.agent/AGENT.md` → **NEEDS UPDATE**
+### If version = 1, 2, 3, 4, 5, 6, or "none" with `.agent/AGENT.md` → **NEEDS UPDATE**
 
 Proceed to Step 2. Existing data will be preserved.
 
@@ -60,7 +60,7 @@ git clone --depth 1 https://github.com/ButchMenzies/antigravity-project-setup.gi
 **Step B — Copy workflows and skills:**
 ```bash
 cp /tmp/ag-setup/.agent/workflows/*.md .agent/workflows/
-rm -f .agent/workflows/setup.md .agent/workflows/new-project.md .agent/workflows/update-guide.md .agent/workflows/critical-analysis.md
+rm -f .agent/workflows/setup.md .agent/workflows/new-project.md .agent/workflows/update-guide.md .agent/workflows/critical-analysis.md .agent/workflows/brainstorm.md
 cp /tmp/ag-setup/skills/planning/SKILL.md .agent/skills/planning/SKILL.md
 cp /tmp/ag-setup/skills/ux-design/SKILL.md .agent/skills/ux-design/SKILL.md
 cp -r /tmp/ag-setup/skills/offer-strategy/* .agent/skills/offer-strategy/
@@ -136,30 +136,25 @@ For each skill beyond the standard set (planning, ux-design, offer-strategy, lea
 
 Write the version file:
 
-```bash
-echo "6" > .agent/version
-```
+echo "7" > .agent/version
 
 Add to `.agent/memory.md` under Session Log:
 
 ```markdown
-### [TODAY'S DATE] Antigravity updated to v6
-**Changes**: Restructured onboarding — extracted templates (AGENT-code.md, AGENT-workspace.md), added workspace project support, synced commands/skills across all paths. See CHANGELOG: https://github.com/ButchMenzies/antigravity-project-setup/blob/main/CHANGELOG.md
+### [TODAY'S DATE] Antigravity updated to v7
+**Changes**: Added `/brainstorm` workflow to support early-stage conceptual planning before task implementation. See CHANGELOG: https://github.com/ButchMenzies/antigravity-project-setup/blob/main/CHANGELOG.md
 ```
 
 Tell the user:
 
 ```
-✅ Antigravity installed/updated to v6!
+✅ Antigravity installed/updated to v7!
 
 Installed:
-- 13 slash command workflows
+- 14 slash command workflows
 - 6 skills (planning, ux-design, offer-strategy, lead-strategy, voice-notes-triage, visual-qa)
 - Core rules and Available Commands updated
-- NEW: /capture-target — capture design data from live sites
-- NEW: /recreate-site — rebuild a site from captured data in any tech stack
-- NEW: /compare-site — fix an existing build against captured target data
-- NEW: visual-qa skill — shared engine for applying design data to code
+- NEW: /brainstorm — back-and-forth discussion to explore conceptual ideas and refine requirements
 
 **⚠️ Action Required: Close and reopen the project.**
 The IDE needs to re-scan to discover the new slash commands.

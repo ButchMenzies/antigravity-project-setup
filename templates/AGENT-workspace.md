@@ -17,6 +17,7 @@
 8. **Research discipline**: When researching a topic, cite sources. Distinguish between facts, informed opinions, and speculation. Flag assumptions clearly.
 
 ## Available Commands
+- `/brainstorm` — brainstorming session (ideas, requirements, conceptual)
 - `/new-track` — plan a new piece of work
 - `/edit` — revise a plan before implementing
 - `/implement` — execute a plan with progress tracking

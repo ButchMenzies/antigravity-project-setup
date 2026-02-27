@@ -25,6 +25,7 @@
 9. **Dev server port**: Always use the port from "Local Development" in this file. Pass it explicitly when starting the dev server (e.g. `--port`, `-p`, or `PORT=` — use the right flag for your framework). Before starting, check if the port is free: `lsof -i :<port> | head -5`. If occupied by a previous dev server (e.g. `node`), ask the user if you should kill it. If occupied by something else, tell the user — don't silently use another port.
 
 ## Available Commands
+- `/brainstorm` — brainstorming session (ideas, requirements, conceptual)
 - `/new-track` — plan a new piece of work
 - `/edit` — revise a plan before implementing
 - `/implement` — execute a plan with progress tracking

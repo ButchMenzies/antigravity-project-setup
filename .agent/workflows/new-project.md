@@ -170,7 +170,7 @@ git clone --depth 1 https://github.com/ButchMenzies/antigravity-project-setup.gi
 ```bash
 mkdir -p .agent/workflows .agent/skills/planning .agent/skills/ux-design .agent/skills/offer-strategy .agent/skills/lead-strategy .agent/skills/voice-notes-triage .agent/skills/visual-qa
 cp /tmp/ag-setup/.agent/workflows/*.md .agent/workflows/
-rm -f .agent/workflows/setup.md .agent/workflows/new-project.md .agent/workflows/update-guide.md .agent/workflows/critical-analysis.md
+rm -f .agent/workflows/setup.md .agent/workflows/new-project.md .agent/workflows/update-guide.md .agent/workflows/critical-analysis.md .agent/workflows/brainstorm.md
 cp /tmp/ag-setup/skills/planning/SKILL.md .agent/skills/planning/SKILL.md
 cp /tmp/ag-setup/skills/ux-design/SKILL.md .agent/skills/ux-design/SKILL.md
 cp -r /tmp/ag-setup/skills/offer-strategy/* .agent/skills/offer-strategy/

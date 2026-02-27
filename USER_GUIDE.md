@@ -41,6 +41,10 @@ Type `/` in the chat to see all available commands. Here's what each one does:
 **When**: First time setting up a project  
 **What it does**: Asks you questions about the project, scans the codebase, discovers relevant skills, and populates all project files. This runs as part of the initial setup guide — it's not a slash command you'll see in the menu.
 
+### `/brainstorm` — Conceptual Ideas
+**When**: Before you know exactly what you want to build
+**What it does**: A back-and-forth discussion to explore ideas, refine requirements, and define constraints without writing any code. The agent will push back on generic ideas to ensure a solid concept.
+
 ### `/new-track` — Plan New Work
 **When**: Starting a new feature, bug fix, or refactor  
 **What it does**: Guides you through defining what to build, then creates a phased plan with tasks. Always do this before the agent starts coding — it prevents the agent from going off in the wrong direction.
