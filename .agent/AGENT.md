@@ -64,7 +64,9 @@ Antigravity Project Setup/
 │   ├── skills/
 │   │   ├── create-skill/       # Meta-skill
 │   │   └── visual-qa/          # Visual QA & design audit engine
-│   └── workflows/              # Slash commands (16 total — source of truth)
+│   └── workflows/              # Slash commands (19 total — source of truth)
+│       ├── brainstorm.md       # Full brainstorming session
+│       ├── brainstorm-lite.md  # Mid-work brainstorm (stop and think)
 │       ├── setup.md
 │       ├── new-project.md
 │       ├── new-track.md
@@ -81,7 +83,9 @@ Antigravity Project Setup/
 │       ├── recreate-site.md    # Visual QA: build from captured data
 │       └── compare-site.md     # Visual QA: fix build against target
 ├── templates/                  # Templates copied into new projects
-│   ├── AGENT.md                # Starter AGENT.md
+│   ├── AGENT.md                # Starter AGENT.md (copy of AGENT-code.md)
+│   ├── AGENT-code.md           # Core rules for code projects
+│   ├── AGENT-workspace.md      # Core rules for workspace projects
 │   ├── memory.md               # Starter memory.md
 │   └── skills-catalog.md       # Starter skills catalog
 └── updates/                    # Update documents for existing projects

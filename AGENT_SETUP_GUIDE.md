@@ -3,7 +3,7 @@
 > **Paste this into any project chat.** Handles fresh installs and updates automatically.
 > Sources everything from GitHub — works on any device.
 
-**Latest version: 7** (2026-02-27)
+**Latest version: 8** (2026-03-01)
 
 ---
 
@@ -14,11 +14,11 @@ cat .agent/version 2>/dev/null || echo "none"
 ls .agent/AGENT.md 2>/dev/null
 ```
 
-### If version = 7 → **ALREADY CURRENT**
+### If version = 8 → **ALREADY CURRENT**
 
 Read `.agent/AGENT.md` and `.agent/memory.md`, then proceed with the user's request. You are done with this guide.
 
-### If version = 1, 2, 3, 4, 5, 6, or "none" with `.agent/AGENT.md` → **NEEDS UPDATE**
+### If version = 1, 2, 3, 4, 5, 6, 7, or "none" with `.agent/AGENT.md` → **NEEDS UPDATE**
 
 Proceed to Step 2. Existing data will be preserved.
 
@@ -60,7 +60,7 @@ git clone --depth 1 https://github.com/ButchMenzies/antigravity-project-setup.gi
 **Step B — Copy workflows and skills:**
 ```bash
 cp /tmp/ag-setup/.agent/workflows/*.md .agent/workflows/
-rm -f .agent/workflows/setup.md .agent/workflows/new-project.md .agent/workflows/update-guide.md .agent/workflows/critical-analysis.md .agent/workflows/brainstorm.md
+rm -f .agent/workflows/setup.md .agent/workflows/new-project.md .agent/workflows/update-guide.md .agent/workflows/critical-analysis.md
 cp /tmp/ag-setup/skills/planning/SKILL.md .agent/skills/planning/SKILL.md
 cp /tmp/ag-setup/skills/ux-design/SKILL.md .agent/skills/ux-design/SKILL.md
 cp -r /tmp/ag-setup/skills/offer-strategy/* .agent/skills/offer-strategy/
@@ -136,25 +136,26 @@ For each skill beyond the standard set (planning, ux-design, offer-strategy, lea
 
 Write the version file:
 
-echo "7" > .agent/version
+echo "8" > .agent/version
 
 Add to `.agent/memory.md` under Session Log:
 
 ```markdown
-### [TODAY'S DATE] Antigravity updated to v7
-**Changes**: Added `/brainstorm` workflow to support early-stage conceptual planning before task implementation. See CHANGELOG: https://github.com/ButchMenzies/antigravity-project-setup/blob/main/CHANGELOG.md
+### [TODAY'S DATE] Antigravity updated to v8
+**Changes**: Added `/brainstorm-lite` workflow for mid-work brainstorming (stop building, think first). `/brainstorm` now installed for full brainstorming sessions. Core Rule added: agent auto-enters brainstorm mode when user signals "think this through". See CHANGELOG: https://github.com/ButchMenzies/antigravity-project-setup/blob/main/CHANGELOG.md
 ```
 
 Tell the user:
 
 ```
-✅ Antigravity installed/updated to v7!
+✅ Antigravity installed/updated to v8!
 
 Installed:
-- 14 slash command workflows
+- 15 slash command workflows
 - 6 skills (planning, ux-design, offer-strategy, lead-strategy, voice-notes-triage, visual-qa)
 - Core rules and Available Commands updated
-- NEW: /brainstorm — back-and-forth discussion to explore conceptual ideas and refine requirements
+- NEW: /brainstorm — full brainstorming sessions (ideas, requirements, conceptual)
+- NEW: /brainstorm-lite — mid-work brainstorm (stop building, think before changing)
 
 **⚠️ Action Required: Close and reopen the project.**
 The IDE needs to re-scan to discover the new slash commands.

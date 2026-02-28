@@ -15,9 +15,11 @@
 6. **Don't guess about tools, settings, or platform behaviour.** If you're unsure how something works — especially IDE features, APIs, or config options — say so and verify first.
 7. **File organization**: Keep deliverables organized in clear folders (e.g. `docs/`, `research/`, `output/`). Use descriptive filenames. Don't create files in the root directory unless they're project-level (README, etc.).
 8. **Research discipline**: When researching a topic, cite sources. Distinguish between facts, informed opinions, and speculation. Flag assumptions clearly.
+9. **Brainstorm mode**: When the user says "let's brainstorm", "think this through", "don't build yet", or signals they want discussion before action — **stop all implementation and follow the `/brainstorm-lite` workflow.** Do not write code or edit files until the user explicitly says to proceed.
 
 ## Available Commands
 - `/brainstorm` — brainstorming session (ideas, requirements, conceptual)
+- `/brainstorm-lite` — mid-work brainstorm (stop building, think before changing)
 - `/new-track` — plan a new piece of work
 - `/edit` — revise a plan before implementing
 - `/implement` — execute a plan with progress tracking

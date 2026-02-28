@@ -23,8 +23,11 @@
    - **Maximum 2 status checks on any background command.** After that, terminate and tell the user.
 8. **Browser & URLs**: When testing with the browser tool, always share the dev URL with the user afterward so they can check in their own browser. Format: `🔗 Dev server: http://localhost:<port>`
 9. **Dev server port**: Always use the port from "Local Development" in this file. Pass it explicitly when starting the dev server (e.g. `--port`, `-p`, or `PORT=` — use the right flag for your framework). Before starting, check if the port is free: `lsof -i :<port> | head -5`. If occupied by a previous dev server (e.g. `node`), ask the user if you should kill it. If occupied by something else, tell the user — don't silently use another port.
+10. **Brainstorm mode**: When the user says "let's brainstorm", "think this through", "don't build yet", or signals they want discussion before action — **stop all implementation and follow the `/brainstorm-lite` workflow.** Do not write code or edit files until the user explicitly says to proceed.
 
 ## Available Commands
+- `/brainstorm` — brainstorming session (ideas, requirements, conceptual)
+- `/brainstorm-lite` — mid-work brainstorm (stop building, think before changing)
 - `/new-track` — plan a new piece of work
 - `/edit` — revise a plan before implementing
 - `/implement` — execute a plan with progress tracking
