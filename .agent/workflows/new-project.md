@@ -10,6 +10,24 @@ Scaffold a new project from a blank folder. Handles scaffolding, Antigravity boo
 
 ---
 
+## Phase 0: Brainstorm Gate
+
+**Q0: Ready or brainstorm?** — "Do you already know what you're building, or would you like to brainstorm first?"
+
+1. **I know what I'm building** → proceed to Phase 1
+2. **I'd like to brainstorm first** → run `/brainstorm` inline
+
+**Wait for user response before proceeding.**
+
+If the user chooses to brainstorm:
+- Run `/brainstorm` as-is — do not modify its rules or steer the conversation toward setup questions
+- **Skip brainstorm's pre-flight** (steps 1–2) — `.agent/AGENT.md` and `.agent/memory.md` don't exist yet in an empty folder. Jump straight to the conversation
+- When the brainstorm concludes naturally (user signals they're ready to proceed), **seamlessly transition** into Phase 1
+- Use all context gathered during the brainstorm to **pre-fill and skip** Phase 1 questions where possible — the Q&A should feel lighter, not repetitive
+- Do not announce the transition. The user should experience one continuous conversation, not two separate processes
+
+---
+
 ## Phase 1: Plan & Scaffold
 
 ### Project Type (Q1)
