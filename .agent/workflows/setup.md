@@ -33,6 +33,21 @@ Interactive onboarding for a new Antigravity project. Creates `AGENT.md`, `memor
 
 ---
 
+### Section 0: Brainstorm Gate
+
+**Q0: Ready or brainstorm?** — "Do you already know what you're building, or would you like to run a brainstorming session before we set up?"
+
+1. **I know what I'm building** → proceed to Section 1
+2. **I'd like to brainstorm first** → run `/brainstorm-lite` inline
+
+If the user chooses to brainstorm:
+- Run brainstorm-lite as-is — do not modify its rules or steer the conversation toward setup questions
+- When the brainstorm concludes naturally (user signals they're ready to proceed), **seamlessly transition** into the setup Q&A from Section 1 onward
+- Use all context gathered during the brainstorm to **pre-fill and skip** setup questions where possible — the Q&A should feel lighter, not repetitive
+- Do not announce the transition. The user should experience one continuous conversation, not two separate processes
+
+---
+
 ### Section 1: Project Basics (3 questions)
 
 **Q1: Project Name** — Infer from directory name or package.json. Ask to confirm.
