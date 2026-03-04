@@ -239,10 +239,47 @@ Use `templates/memory.md` as the base. Set work style from Q4/Q4W and add today'
 
 ### Conductor (long-term projects only)
 
-If scope = long-term (Q4/Q4W), create `conductor/` with: `product.md`, `tech-stack.md` (code) or `strategy.md` (workspace), `workflow.md`, `tracks.md`. Populate from Q&A answers.
+If scope = long-term (Q4/Q4W), create `conductor/` with project management artifacts:
 
 ```bash
 mkdir -p conductor/tracks
+```
+
+Create these files:
+- **`conductor/product.md`** — product context (from Q1/Q2 answers)
+- **`conductor/tech-stack.md`** (code) or **`conductor/strategy.md`** (workspace) — technical or strategic decisions
+- **`conductor/roadmap.md`** — phased project plan with progressive detail
+- **`conductor/notes.md`** — user scratchpad for mid-session ideas
+
+#### Roadmap Format
+
+Populate from brainstorm output (Phase 0) if available, otherwise from Q&A context:
+
+```markdown
+# Project Roadmap
+
+## Phase 1: [Name] 🔄
+- [ ] [Concrete task or deliverable]
+- [ ] [Concrete task or deliverable]
+- [ ] [Concrete task or deliverable]
+
+## Phase 2: [Name]
+- [Outlined item]
+- [Outlined item]
+
+## Phase 3: [Name]
+- [Sketched idea]
+- [Sketched idea]
+```
+
+Use **progressive detail**: Phase 1 has concrete checkboxes, later phases get increasingly vague (just bullet points, no checkboxes). Mark Phase 1 with 🔄 (active).
+
+#### Notes Format
+
+```markdown
+# Notes
+
+> Drop ideas, questions, or reminders here. These will be reviewed during `/end-session`.
 ```
 
 ### Final Commit

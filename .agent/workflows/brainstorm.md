@@ -12,7 +12,8 @@ Have a back-and-forth discussion with the user to explore ideas, refine requirem
 
 1. Read `.agent/AGENT.md` for project context and tech stack.
 2. Read `.agent/memory.md` for recent decisions or lessons that might inform the brainstorm.
-3. Determine if you're exploring a specific feature, solving a problem, or starting something completely new.
+3. If `conductor/roadmap.md` exists, read it — understand the current state of the project and what phases exist.
+4. Determine if you're exploring a specific feature, solving a problem, or starting something completely new.
 
 ## Rules of Engagement
 
@@ -50,9 +51,17 @@ The workflow **ONLY ends** when the user explicitly says something functionally 
 
 When the user triggers the end of the brainstorm:
 
-1. Write the finalized, agreed-upon concept to `.agent/current-plan.md` in a structured format (incorporating the refined requirements, goals, and constraints).
-2. If temporary notes were kept in `.agent/brainstorm-notes.md`, you may delete them or consolidate them into the plan.
-3. Suggest the user run one of the following commands based on their request:
+1. **If `conductor/` exists** — update `conductor/roadmap.md`:
+   - If the brainstorm defined new phases, add them to the roadmap with progressive detail (concrete for near-term, sketched for later)
+   - If the brainstorm refined existing phases, update those phases in place
+   - Insert new phases at the appropriate position (not always at the end)
+   - Also write a summary to `.agent/current-plan.md` for immediate reference
+
+2. **If no `conductor/`** — write the finalized concept to `.agent/current-plan.md` in a structured format (incorporating the refined requirements, goals, and constraints).
+
+3. If temporary notes were kept in `.agent/brainstorm-notes.md`, consolidate them into the plan/roadmap and delete the notes file.
+
+4. Suggest the user run one of the following commands based on their request:
    - `→ /new-track` (if they want to formalize the brainstorm into structured phases/tasks)
    - `→ /implement` (if the resulting plan is already structured and ready to go)
    - `→ /ux-design` (if the brainstorm revealed that deeper UX work is needed first)

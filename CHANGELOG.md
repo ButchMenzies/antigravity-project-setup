@@ -4,6 +4,25 @@ All notable changes to the Antigravity agent system.
 
 ---
 
+## v9 — 2026-03-05
+
+### Added
+- **Roadmap & phase planning system** — `conductor/roadmap.md` provides a phased master plan with progressive detail (Phase 1 concrete, later phases sketched)
+- **Notes scratchpad** — `conductor/notes.md` lets users drop ideas mid-session without derailing implementation; notes are processed during `/end-session`
+
+### Changed
+- `/new-track` — **rewritten** with roadmap situational awareness (3 states: active phase incomplete, next phase ready, no roadmap), brainstorm gate before planning, phase-scoped Q&A
+- `/end-session` — new Step 1 processes `conductor/notes.md` (discuss, fold into roadmap, or discard); new Step 4 updates `conductor/roadmap.md` progress (✅/🔄 markers)
+- `/brainstorm` — handoff protocol is now context-aware: updates `conductor/roadmap.md` if conductor exists, falls back to `.agent/current-plan.md` otherwise
+- `/implement` — new Step 6a updates roadmap when a full phase completes
+- `/status` — shows roadmap overview (phase names + completion status) and pending notes count
+- `/new-project` Phase 3 — conductor section now creates `roadmap.md` + `notes.md` with format templates
+- `/setup` Section 8 — conductor section now creates `roadmap.md` + `notes.md`
+- Core Rule 1 in both AGENT templates — now references `conductor/roadmap.md` as primary plan location
+- `AGENT_SETUP_GUIDE.md` — bumped to v9
+
+---
+
 ## v5 — 2026-02-19
 
 ### Added

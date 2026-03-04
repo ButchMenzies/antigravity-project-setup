@@ -3,7 +3,7 @@
 > **Paste this into any project chat.** Handles fresh installs and updates automatically.
 > Sources everything from GitHub — works on any device.
 
-**Latest version: 8** (2026-03-01)
+**Latest version: 9** (2026-03-05)
 
 ---
 
@@ -14,11 +14,11 @@ cat .agent/version 2>/dev/null || echo "none"
 ls .agent/AGENT.md 2>/dev/null
 ```
 
-### If version = 8 → **ALREADY CURRENT**
+### If version = 9 → **ALREADY CURRENT**
 
 Read `.agent/AGENT.md` and `.agent/memory.md`, then proceed with the user's request. You are done with this guide.
 
-### If version = 1, 2, 3, 4, 5, 6, 7, or "none" with `.agent/AGENT.md` → **NEEDS UPDATE**
+### If version = 1, 2, 3, 4, 5, 6, 7, 8, or "none" with `.agent/AGENT.md` → **NEEDS UPDATE**
 
 Proceed to Step 2. Existing data will be preserved.
 
@@ -136,26 +136,29 @@ For each skill beyond the standard set (planning, ux-design, offer-strategy, lea
 
 Write the version file:
 
-echo "8" > .agent/version
+echo "9" > .agent/version
 
 Add to `.agent/memory.md` under Session Log:
 
 ```markdown
-### [TODAY'S DATE] Antigravity updated to v8
-**Changes**: Added `/brainstorm-lite` workflow for mid-work brainstorming (stop building, think first). `/brainstorm` now installed for full brainstorming sessions. Core Rule added: agent auto-enters brainstorm mode when user signals "think this through". See CHANGELOG: https://github.com/ButchMenzies/antigravity-project-setup/blob/main/CHANGELOG.md
+### [TODAY'S DATE] Antigravity updated to v9
+**Changes**: Added roadmap & phase planning system. `conductor/roadmap.md` provides a phased master plan with progressive detail. `conductor/notes.md` is a user scratchpad processed during `/end-session`. `/new-track` now consults the roadmap for situational awareness. `/end-session` updates roadmap progress and processes notes. `/brainstorm` handoff is context-aware (updates roadmap if conductor exists). See CHANGELOG: https://github.com/ButchMenzies/antigravity-project-setup/blob/main/CHANGELOG.md
 ```
 
 Tell the user:
 
 ```
-✅ Antigravity installed/updated to v8!
+✅ Antigravity installed/updated to v9!
 
 Installed:
 - 15 slash command workflows
 - 6 skills (planning, ux-design, offer-strategy, lead-strategy, voice-notes-triage, visual-qa)
 - Core rules and Available Commands updated
-- NEW: /brainstorm — full brainstorming sessions (ideas, requirements, conceptual)
-- NEW: /brainstorm-lite — mid-work brainstorm (stop building, think before changing)
+- NEW: Roadmap & phase planning system (conductor/roadmap.md)
+- NEW: Notes scratchpad (conductor/notes.md)
+- UPDATED: /new-track — consults roadmap, brainstorm gate, phase-aware planning
+- UPDATED: /end-session — processes notes, updates roadmap progress
+- UPDATED: /brainstorm — context-aware handoff (updates roadmap)
 
 **⚠️ Action Required: Close and reopen the project.**
 The IDE needs to re-scan to discover the new slash commands.

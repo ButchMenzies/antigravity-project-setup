@@ -91,6 +91,19 @@ Antigravity Project Setup/
 └── updates/                    # Update documents for existing projects
 ```
 
+**Conductor structure** (created in user projects with long-term scope):
+```
+conductor/
+├── roadmap.md          # Phased project plan (progressive detail, status emojis)
+├── product.md          # Product context
+├── tech-stack.md       # Tech decisions (code) or strategy.md (workspace)
+├── notes.md            # User scratchpad — processed during /end-session
+└── tracks/
+    └── [phase-name]/
+        ├── spec.md     # Detailed spec from /new-track Q&A
+        └── plan.md     # Implementation plan with tasks
+```
+
 ## Maintenance Tasks
 
 When modifying this project:

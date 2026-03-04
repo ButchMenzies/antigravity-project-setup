@@ -7,7 +7,7 @@
 4. **If slash commands (like /status) don't appear in the autocomplete**, close and reopen the project.
 
 ## ⚠️ Core Rules (Always Apply)
-1. **Before implementation**: Read the plan if one exists (check `.agent/current-plan.md` or `conductor/tracks/`)
+1. **Before implementation**: Read the plan if one exists (check `conductor/roadmap.md`, `conductor/tracks/`, or `.agent/current-plan.md`)
 2. **Before starting any task**: Scan `.agent/skills/` — read the SKILL.md of any skill relevant to the work
 3. **After completing a feature/fix**: Update `memory.md` — run `/update-memory`. **Do not skip this.**
 4. **Before ending a session**: Run `/end-session` to wrap up. **Do not end a session without updating memory.**

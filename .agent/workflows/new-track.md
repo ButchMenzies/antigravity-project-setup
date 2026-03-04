@@ -4,60 +4,106 @@ description: Plan a new piece of work — creates spec and phased implementation
 
 # New Track
 
-Create a spec and implementation plan for a new piece of work before coding begins.
+Plan work for the next phase of the project. If a roadmap exists, this workflow picks up where you left off. Otherwise, it plans from scratch.
 
 ## Pre-flight
 
 1. Read `.agent/AGENT.md` for project context and tech stack
-2. Check if `conductor/tracks/` exists — if so, read `conductor/tracks.md` for active tracks
+2. Read `.agent/memory.md` for recent decisions and last session's log entry
 3. **Read `.agent/skills/planning/SKILL.md`** — apply planning principles throughout this workflow
-4. Check `.agent/skills/` for other skills relevant to this type of work (especially `planning-*` project-specific skills)
+4. Check `.agent/skills/` for other skills relevant to this type of work
 5. **If the track involves UI work**: check if `.agent/ux/` exists. If yes, read `persona.md` and `design-direction.md` to inform the spec. If no, suggest running `/ux-design` first.
 
-## Track Classification
+---
 
-Ask the user (or infer from their description):
+## Step 1: Situational Awareness
+
+Check for `conductor/roadmap.md`. If it exists, read it. Determine which state you're in:
+
+### State A: Active phase is incomplete
+
+A phase marked with 🔄 has tasks remaining.
 
 ```
-What type of work is this?
+I see Phase [N]: [Name] is still in progress.
 
-1. Feature — new functionality
-2. Bug — fix for an existing issue
-3. Chore — maintenance, dependencies, config
-4. Refactor — code improvement without behavior change
+Progress: [completed]/[total] items done.
+Remaining:
+- [list remaining items]
+
+Options:
+1. Continue this phase — I'll set up a track for the remaining work
+2. Start a different phase from the roadmap
+3. Work on something not on the roadmap
 ```
 
-## Interactive Specification
+**Wait for user response.**
+
+### State B: Previous phase complete, next phase available
+
+The last 🔄 phase is done (or all items checked), and there's a next phase without ✅.
+
+```
+Phase [N-1]: [Name] is complete ✅
+Next on the roadmap is Phase [N]: [Name]
+
+It currently has these items:
+- [list items from roadmap]
+
+Options:
+1. Plan this phase — let's flesh it out
+2. Pick a different phase
+3. Work on something not on the roadmap
+```
+
+**Wait for user response.**
+
+### State C: No roadmap exists
+
+Fall through to Step 2 (brainstorm gate) and Step 3 (interactive spec) as normal.
+
+---
+
+## Step 2: Brainstorm Gate
+
+Before detailed planning, ask:
+
+```
+Do you want to brainstorm this phase first, or do you already know what needs to happen?
+
+1. Let's brainstorm — run /brainstorm-lite inline
+2. I know what we need — let's plan it
+```
+
+**Wait for user response.**
+
+If brainstorm: run `/brainstorm-lite` inline. When it concludes, use the output to inform the spec below. Transition seamlessly — don't announce it.
+
+---
+
+## Step 3: Interactive Specification
 
 **CRITICAL RULES:**
 - Ask **ONE question per turn**
 - Wait for user response before proceeding
+- If the roadmap or brainstorm already answered a question, **skip it** — don't re-ask
 - If the user already described the work, extract answers and confirm rather than re-asking
 
-### For Features (max 5 questions)
+### Q1: What are we building?
 
-**Q1: What are we building?**
+Skip if the roadmap phase already defines this clearly. Otherwise:
+
 ```
 Describe the feature in one sentence.
-[If user already described it, confirm]: "So we're building [X] — is that right?"
+[If context exists]: "So we're building [X] — is that right?"
 ```
 
-**Q2: User story**
+### Q2: Acceptance criteria
+
 ```
-Who is this for and what do they need?
+How will we know it's done? Key requirements:
 
-As a [user type], I want to [action] so that [benefit].
-
-Suggested:
-1. [Infer from description]
-2. Type your own
-```
-
-**Q3: Acceptance criteria**
-```
-How will we know it's done? List the key requirements:
-
-Suggested based on description:
+Suggested based on [roadmap / brainstorm / description]:
 1. [Criterion 1]
 2. [Criterion 2]
 3. [Criterion 3]
@@ -65,7 +111,8 @@ Suggested based on description:
 Add, remove, or modify?
 ```
 
-**Q4: Technical approach**
+### Q3: Technical approach
+
 ```
 Any preferences on how to implement this?
 
@@ -74,61 +121,16 @@ Any preferences on how to implement this?
 3. Let's discuss options
 ```
 
-**Q5: Scope boundaries**
+### Q4: Scope boundaries
+
 ```
 Anything explicitly OUT of scope?
 
-1. [Suggest likely exclusions based on feature]
+1. [Suggest likely exclusions]
 2. Nothing specific — use your judgment
 ```
 
-### For Bugs (max 4 questions)
-
-**Q1: What's broken?**
-```
-Describe the bug. What should happen vs what actually happens?
-```
-
-**Q2: How to reproduce**
-```
-Steps to reproduce:
-1. [Infer from description or ask]
-```
-
-**Q3: Affected areas**
-```
-What parts of the system are affected?
-[Suggest based on description]
-```
-
-**Q4: Root cause hypothesis**
-```
-Any idea what's causing this? (Skip if unsure)
-```
-
-### For Chores/Refactors (max 3 questions)
-
-**Q1: What needs to be done?**
-```
-Describe the maintenance task or improvement.
-```
-
-**Q2: Why now?**
-```
-What's the motivation?
-1. Technical debt is slowing us down
-2. Dependency updates needed
-3. Performance improvement
-4. Code quality / readability
-```
-
-**Q3: Constraints**
-```
-Any constraints or risks?
-1. Must not break existing functionality
-2. Stay within current architecture
-3. [Other]
-```
+Skip any question where the answer is already obvious from context. The goal is a **lighter Q&A** when the roadmap provides direction.
 
 ---
 
@@ -140,7 +142,7 @@ After gathering the spec, generate a phased implementation plan:
 # Implementation Plan: [Title]
 
 ## Spec Summary
-[One paragraph from Q&A answers]
+[One paragraph from Q&A / roadmap / brainstorm]
 
 ## Acceptance Criteria
 - [ ] [From Q&A]
@@ -195,21 +197,18 @@ What would you like to do?
 
 **Always write the plan to disk.** Plans must survive across chat sessions.
 
-If `conductor/tracks/` exists, create:
+Create the track folder under `conductor/tracks/`:
 
 ```
-conductor/tracks/[trackId]/
+conductor/tracks/[phase-name]/
 ├── spec.md          # The spec from Q&A
-├── plan.md          # The implementation plan
-└── metadata.json    # Track metadata
+└── plan.md          # The implementation plan
 ```
 
-And add entry to `conductor/tracks.md`.
-
-If no conductor setup, write the plan to **`.agent/current-plan.md`**. This file is the default location for plans. Overwrite any existing plan (the previous plan should be complete or archived).
+If no `conductor/` exists, write the plan to **`.agent/current-plan.md`**.
 
 ## Error Handling
 
-- If user cancels mid-spec: Save what we have to `.agent/current-plan.md`, offer to resume later
+- If user cancels mid-spec: Save what we have, offer to resume later
 - If plan seems too large: Suggest splitting into multiple tracks
 - If context is unclear: Ask clarifying questions rather than assuming

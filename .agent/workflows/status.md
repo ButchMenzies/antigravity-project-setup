@@ -14,10 +14,29 @@ Read and summarize `.agent/AGENT.md`:
 - Project name and description
 - Tech stack
 
-### 2. Active Tracks
+### 2. Roadmap Overview
+
+If `conductor/roadmap.md` exists:
+- Read it and show phase-level summary:
+
+```
+🗺️ Roadmap
+
+✅ Phase 1: [Name] — complete
+🔄 Phase 2: [Name] — in progress ([X]/[Y] items)
+   Phase 3: [Name] — upcoming
+   Phase 4: [Name] — upcoming
+```
+
+If `conductor/notes.md` exists with content beyond the header:
+```
+📝 [N] pending notes in conductor/notes.md
+```
+
+### 3. Active Tracks
 
 If `conductor/tracks/` exists:
-- Read `conductor/tracks.md`
+- Read the active track's `plan.md`
 - For each active track, show:
 
 ```
@@ -39,7 +58,7 @@ If no conductor tracks:
 No tracks set up. Run /new-track to plan work.
 ```
 
-### 3. Recent Memory
+### 4. Recent Memory
 
 Read the last 3 entries from `.agent/memory.md`:
 ```
@@ -50,7 +69,7 @@ Read the last 3 entries from `.agent/memory.md`:
 - [Date] [Decision/Lesson]: [summary]
 ```
 
-### 4. Local Skills
+### 5. Local Skills
 
 List `.agent/skills/`:
 ```
@@ -60,7 +79,7 @@ List `.agent/skills/`:
 - [any others created]
 ```
 
-### 5. Suggested Actions
+### 6. Suggested Actions
 
 Based on current state, suggest next steps:
 

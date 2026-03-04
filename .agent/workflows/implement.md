@@ -87,7 +87,14 @@ Phase verification:
 
 **Run verification steps.** If verification fails, fix before moving on.
 
-### 6a. Re-evaluate the Next Phase (BEFORE proceeding)
+### 6a. Update Roadmap (if conductor exists)
+
+If `conductor/roadmap.md` exists and the completed phase corresponds to a roadmap phase:
+- Mark the phase as ✅ in the roadmap
+- Check off completed items within the phase
+- Move the 🔄 marker to the next incomplete phase
+
+### 6b. Re-evaluate the Next Phase (BEFORE proceeding)
 
 Before moving on, review and refine the upcoming phase:
 

@@ -127,9 +127,43 @@ If services detected, present them with recommended MCPs. Ask if user wants to s
 ### Section 8: Project Scope (all project types)
 
 "Is this a long-term project or a quick experiment?"
-1. **Long-term** — full project management (tracks, specs, plans) → create `conductor/` artifacts
+1. **Long-term** — full project management (roadmap, tracks, specs, plans) → create `conductor/` artifacts
 2. **Medium** — basics, nothing heavy → skip conductor
 3. **Quick experiment** — minimal → skip conductor
+
+If long-term, create `conductor/` with:
+
+```bash
+mkdir -p conductor/tracks
+```
+
+Create these files:
+- **`conductor/product.md`** — product context
+- **`conductor/tech-stack.md`** (code) or **`conductor/strategy.md`** (non-code) — technical or strategic decisions
+- **`conductor/roadmap.md`** — phased project plan with progressive detail
+- **`conductor/notes.md`** — user scratchpad for mid-session ideas
+
+Populate `roadmap.md` from brainstorm-lite output (Section 0) if available, otherwise create a skeleton:
+
+```markdown
+# Project Roadmap
+
+## Phase 1: [Name] 🔄
+- [ ] [Task or deliverable]
+
+## Phase 2: [Name]
+- [Outlined item]
+```
+
+Use **progressive detail**: Phase 1 has concrete checkboxes, later phases are vague bullet points. Mark Phase 1 with 🔄 (active).
+
+Create `notes.md` with:
+
+```markdown
+# Notes
+
+> Drop ideas, questions, or reminders here. These will be reviewed during `/end-session`.
+```
 
 ---
 
