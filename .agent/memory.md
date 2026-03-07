@@ -79,8 +79,8 @@
 
 ### 2026-03-07 Skill bundles per project type
 **Context**: Agent builds projects without domain-specific guidance, repeatedly forgetting RLS policies, duplicating components, skipping type regeneration. Skills existed but were ad-hoc and the agent had no mechanism to discover or invoke them at the right time.
-**Decision**: Created shared skill pool (`skills/shared/`) + bundle manifests (`skills/bundles/`) architecture. Skills are written once, bundled per project type, installed during `/new-project`, and invoked at `/new-track` planning time. Skills use structured frontmatter (`triggers`, `track_types`, `mcps`) for automatic matching. Three tiers: pure workflow, MCP-enhanced (graceful fallback), MCP-dependent.
-**Rationale**: Skills influence the plan, not execution — once baked into plan phases, they actually get followed. Shared pool eliminates duplication across project types. `/new-track` is the natural invocation point because the agent already knows the track type and hasn't started building yet.
+**Decision**: Created 14 shared development skills in `skills/` + 7 bundle manifests in `skills/bundles/`. All skills install everywhere via a `for` loop — the repo is the source of truth, not a hardcoded list. Bundles serve as documentation ("most relevant per project type"), not install filters. Skills use structured frontmatter (`triggers`, `track_types`) for automatic matching during `/new-track` planning.
+**Rationale**: Skills influence the plan, not execution — once baked into plan phases, they actually get followed. Install-all is simpler than selective install and future-proof (adding a skill to `skills/` means it auto-installs everywhere). `/new-track` is the natural invocation point because the agent already knows the track type and hasn't started building yet.
 
 ## Lessons Learned
 
