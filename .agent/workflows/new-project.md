@@ -186,14 +186,18 @@ git clone --depth 1 https://github.com/ButchMenzies/antigravity-project-setup.gi
 
 **Step 2 — Create directories and copy files:**
 ```bash
-mkdir -p .agent/workflows .agent/skills/planning .agent/skills/ux-design .agent/skills/offer-strategy .agent/skills/lead-strategy .agent/skills/voice-notes-triage .agent/skills/visual-qa
+mkdir -p .agent/workflows .agent/skills
 cp /tmp/ag-setup/.agent/workflows/*.md .agent/workflows/
 rm -f .agent/workflows/setup.md .agent/workflows/new-project.md .agent/workflows/update-guide.md .agent/workflows/critical-analysis.md
-cp /tmp/ag-setup/skills/planning/SKILL.md .agent/skills/planning/SKILL.md
-cp /tmp/ag-setup/skills/ux-design/SKILL.md .agent/skills/ux-design/SKILL.md
-cp -r /tmp/ag-setup/skills/offer-strategy/* .agent/skills/offer-strategy/
-cp -r /tmp/ag-setup/skills/lead-strategy/* .agent/skills/lead-strategy/
-cp /tmp/ag-setup/skills/voice-notes-triage/SKILL.md .agent/skills/voice-notes-triage/SKILL.md
+```
+
+```bash
+for skill in /tmp/ag-setup/skills/*/; do
+  name=$(basename "$skill")
+  case "$name" in bundles) continue;; esac
+  mkdir -p ".agent/skills/$name"
+  cp -r "$skill"* ".agent/skills/$name/"
+done
 cp /tmp/ag-setup/.agent/skills/visual-qa/SKILL.md .agent/skills/visual-qa/SKILL.md
 cp /tmp/ag-setup/templates/skills-catalog.md .agent/skills-catalog.md
 cp /tmp/ag-setup/templates/USER_GUIDE.md .agent/USER_GUIDE.md
@@ -299,7 +303,7 @@ git commit -m "Set up Antigravity agent"
 Created:
 - [framework/workspace] project
 - Slash command workflows
-- Planning skill
+- 20+ skills (planning, debugging, database, components, deployment, and more)
 - AGENT.md with project context
 - memory.md for session tracking
 [- conductor/ project management artifacts (if long-term)]

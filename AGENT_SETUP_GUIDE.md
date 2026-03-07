@@ -3,7 +3,7 @@
 > **Paste this into any project chat.** Handles fresh installs and updates automatically.
 > Sources everything from GitHub — works on any device.
 
-**Latest version: 9** (2026-03-05)
+**Latest version: 9** (2026-03-07)
 
 ---
 
@@ -43,7 +43,7 @@ ls *.* src/ app/ lib/ public/ 2>/dev/null
 ## Step 2: Create Directories
 
 ```bash
-mkdir -p .agent/workflows .agent/skills/planning .agent/skills/ux-design .agent/skills/offer-strategy .agent/skills/lead-strategy .agent/skills/voice-notes-triage .agent/skills/visual-qa
+mkdir -p .agent/workflows .agent/skills
 ```
 
 ---
@@ -61,11 +61,15 @@ git clone --depth 1 https://github.com/ButchMenzies/antigravity-project-setup.gi
 ```bash
 cp /tmp/ag-setup/.agent/workflows/*.md .agent/workflows/
 rm -f .agent/workflows/setup.md .agent/workflows/new-project.md .agent/workflows/update-guide.md .agent/workflows/critical-analysis.md
-cp /tmp/ag-setup/skills/planning/SKILL.md .agent/skills/planning/SKILL.md
-cp /tmp/ag-setup/skills/ux-design/SKILL.md .agent/skills/ux-design/SKILL.md
-cp -r /tmp/ag-setup/skills/offer-strategy/* .agent/skills/offer-strategy/
-cp -r /tmp/ag-setup/skills/lead-strategy/* .agent/skills/lead-strategy/
-cp /tmp/ag-setup/skills/voice-notes-triage/SKILL.md .agent/skills/voice-notes-triage/SKILL.md
+```
+
+```bash
+for skill in /tmp/ag-setup/skills/*/; do
+  name=$(basename "$skill")
+  case "$name" in bundles) continue;; esac
+  mkdir -p ".agent/skills/$name"
+  cp -r "$skill"* ".agent/skills/$name/"
+done
 cp /tmp/ag-setup/.agent/skills/visual-qa/SKILL.md .agent/skills/visual-qa/SKILL.md
 ```
 
@@ -112,9 +116,9 @@ Keep all existing content (Project Overview, Tech Stack, etc.) intact below thes
 ls .agent/skills/
 ```
 
-For each skill beyond the standard set (planning, ux-design, offer-strategy, lead-strategy, visual-qa):
+For any skills not already listed in `.agent/skills-catalog.md`:
 1. Read its SKILL.md
-2. Add to `.agent/skills-catalog.md` if not listed
+2. Add to `.agent/skills-catalog.md`
 
 ---
 
@@ -142,7 +146,7 @@ Add to `.agent/memory.md` under Session Log:
 
 ```markdown
 ### [TODAY'S DATE] Antigravity updated to v9
-**Changes**: Added roadmap & phase planning system. `conductor/roadmap.md` provides a phased master plan with progressive detail. `conductor/notes.md` is a user scratchpad processed during `/end-session`. `/new-track` now consults the roadmap for situational awareness. `/end-session` updates roadmap progress and processes notes. `/brainstorm` handoff is context-aware (updates roadmap if conductor exists). See CHANGELOG: https://github.com/ButchMenzies/antigravity-project-setup/blob/main/CHANGELOG.md
+**Changes**: Added 14 development skills (create-feature, fix-bug, database-change, build-component, build-page, create-endpoint, performance-audit, auth-flow, payments-stripe, seo-audit, api-design, deploy-vercel, deploy-railway, package-publish). Added roadmap & phase planning system (`conductor/roadmap.md`, `conductor/notes.md`). `/new-track` now has brainstorm gate, roadmap-aware situational awareness, and skills matched by frontmatter during planning. `/end-session` updates roadmap progress and processes notes. See CHANGELOG: https://github.com/ButchMenzies/antigravity-project-setup/blob/main/CHANGELOG.md
 ```
 
 Tell the user:
@@ -152,13 +156,12 @@ Tell the user:
 
 Installed:
 - 15 slash command workflows
-- 6 skills (planning, ux-design, offer-strategy, lead-strategy, voice-notes-triage, visual-qa)
+- 20+ skills (standard + development skills for features, debugging, database, components, deployment, and more)
 - Core rules and Available Commands updated
-- NEW: Roadmap & phase planning system (conductor/roadmap.md)
-- NEW: Notes scratchpad (conductor/notes.md)
-- UPDATED: /new-track — consults roadmap, brainstorm gate, phase-aware planning
+- NEW: 14 development skills auto-matched during /new-track planning
+- NEW: Roadmap & phase planning system (conductor/roadmap.md, conductor/notes.md)
+- UPDATED: /new-track — brainstorm gate, roadmap awareness, skill matching
 - UPDATED: /end-session — processes notes, updates roadmap progress
-- UPDATED: /brainstorm — context-aware handoff (updates roadmap)
 
 **⚠️ Action Required: Close and reopen the project.**
 The IDE needs to re-scan to discover the new slash commands.

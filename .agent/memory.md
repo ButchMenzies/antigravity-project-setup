@@ -77,6 +77,11 @@
 **Decision**: Created `/critical-analysis` — a 10-step verification workflow that checks character counts, cross-references, template sync, hardcoded paths, scenario traces, version consistency, and GitHub URLs.
 **Rationale**: Codifies all known failure modes. Ensures nothing gets missed regardless of session context.
 
+### 2026-03-07 Skill bundles per project type
+**Context**: Agent builds projects without domain-specific guidance, repeatedly forgetting RLS policies, duplicating components, skipping type regeneration. Skills existed but were ad-hoc and the agent had no mechanism to discover or invoke them at the right time.
+**Decision**: Created shared skill pool (`skills/shared/`) + bundle manifests (`skills/bundles/`) architecture. Skills are written once, bundled per project type, installed during `/new-project`, and invoked at `/new-track` planning time. Skills use structured frontmatter (`triggers`, `track_types`, `mcps`) for automatic matching. Three tiers: pure workflow, MCP-enhanced (graceful fallback), MCP-dependent.
+**Rationale**: Skills influence the plan, not execution — once baked into plan phases, they actually get followed. Shared pool eliminates duplication across project types. `/new-track` is the natural invocation point because the agent already knows the track type and hasn't started building yet.
+
 ## Lessons Learned
 
 ### 2026-02-10 Passive setup guides don't enforce behavior
@@ -122,3 +127,4 @@
 | 2026-02-22 | Restructured onboarding: extracted AGENT.md core rules into `AGENT-code.md` and `AGENT-workspace.md` templates. Rewrote setup.md (13,553→6,248), new-project.md (16,182→8,682), create-skill.md (12,138→11,196). Added workspace/non-code project support. Synced Available Commands across all templates, matched skill installs between both paths. Excluded 4 setup-only workflows from user installs (13 installed). Created `/critical-analysis` workflow (10-step verification). Fixed hardcoded paths. Committed and pushed. |
 | 2026-02-27 | End-session wrap-up. Completed implementation of the `/brainstorm` workflow and testing. Cleaned up temporary plans. |
 | 2026-03-02 | Added Phase 0 Brainstorm Gate to `/new-project` workflow — users in empty folders now get "ready or brainstorm?" before scaffolding. Uses full `/brainstorm` (not lite) since it's a fresh start. Added pre-flight skip instruction since `AGENT.md` and `memory.md` don't exist yet. Critical analysis passed all 10 checks. Committed and pushed. |
+| 2026-03-07 | Created skill bundles system: 14 shared skills in `skills/` (create-feature, fix-bug, database-change, build-component, build-page, create-endpoint, performance-audit, auth-flow, payments-stripe, seo-audit, api-design, deploy-vercel, deploy-railway, package-publish). Created 7 bundle manifests in `skills/bundles/`. Updated `/new-track` pre-flight with structured skill matching and plan integration. Critical analysis found setup guide gap — fixed both install paths (setup guide + /new-project) to use concise loop installing all skills. Removed 9 contaminated/redundant catalogue skills (stripe/Yardstick, supabase/IH Coach, etc.). Fixed this project's `.agent/skills/` — removed visual-qa, added fix-bug + planning. |

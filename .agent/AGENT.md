@@ -62,8 +62,8 @@ Antigravity Project Setup/
 │   ├── memory.md               # Change history
 │   ├── skills-catalog.md       # Skills reference
 │   ├── skills/
-│   │   ├── create-skill/       # Meta-skill
-│   │   └── visual-qa/          # Visual QA & design audit engine
+│   │   ├── fix-bug/            # Structured debugging discipline
+│   │   └── planning/           # Iterative planning principles
 │   └── workflows/              # Slash commands (19 total — source of truth)
 │       ├── brainstorm.md       # Full brainstorming session
 │       ├── brainstorm-lite.md  # Mid-work brainstorm (stop and think)
@@ -88,6 +88,31 @@ Antigravity Project Setup/
 │   ├── AGENT-workspace.md      # Core rules for workspace projects
 │   ├── memory.md               # Starter memory.md
 │   └── skills-catalog.md       # Starter skills catalog
+├── skills/                     # Central skill pool + bundle manifests
+│   ├── create-feature/         # Full vertical slice: DB → API → UI
+│   ├── fix-bug/                # Structured debugging discipline
+│   ├── database-change/        # Migration → RLS → types chain
+│   ├── build-component/        # Reuse-first component creation
+│   ├── build-page/             # Page construction with SEO
+│   ├── create-endpoint/        # API route with validation + auth
+│   ├── performance-audit/      # Bundle, rendering, caching checks
+│   ├── auth-flow/              # Auth, protected routes, roles
+│   ├── payments-stripe/        # Checkout, webhooks, subscriptions
+│   ├── seo-audit/              # Meta tags, structure, technical SEO
+│   ├── api-design/             # REST conventions, error formats
+│   ├── deploy-vercel/          # Vercel deployment + env vars
+│   ├── deploy-railway/         # Railway deployment + health checks
+│   ├── package-publish/        # npm packaging + versioning
+│   ├── planning/               # Planning principles (existing)
+│   ├── ...                     # Other catalogue skills
+│   └── bundles/                # Which skills to install per project type
+│       ├── web-app.md          # 8 skills for SaaS/dashboards
+│       ├── website.md          # 4 skills for marketing/content sites
+│       ├── api-backend.md      # 6 skills for server-side services
+│       ├── mobile-app.md       # 5 skills for React Native/Expo
+│       ├── cli-tool.md         # 2 skills for CLI utilities
+│       ├── library.md          # 3 skills for npm packages
+│       └── workspace.md        # No dev skills (uses strategy skills)
 └── updates/                    # Update documents for existing projects
 ```
 

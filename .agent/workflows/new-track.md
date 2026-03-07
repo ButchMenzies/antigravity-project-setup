@@ -11,7 +11,11 @@ Plan work for the next phase of the project. If a roadmap exists, this workflow 
 1. Read `.agent/AGENT.md` for project context and tech stack
 2. Read `.agent/memory.md` for recent decisions and last session's log entry
 3. **Read `.agent/skills/planning/SKILL.md`** — apply planning principles throughout this workflow
-4. Check `.agent/skills/` for other skills relevant to this type of work
+4. **Scan `.agent/skills/` for matching skills.** For each skill with a `SKILL.md`, read its frontmatter. A skill matches if:
+   - Its `track_types` includes the track type from classification (feature, bug, chore, refactor)
+   - OR its `triggers` match keywords in the user's description
+   - Read the full `SKILL.md` of each matching skill — you'll incorporate their **Plan Checklist** items into the implementation plan
+   - Typically 1-3 skills will match. If none match, proceed normally
 5. **If the track involves UI work**: check if `.agent/ux/` exists. If yes, read `persona.md` and `design-direction.md` to inform the spec. If no, suggest running `/ux-design` first.
 
 ---
@@ -130,7 +134,7 @@ Anything explicitly OUT of scope?
 2. Nothing specific — use your judgment
 ```
 
-Skip any question where the answer is already obvious from context. The goal is a **lighter Q&A** when the roadmap provides direction.
+Skip any question where the answer is already obvious from context. The goal is a **lighter Q&A** when the roadmap or brainstorm provides direction.
 
 ---
 
@@ -178,6 +182,8 @@ After gathering the spec, generate a phased implementation plan:
 - First phase should be the smallest meaningful unit
 - Include test tasks if the project uses testing
 - Keep tasks concrete — each should be a specific code change
+- **Incorporate matched skill checklists:** For each skill matched in pre-flight step 4, weave its **Plan Checklist** items into the relevant plan phases. Don't dump them as a separate section — integrate them naturally. For example, a database-change skill's "RLS Policies" items go into the phase that handles database work, not into a standalone "skill checklist" phase
+- **Don't over-load small tracks:** If the track is a quick bug fix or minor chore, only include skill items that are genuinely relevant. A one-line CSS fix doesn't need a full component reuse scan
 
 ---
 
