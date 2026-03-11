@@ -21,7 +21,7 @@ git clone --depth 1 https://github.com/ButchMenzies/antigravity-project-setup.gi
 
 ## Step 2: Install Essential Workflows
 
-Essential workflows: `new-track`, `edit`, `implement`, `status`, `update-memory`, `end-session`, `brainstorm`, `brainstorm-lite`, `audit`, `create-skill`, `ux-design`, `test`.
+Essential workflows: `new-track`, `edit`, `implement`, `status`, `update-memory`, `end-session`, `brainstorm`, `brainstorm-lite`, `audit`, `create-skill`, `ux-design`, `test`, `security-review`.
 
 For each essential workflow, compare versions before installing:
 
@@ -215,7 +215,7 @@ echo "10" > .agent/version
 Add to `.agent/memory.md` under Session Log:
 
 ```markdown
-| [TODAY'S DATE] | Antigravity updated to v10. Essential workflows (12) + selected additional workflows installed. New: `/audit` workflow for conductor document reconciliation. Enhanced `/end-session` with product.md, tech-stack.md, and tiered roadmap updates. Enhanced `/status` reads all conductor docs. `product.md` now uses Vision/Current State model. See CHANGELOG: https://github.com/ButchMenzies/antigravity-project-setup/blob/main/CHANGELOG.md |
+| [TODAY'S DATE] | Antigravity updated to v10. Essential workflows (13) + selected additional workflows installed. New: `/audit` workflow for conductor document reconciliation. Enhanced `/end-session` with product.md, tech-stack.md, and tiered roadmap updates. Enhanced `/status` reads all conductor docs. `product.md` now uses Vision/Current State model. See CHANGELOG: https://github.com/ButchMenzies/antigravity-project-setup/blob/main/CHANGELOG.md |
 ```
 
 Tell the user:
@@ -224,7 +224,7 @@ Tell the user:
 ✅ Antigravity updated to v10!
 
 Updated:
-- 12 essential workflows (always installed)
+- 13 essential workflows (always installed)
 - [N] additional workflows (your selection)
 - 20+ skills (standard + development)
 - Core rules and Available Commands updated

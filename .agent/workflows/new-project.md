@@ -200,6 +200,7 @@ cp /tmp/ag-setup/.agent/workflows/audit.md .agent/workflows/
 cp /tmp/ag-setup/.agent/workflows/create-skill.md .agent/workflows/
 cp /tmp/ag-setup/.agent/workflows/ux-design.md .agent/workflows/
 cp /tmp/ag-setup/.agent/workflows/test.md .agent/workflows/
+cp /tmp/ag-setup/.agent/workflows/security-review.md .agent/workflows/
 ```
 
 **Step 3 — Copy skills:**
@@ -295,7 +296,7 @@ Create these files:
 
 #### `conductor/product.md`
 
-Populate from Q&A/brainstorm. Structure: **Vision** (what we're building toward — written once, only modified by `/audit`), **Current State** (starts with "Project initialised. No features built yet." — updated by `/end-session`), **Features** (empty at start — built up as features ship).
+Populate from Q&A/brainstorm. Structure: **Vision** (what we're building toward — written once, only modified by `/audit`), **Current State** (starts with "Project initialised. No features built yet." — updated by `/end-session`), **Features** (empty at start — built up as features ship), **Security** (initialised as: "Last reviewed: Not yet. Run `/security-review` after your first deployment-ready build." — updated by `/security-review`).
 
 #### `conductor/tech-stack.md` (code) or `conductor/strategy.md` (workspace)
 

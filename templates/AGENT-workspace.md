@@ -35,6 +35,7 @@
 - `/ux-design` — define your product's design direction (personas, brand, visual identity)
 - `/audit` — deep audit of conductor documents against the actual codebase
 - `/test` — design and run tests for recent changes or full app QA
+- `/security-review` — comprehensive security review (database, API, auth, secrets, infrastructure)
 
 ### Additional (install via setup)
 - `/capture-target` — capture design data from a live site

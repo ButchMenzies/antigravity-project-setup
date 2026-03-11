@@ -74,6 +74,7 @@ cp /tmp/ag-setup/.agent/workflows/audit.md .agent/workflows/
 cp /tmp/ag-setup/.agent/workflows/create-skill.md .agent/workflows/
 cp /tmp/ag-setup/.agent/workflows/ux-design.md .agent/workflows/
 cp /tmp/ag-setup/.agent/workflows/test.md .agent/workflows/
+cp /tmp/ag-setup/.agent/workflows/security-review.md .agent/workflows/
 ```
 
 **Step C — Copy skills:**
@@ -152,7 +153,7 @@ echo "10" > .agent/version
 Add to `.agent/memory.md` under Session Log:
 
 ```markdown
-| [TODAY'S DATE] | Antigravity installed v10. 12 essential workflows + selected additional workflows. 20+ development skills. See CHANGELOG: https://github.com/ButchMenzies/antigravity-project-setup/blob/main/CHANGELOG.md |
+| [TODAY'S DATE] | Antigravity installed v10. 13 essential workflows + selected additional workflows. 20+ development skills. See CHANGELOG: https://github.com/ButchMenzies/antigravity-project-setup/blob/main/CHANGELOG.md |
 ```
 
 Tell the user:
@@ -161,7 +162,7 @@ Tell the user:
 ✅ Antigravity installed v10!
 
 Installed:
-- 12 essential workflows + [N] additional workflows
+- 13 essential workflows + [N] additional workflows
 - 20+ skills (standard + development)
 
 Features:
