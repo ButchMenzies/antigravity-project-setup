@@ -1,4 +1,5 @@
 ---
+version: 1
 description: How to update and improve the Agent Setup Guide
 ---
 

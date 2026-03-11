@@ -1,4 +1,5 @@
 ---
+version: 1
 description: Scaffold a brand new project — choose what to build, create folder structure, install dependencies
 ---
 
@@ -184,13 +185,24 @@ Skip dev port question — not applicable.
 git clone --depth 1 https://github.com/ButchMenzies/antigravity-project-setup.git /tmp/ag-setup
 ```
 
-**Step 2 — Create directories and copy files:**
+**Step 2 — Create directories and copy essential workflows:**
 ```bash
 mkdir -p .agent/workflows .agent/skills
-cp /tmp/ag-setup/.agent/workflows/*.md .agent/workflows/
-rm -f .agent/workflows/setup.md .agent/workflows/new-project.md .agent/workflows/update-guide.md .agent/workflows/critical-analysis.md
+cp /tmp/ag-setup/.agent/workflows/new-track.md .agent/workflows/
+cp /tmp/ag-setup/.agent/workflows/edit.md .agent/workflows/
+cp /tmp/ag-setup/.agent/workflows/implement.md .agent/workflows/
+cp /tmp/ag-setup/.agent/workflows/status.md .agent/workflows/
+cp /tmp/ag-setup/.agent/workflows/update-memory.md .agent/workflows/
+cp /tmp/ag-setup/.agent/workflows/end-session.md .agent/workflows/
+cp /tmp/ag-setup/.agent/workflows/brainstorm.md .agent/workflows/
+cp /tmp/ag-setup/.agent/workflows/brainstorm-lite.md .agent/workflows/
+cp /tmp/ag-setup/.agent/workflows/audit.md .agent/workflows/
+cp /tmp/ag-setup/.agent/workflows/create-skill.md .agent/workflows/
+cp /tmp/ag-setup/.agent/workflows/ux-design.md .agent/workflows/
+cp /tmp/ag-setup/.agent/workflows/test.md .agent/workflows/
 ```
 
+**Step 3 — Copy skills:**
 ```bash
 for skill in /tmp/ag-setup/skills/*/; do
   name=$(basename "$skill")
@@ -198,12 +210,42 @@ for skill in /tmp/ag-setup/skills/*/; do
   mkdir -p ".agent/skills/$name"
   cp -r "$skill"* ".agent/skills/$name/"
 done
-cp /tmp/ag-setup/.agent/skills/visual-qa/SKILL.md .agent/skills/visual-qa/SKILL.md
+```
+
+```bash
+if [ -f /tmp/ag-setup/.agent/skills/visual-qa/SKILL.md ]; then
+  mkdir -p .agent/skills/visual-qa
+  cp /tmp/ag-setup/.agent/skills/visual-qa/SKILL.md .agent/skills/visual-qa/SKILL.md
+fi
 cp /tmp/ag-setup/templates/skills-catalog.md .agent/skills-catalog.md
 cp /tmp/ag-setup/templates/USER_GUIDE.md .agent/USER_GUIDE.md
 ```
 
-**Step 3 — Clean up:**
+**Step 4 — Offer additional workflows:**
+
+```
+📦 Additional workflows available:
+
+- /capture-target — capture design data from a live site (Visual QA)
+- /recreate-site — rebuild a site from captured data (Visual QA)
+- /compare-site — fix an existing build against captured target data (Visual QA)
+- /offer-strategy — build a Grand Slam Offer (Hormozi framework)
+- /lead-strategy — plan lead generation strategy (Hormozi framework)
+
+Install any of these?
+1. Install all
+2. Let me choose
+3. Skip — I don't need any of these
+```
+
+**Wait for user response.** Copy selected workflows from `/tmp/ag-setup/.agent/workflows/`.
+
+**Step 5 — Write version file:**
+```bash
+echo "10" > .agent/version
+```
+
+**Step 6 — Clean up:**
 ```bash
 rm -rf /tmp/ag-setup
 ```
@@ -250,33 +292,20 @@ mkdir -p conductor/tracks
 ```
 
 Create these files:
-- **`conductor/product.md`** — product context (from Q1/Q2 answers)
-- **`conductor/tech-stack.md`** (code) or **`conductor/strategy.md`** (workspace) — technical or strategic decisions
-- **`conductor/roadmap.md`** — phased project plan with progressive detail
-- **`conductor/notes.md`** — user scratchpad for mid-session ideas
 
-#### Roadmap Format
+#### `conductor/product.md`
 
-Populate from brainstorm output (Phase 0) if available, otherwise from Q&A context:
+Populate from Q&A/brainstorm. Structure: **Vision** (what we're building toward — written once, only modified by `/audit`), **Current State** (starts with "Project initialised. No features built yet." — updated by `/end-session`), **Features** (empty at start — built up as features ship).
 
-```markdown
-# Project Roadmap
+#### `conductor/tech-stack.md` (code) or `conductor/strategy.md` (workspace)
 
-## Phase 1: [Name] 🔄
-- [ ] [Concrete task or deliverable]
-- [ ] [Concrete task or deliverable]
-- [ ] [Concrete task or deliverable]
+For code projects: **Core** (language, framework, styling), **Infrastructure** (database, auth, hosting), **Key Dependencies** (notable packages with rationale), **Development** (port, start command, tooling), **Decisions** (rationale for tech choices — updated when things change). Populate from Q3/Q5.
 
-## Phase 2: [Name]
-- [Outlined item]
-- [Outlined item]
+For workspace: create `conductor/strategy.md` with goals, audience, and approach.
 
-## Phase 3: [Name]
-- [Sketched idea]
-- [Sketched idea]
-```
+#### `conductor/roadmap.md`
 
-Use **progressive detail**: Phase 1 has concrete checkboxes, later phases get increasingly vague (just bullet points, no checkboxes). Mark Phase 1 with 🔄 (active).
+Populate from brainstorm output (Phase 0) if available, otherwise from Q&A context. Use **progressive detail**: Phase 1 has concrete checkboxes (`- [ ]`), Phase 2 has outlined items, Phase 3+ has sketched ideas. Mark Phase 1 with 🔄 (active). Later phases get ✅ when done.
 
 #### Notes Format
 

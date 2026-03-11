@@ -1,4 +1,5 @@
 ---
+version: 1
 description: Build a Grand Slam Offer — define dream outcome, stack value, add enhancers, create irresistible pricing
 ---
 

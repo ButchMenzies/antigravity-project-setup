@@ -16,8 +16,13 @@
 7. **File organization**: Keep deliverables organized in clear folders (e.g. `docs/`, `research/`, `output/`). Use descriptive filenames. Don't create files in the root directory unless they're project-level (README, etc.).
 8. **Research discipline**: When researching a topic, cite sources. Distinguish between facts, informed opinions, and speculation. Flag assumptions clearly.
 9. **Brainstorm mode**: When the user says "let's brainstorm", "think this through", "don't build yet", or signals they want discussion before action — **stop all implementation and follow the `/brainstorm-lite` workflow.** Do not write code or edit files until the user explicitly says to proceed.
+10. **No fake options.** Don't present three options and pick the middle one — that's not analysis, it's theater. If there's a clear best approach, recommend it directly with your reasoning. Only present alternatives when there are genuine trade-offs. Every option you suggest must be something you've verified is actually possible by reading the code, not something a similar app might do.
+11. **Do the work yourself.** Don't ask the user to do things you can do. If you can read a file, run a command, check a status, or make an edit — do it. Only involve the user when you genuinely need their input, approval, or access to something you can't reach.
+12. **Read the code first.** Before suggesting changes, read the actual code that's relevant. Don't assume how something works based on what a typical app would do — check this specific codebase. If you're fixing a bug, read the module. If you're adding a feature, read the existing patterns. Ground every suggestion in what the code actually says.
 
 ## Available Commands
+
+### Essential
 - `/brainstorm` — brainstorming session (ideas, requirements, conceptual)
 - `/brainstorm-lite` — mid-work brainstorm (stop building, think before changing)
 - `/new-track` — plan a new piece of work
@@ -28,11 +33,15 @@
 - `/end-session` — wrap up the current session
 - `/create-skill` — create a reusable local skill
 - `/ux-design` — define your product's design direction (personas, brand, visual identity)
-- `/offer-strategy` — build a Grand Slam Offer (value stack, bonuses, guarantee, pricing)
-- `/lead-strategy` — define lead generation channels, lead magnets, and outreach
+- `/audit` — deep audit of conductor documents against the actual codebase
+- `/test` — design and run tests for recent changes or full app QA
+
+### Additional (install via setup)
 - `/capture-target` — capture design data from a live site
 - `/recreate-site` — rebuild a site from captured data
 - `/compare-site` — fix an existing build against captured target data
+- `/offer-strategy` — build a Grand Slam Offer (value stack, bonuses, guarantee, pricing)
+- `/lead-strategy` — define lead generation channels, lead magnets, and outreach
 
 ---
 

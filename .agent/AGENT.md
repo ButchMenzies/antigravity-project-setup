@@ -14,23 +14,36 @@
 3. **Before ending a session**: Run `/end-session`
 4. **When you notice repeating patterns**: Suggest creating a skill
 5. **Don't guess about tools, settings, or platform behaviour.** If you're unsure, say so and verify first. Trust your coding knowledge; verify everything else.
+6. **No fake options.** Don't present three options and pick the middle one. If there's a clear best approach, recommend it directly with reasoning. Every option must be verified as possible by reading the code.
+7. **Do the work yourself.** Don't ask the user to do things you can do. Read files, run commands, check statuses, make edits — only involve the user when you need their input or access.
+8. **Read the code first.** Before suggesting changes, read the actual relevant code. Don't assume how things work based on similar apps — check this codebase.
 
 ## Available Commands
+
+### Setup (this project only)
 - `/setup` — interactive project onboarding
 - `/new-project` — scaffold a new project
+
+### Essential
 - `/new-track` — plan a new piece of work
 - `/edit` — revise a plan
 - `/implement` — execute with tracking
 - `/status` — project status
 - `/update-memory` — log decisions, lessons, preferences
 - `/end-session` — wrap up session
+- `/brainstorm` — brainstorming session
+- `/brainstorm-lite` — mid-work brainstorm
 - `/create-skill` — create a local skill
 - `/ux-design` — define your product's design direction (personas, brand, visual identity)
-- `/offer-strategy` — build a Grand Slam Offer
-- `/lead-strategy` — plan lead generation strategy
+- `/audit` — deep audit of conductor documents against the actual codebase
+- `/test` — design and run tests for recent changes or full app QA
+
+### Additional
 - `/capture-target` — capture design data from a live site
 - `/recreate-site` — rebuild a site from captured data
 - `/compare-site` — fix an existing build against captured target data
+- `/offer-strategy` — build a Grand Slam Offer
+- `/lead-strategy` — plan lead generation strategy
 
 ---
 

@@ -1,4 +1,5 @@
 ---
+version: 1
 description: Revise or refine an implementation plan before proceeding
 ---
 

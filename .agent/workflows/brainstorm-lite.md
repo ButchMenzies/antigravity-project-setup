@@ -1,4 +1,5 @@
 ---
+version: 1
 description: Mid-work brainstorm — stop building and think before making changes
 ---
 

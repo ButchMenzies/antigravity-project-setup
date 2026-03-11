@@ -1,4 +1,5 @@
 ---
+version: 1
 description: Brainstorming session — ideas, requirements, constraints, purely conceptual.
 ---
 

@@ -1,4 +1,5 @@
 ---
+version: 1
 description: Execute a plan with progress tracking, memory checkpoints, and skill prompts
 ---
 

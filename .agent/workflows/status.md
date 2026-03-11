@@ -1,4 +1,5 @@
 ---
+version: 1
 description: Show project status — active tracks, recent memory, available skills
 ---
 
@@ -13,6 +14,31 @@ Quick overview of the project's current state.
 Read and summarize `.agent/AGENT.md`:
 - Project name and description
 - Tech stack
+
+### 1b. Product Context
+
+If `conductor/product.md` exists:
+- Read it and show a brief summary of Current State and feature count:
+
+```
+📦 Product
+
+Current State: [one-line summary from Current State section]
+Features built: [N] ([list feature names])
+Vision items remaining: [N]
+```
+
+### 1c. Tech Stack Details
+
+If `conductor/tech-stack.md` exists:
+- Read it and show key decisions alongside the AGENT.md tech stack:
+
+```
+🔧 Tech Stack
+
+[Core stack summary from tech-stack.md]
+Recent decisions: [list any entries from the Decisions section]
+```
 
 ### 2. Roadmap Overview
 
@@ -36,7 +62,7 @@ If `conductor/notes.md` exists with content beyond the header:
 ### 3. Active Tracks
 
 If `conductor/tracks/` exists:
-- Read the active track's `plan.md`
+- Read the active track's `plan.md` and `spec.md`
 - For each active track, show:
 
 ```
@@ -45,6 +71,7 @@ If `conductor/tracks/` exists:
 [~] [Track Title] — [type]
     Phase 2/3 | Tasks: 4/7 complete
     Next: Task 2.3 — [description]
+    Acceptance: 2/5 criteria met
 
 [ ] [Track Title] — [type]
     Not started

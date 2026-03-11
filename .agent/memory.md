@@ -82,6 +82,31 @@
 **Decision**: Created 14 shared development skills in `skills/` + 7 bundle manifests in `skills/bundles/`. All skills install everywhere via a `for` loop — the repo is the source of truth, not a hardcoded list. Bundles serve as documentation ("most relevant per project type"), not install filters. Skills use structured frontmatter (`triggers`, `track_types`) for automatic matching during `/new-track` planning.
 **Rationale**: Skills influence the plan, not execution — once baked into plan phases, they actually get followed. Install-all is simpler than selective install and future-proof (adding a skill to `skills/` means it auto-installs everywhere). `/new-track` is the natural invocation point because the agent already knows the track type and hasn't started building yet.
 
+### 2026-03-12 Living conductor documents
+**Context**: Conductor documents (`product.md`, `roadmap.md`, `tech-stack.md`) became stale after creation. `product.md` was never updated, roadmap only got checkbox ticks, and `/status` didn't read most conductor docs.
+**Decision**: Made conductor docs into living documents with three mechanisms: (1) `/end-session` incrementally updates Current State in `product.md`, `tech-stack.md`, and applies tiered roadmap updates (auto for small changes, interactive for structural). (2) `/status` now reads all conductor docs. (3) New `/audit` workflow does deep codebase-to-doc reconciliation. `product.md` uses a Vision/Current State model — Vision is written at project start and only modified during `/audit`, not during end-session.
+**Rationale**: Incremental updates slow drift but don't stop it. The Vision/Current State split prevents end-session from accidentally removing aspirational content. `/audit` every few sessions is the reset button for accuracy.
+
+### 2026-03-12 Workflow-level versioning
+**Context**: Updates blindly overwrote all workflow files, destroying any local customizations. No way to know if a specific workflow was current or outdated.
+**Decision**: Added `version: N` to every workflow's YAML frontmatter. During updates, `update.md` compares local vs repo versions: same version = skip, older version = offer update with warning about customization loss, no version = pre-versioning install (overwrite). Users can opt out of specific workflow updates.
+**Rationale**: Simple to maintain (bump a number when editing), self-contained (no git dependency), precise (distinguishes "old" from "customized"), and efficient (skips unchanged workflows).
+
+### 2026-03-12 Agent behaviour rules (11-13)
+**Context**: Agent repeatedly: (1) presented three options and picked the middle one without analysis, (2) asked the user to do things the agent could do itself, (3) suggested changes based on assumptions about similar apps instead of reading the actual code.
+**Decision**: Added three new core rules to all AGENT.md templates: Rule 11 "No fake options," Rule 12 "Do the work yourself," Rule 13 "Read the code first."
+**Rationale**: Specific, actionable guardrails against observed lazy patterns. Apply to every project via core rules merge during updates.
+
+### 2026-03-12 Auto-update check in end-session
+**Context**: Users had to manually paste the bootstrap prompt to check for Antigravity updates. No automatic mechanism.
+**Decision**: Added Step 9 to `/end-session` — silently curls the `VERSION` file from GitHub and compares against local `.agent/version`. If newer version exists, offers update. Runs `update.md` from GitHub if user accepts.
+**Rationale**: Once bootstrapped, projects become self-updating. No user action needed. Silent when no update available or offline.
+
+### 2026-03-12 /test workflow
+**Context**: No structured way to verify features work after building them. Testing was ad-hoc.
+**Decision**: Created `/test` workflow — 6-phase scope-adaptive testing: (1) Scope via brainstorm, (2) Reconnaissance (code audit for ground truth), (3) Test Design (structured cases with expected outcomes), (4) Execute (observe only — do NOT fix), (5) Compile (categorised report), (6) Act (user decides what to update). Tests classified as 🤖 agent / 🌐 browser / 👤 user / 🤝 collaborative.
+**Rationale**: Based on real QA experience (54-test, 9-round app audit). The brainstorm phase naturally determines scope (quick smoke test vs full QA) without needing a menu. "Don't fix during testing" rule prevents losing the systematic view.
+
 ## Lessons Learned
 
 ### 2026-02-10 Passive setup guides don't enforce behavior
@@ -128,3 +153,4 @@
 | 2026-02-27 | End-session wrap-up. Completed implementation of the `/brainstorm` workflow and testing. Cleaned up temporary plans. |
 | 2026-03-02 | Added Phase 0 Brainstorm Gate to `/new-project` workflow — users in empty folders now get "ready or brainstorm?" before scaffolding. Uses full `/brainstorm` (not lite) since it's a fresh start. Added pre-flight skip instruction since `AGENT.md` and `memory.md` don't exist yet. Critical analysis passed all 10 checks. Committed and pushed. |
 | 2026-03-07 | Created skill bundles system: 14 shared skills in `skills/` (create-feature, fix-bug, database-change, build-component, build-page, create-endpoint, performance-audit, auth-flow, payments-stripe, seo-audit, api-design, deploy-vercel, deploy-railway, package-publish). Created 7 bundle manifests in `skills/bundles/`. Updated `/new-track` pre-flight with structured skill matching and plan integration. Critical analysis found setup guide gap — fixed both install paths (setup guide + /new-project) to use concise loop installing all skills. Removed 9 contaminated/redundant catalogue skills (stripe/Yardstick, supabase/IH Coach, etc.). Fixed this project's `.agent/skills/` — removed visual-qa, added fix-bug + planning. |
+| 2026-03-12 | Living conductor documents: defined `product.md` and `tech-stack.md` templates. Enhanced `/end-session` with tiered roadmap updates + product/tech-stack updates. Enhanced `/status` to read all conductor docs. Created `/audit` workflow. Workflow categories: split into 12 essential + 5 additional. Created `update.md` for update path. Rewrote `AGENT_SETUP_GUIDE.md` as router. Bumped to v10. Added `version: 1` to all 22 workflow frontmatters — version-aware updates prevent customization loss. Added agent behaviour rules 11-13 (no fake options, do the work, read the code). Added auto-update check to `/end-session` Step 9 (curls VERSION from GitHub). Created `/test` workflow (6-phase scope-adaptive testing). Created `VERSION` file. Fixed `new-project.md` missing version write. Critical analysis and 10 scenario tests passed. |

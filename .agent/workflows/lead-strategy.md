@@ -1,4 +1,5 @@
 ---
+version: 1
 description: Define your lead generation strategy — channels, lead magnets, outreach, and scaling plan
 ---
 

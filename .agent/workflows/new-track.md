@@ -1,4 +1,5 @@
 ---
+version: 1
 description: Plan a new piece of work — creates spec and phased implementation plan
 ---
 

@@ -1,4 +1,5 @@
 ---
+version: 1
 description: Interactive project onboarding — scans codebase, gathers context, creates project files
 ---
 
@@ -138,18 +139,66 @@ mkdir -p conductor/tracks
 ```
 
 Create these files:
-- **`conductor/product.md`** — product context
-- **`conductor/tech-stack.md`** (code) or **`conductor/strategy.md`** (non-code) — technical or strategic decisions
-- **`conductor/roadmap.md`** — phased project plan with progressive detail
-- **`conductor/notes.md`** — user scratchpad for mid-session ideas
 
-Populate `roadmap.md` from brainstorm-lite output (Section 0) if available, otherwise create a skeleton:
+#### `conductor/product.md`
+
+Populate from Q&A answers and brainstorm output. Use this structure:
+
+```markdown
+# [Product Name]
+
+## Vision
+[What this product will become — the full picture from Q2, brainstorm, or user description. This section is written once at project start and left unchanged by /end-session. During /audit, built items are migrated to Current State and irrelevant items are proposed for removal.]
+
+## Current State
+[What exists right now. Starts near-empty for new projects. Updated incrementally by /end-session as features are built.]
+
+Project initialised. No features built yet.
+
+## Features
+[Detailed inventory of what's been built. Each feature gets a heading with a brief description of what it does and how it works. Empty at project start — populated by /end-session updates.]
+```
+
+#### `conductor/tech-stack.md` (code) or `conductor/strategy.md` (non-code)
+
+For code projects, populate from Q5 (tech stack) answers:
+
+```markdown
+# Tech Stack
+
+## Core
+- **Language**: [e.g. TypeScript]
+- **Framework**: [e.g. Next.js 14 (App Router)]
+- **Styling**: [e.g. Tailwind CSS]
+
+## Infrastructure
+- **Database**: [e.g. Supabase (PostgreSQL)]
+- **Auth**: [e.g. Supabase Auth]
+- **Hosting**: [e.g. Vercel]
+
+## Key Dependencies
+[Notable packages beyond the framework defaults, with brief rationale]
+
+## Development
+- **Port**: [from Q6]
+- **Start command**: [e.g. npm run dev]
+- **Key tooling**: [e.g. ESLint, Prettier]
+
+## Decisions
+[Technical decisions and rationale — why this stack, what alternatives were considered. Updated when tech choices change.]
+```
+
+For non-code projects, create `conductor/strategy.md` with goals, audience, and approach.
+
+#### `conductor/roadmap.md`
+
+Populate from brainstorm-lite output (Section 0) if available, otherwise from Q&A context:
 
 ```markdown
 # Project Roadmap
 
 ## Phase 1: [Name] 🔄
-- [ ] [Task or deliverable]
+- [ ] [Concrete task or deliverable]
 
 ## Phase 2: [Name]
 - [Outlined item]
@@ -157,7 +206,7 @@ Populate `roadmap.md` from brainstorm-lite output (Section 0) if available, othe
 
 Use **progressive detail**: Phase 1 has concrete checkboxes, later phases are vague bullet points. Mark Phase 1 with 🔄 (active).
 
-Create `notes.md` with:
+#### `conductor/notes.md`
 
 ```markdown
 # Notes

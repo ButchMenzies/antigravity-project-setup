@@ -1,4 +1,5 @@
 ---
+version: 1
 description: Verify the Antigravity setup system is internally consistent — character counts, cross-references, scenario traces
 ---
 

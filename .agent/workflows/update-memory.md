@@ -1,4 +1,5 @@
 ---
+version: 1
 description: Log a decision, lesson, preference, or issue to memory
 ---
 

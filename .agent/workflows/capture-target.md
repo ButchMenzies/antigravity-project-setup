@@ -1,4 +1,5 @@
 ---
+version: 1
 description: Guide the user to capture high-quality, standardized reference images for the Visual QA process using an interactive, agent-driven loop.
 ---
 

@@ -1,4 +1,5 @@
 ---
+version: 1
 description: Create a new project-local skill from repeating patterns or workflows
 ---
 

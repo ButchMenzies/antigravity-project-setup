@@ -1,4 +1,5 @@
 ---
+version: 1
 description: Define your product's design direction — personas, brand voice, emotional design, visual identity
 ---
 
