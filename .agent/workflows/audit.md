@@ -1,11 +1,11 @@
 ---
-version: 1
+version: 2
 description: Deep audit of conductor documents against the actual codebase — find drift, reconcile vision
 ---
 
 # Project Audit
 
-Systematically compare conductor documents (`product.md`, `roadmap.md`, `tech-stack.md`) against the actual codebase. Find discrepancies, reconcile vision with reality, and update documents to match what's actually been built.
+Systematically compare conductor documents (`product.md`, `roadmap.md`) against the actual codebase. Find discrepancies, reconcile vision with reality, and update documents to match what's actually been built.
 
 > **Run this every few sessions** to catch drift that incremental `/end-session` updates miss.
 
@@ -15,10 +15,9 @@ Systematically compare conductor documents (`product.md`, `roadmap.md`, `tech-st
 
 Read and internalise every conductor document:
 
-1. `conductor/product.md` — note Vision items and Current State/Features
-2. `conductor/roadmap.md` — note phase statuses and incomplete items
-3. `conductor/tech-stack.md` or `conductor/strategy.md` — note declared stack and decisions
-4. `conductor/tracks/*/spec.md` and `plan.md` — note acceptance criteria and task statuses
+1. `conductor/product.md` — note Vision items and Current State/Features (includes Infrastructure Services)
+2. `conductor/roadmap.md` — note Active Track and backlog items
+3. `conductor/tracks/*/spec.md` and `plan.md` — note acceptance criteria and task statuses
 
 If any conductor document is missing, note it for the report.
 
@@ -77,15 +76,10 @@ Go through each conductor document and check every claim against reality:
 - **Vision items already built** — Vision section items that exist in the codebase
 
 ### Roadmap.md audit:
-- **Completed items still unchecked** — tasks marked incomplete that are actually done
-- **Stale phases** — phases with items that are no longer relevant
-- **Missing work** — significant work done that isn't reflected in any phase
-- **Ordering issues** — phases that should be reordered based on current state
-
-### Tech-stack.md audit:
-- **Dependencies mismatch** — packages in package.json not in tech-stack.md, or vice versa
-- **Infrastructure changes** — services added or removed that aren't reflected
-- **Stale decisions** — decisions that were reversed or superseded
+- **Completed items still unchecked** — backlog items that are actually done
+- **Stale themes** — backlog themes with items that are no longer relevant
+- **Missing work** — significant work done that isn't reflected in any theme
+- **Active Track accuracy** — is the active track section current?
 
 ---
 
@@ -134,13 +128,10 @@ Summarise all findings in a structured report:
 - Vision items to reconcile: [N]
 
 ## Roadmap.md
-- Phases: [completed]/[total]
+- Active Track: [status]
+- Backlog themes: [N]
 - Items needing status update: [list]
 - Stale items: [list]
-
-## Tech Stack
-- Dependencies in sync: [yes/partial/no]
-- Mismatches: [list]
 
 ## Recommended Updates
 1. [Specific update with rationale]
@@ -155,8 +146,7 @@ Summarise all findings in a structured report:
 For each recommended update, apply it to the relevant conductor document:
 
 1. **Product.md updates** — move vision items, add undocumented features, fix stale descriptions
-2. **Roadmap.md updates** — mark completed items, remove stale phases, reorder if needed
-3. **Tech-stack.md updates** — sync dependencies, update decisions
+2. **Roadmap.md updates** — mark completed items, remove stale entries, update Active Track
 
 Show the user what was changed after applying:
 
@@ -166,7 +156,6 @@ Show the user what was changed after applying:
 Updated:
 - conductor/product.md — [summary of changes]
 - conductor/roadmap.md — [summary of changes]
-- conductor/tech-stack.md — [summary of changes]
 
 Next audit recommended after [N] more sessions of active development.
 ```

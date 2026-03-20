@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 description: Plan a new piece of work — creates spec and phased implementation plan
 ---
 
@@ -25,40 +25,38 @@ Plan work for the next phase of the project. If a roadmap exists, this workflow 
 
 Check for `conductor/roadmap.md`. If it exists, read it. Determine which state you're in:
 
-### State A: Active phase is incomplete
+### State A: Active Track exists and is incomplete
 
-A phase marked with 🔄 has tasks remaining.
+The `## Active Track` section has work defined.
 
 ```
-I see Phase [N]: [Name] is still in progress.
+I see an active track: [Name]
 
-Progress: [completed]/[total] items done.
-Remaining:
-- [list remaining items]
+Progress:
+- [list completed and remaining items]
 
 Options:
-1. Continue this phase — I'll set up a track for the remaining work
-2. Start a different phase from the roadmap
+1. Continue this track — I'll set up the remaining work
+2. Start something different from the backlog
 3. Work on something not on the roadmap
 ```
 
 **Wait for user response.**
 
-### State B: Previous phase complete, next phase available
+### State B: No active track, backlog available
 
-The last 🔄 phase is done (or all items checked), and there's a next phase without ✅.
+The Active Track section is empty but the backlog has themes.
 
 ```
-Phase [N-1]: [Name] is complete ✅
-Next on the roadmap is Phase [N]: [Name]
+No active track. Here are the backlog themes:
 
-It currently has these items:
-- [list items from roadmap]
+1. [Theme 1] — [N] items
+2. [Theme 2] — [N] items
+...
 
 Options:
-1. Plan this phase — let's flesh it out
-2. Pick a different phase
-3. Work on something not on the roadmap
+1. Pick a theme to work on
+2. Work on something not on the roadmap
 ```
 
 **Wait for user response.**

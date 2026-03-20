@@ -3,7 +3,7 @@
 > **Paste this into any project chat.** Handles fresh installs and updates automatically.
 > Sources everything from GitHub — works on any device.
 
-**Latest version: 10** (2026-03-12)
+**Latest version: 11** (2026-03-20)
 
 ---
 
@@ -14,11 +14,11 @@ cat .agent/version 2>/dev/null || echo "none"
 ls .agent/AGENT.md 2>/dev/null
 ```
 
-### If version = 10 → **ALREADY CURRENT**
+### If version = 11 → **ALREADY CURRENT**
 
 Read `.agent/AGENT.md` and `.agent/memory.md`, then proceed with the user's request. You are done with this guide.
 
-### If version = 1, 2, 3, 4, 5, 6, 7, 8, 9, or "none" with `.agent/AGENT.md` → **NEEDS UPDATE**
+### If version = 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, or "none" with `.agent/AGENT.md` → **NEEDS UPDATE**
 
 > **⛔ STOP — Do NOT continue with Steps 2-6.**
 > Read and follow the `/update` workflow directly from GitHub:
@@ -147,30 +147,32 @@ rm -rf /tmp/ag-setup
 Write the version file:
 
 ```bash
-echo "10" > .agent/version
+echo "11" > .agent/version
 ```
 
-Add to `.agent/memory.md` under Session Log:
+Add to `.agent/memory.md` under `## Recent Sessions`:
 
 ```markdown
-| [TODAY'S DATE] | Antigravity installed v10. 13 essential workflows + selected additional workflows. 20+ development skills. See CHANGELOG: https://github.com/ButchMenzies/antigravity-project-setup/blob/main/CHANGELOG.md |
+### [TODAY'S DATE]
+- Antigravity installed v11. 13 essential workflows + selected additional workflows. 20+ development skills. Two-tier document architecture (active + archive). See CHANGELOG: https://github.com/ButchMenzies/antigravity-project-setup/blob/main/CHANGELOG.md
 ```
 
 Tell the user:
 
 ```
-✅ Antigravity installed v10!
+✅ Antigravity installed v11!
 
 Installed:
 - 13 essential workflows + [N] additional workflows
 - 20+ skills (standard + development)
 
 Features:
+- Two-tier document architecture — active docs + history.md archive
+- Condensed memory — Active Lessons + Recent Sessions (5-session rotation)
+- Project Principles in AGENT.md — design decisions that influence every feature
+- Active Track + Backlog roadmap — replaces numbered phases
 - /audit — deep audit of conductor docs against your codebase
-- /end-session — updates product.md, tech-stack.md, and tiered roadmap changes
-- /status — reads all conductor documents
-- product.md Vision/Current State model
-- Workflow categories — essentials always installed, additionals offered as options
+- /end-session — updates product.md, roadmap, and memory
 
 ⚠️ Action Required: Close and reopen the project.
 The IDE needs to re-scan to discover the new slash commands.

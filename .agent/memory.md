@@ -1,128 +1,22 @@
 # Project Memory
 
-> Agent-maintained record of decisions, lessons, and context.
-> Update after completing features, making decisions, or solving problems.
+> Agent-maintained record of lessons, preferences, and recent session context.
 
 ---
 
-## Key Decisions
+## Active Lessons
 
-### 2026-02-09 Local-first skills architecture
-**Context**: Skills were only referenced from a global library, making them hard to discover and use.
-**Decision**: Skills are now project-local first (`.agent/skills/`), with the global library as inspiration.
-**Rationale**: Local skills are tailored to the project, always available, and easier to maintain.
+### Grep verification catches drift across files
+After any terminology change, grep the entire repo for old terms before declaring done. During v11 update, grepping found 2 additional files (`new-project.md`, `critical-analysis.md`) and `AGENT_SETUP_GUIDE.md` still referencing deprecated v10 terms.
 
-### 2026-02-10 Slash command system
-**Context**: The old setup guide was 713 lines of templates that the agent filled in passively. Agent wasn't updating memory or creating skills proactively.
-**Decision**: Rebuilt the entire system as 8 slash command workflows with core rules in AGENT.md.
-**Rationale**: Slash commands are interactive (Q&A), enforce memory checkpoints, and prompt for skill creation. Core rules ensure critical behaviors happen even without explicit commands.
+### Passive setup guides don't enforce behavior
+Critical behaviors must be explicit rules, not suggestions buried in long documents. The old 713-line guide told the agent to update memory, but it was buried in templates and easily ignored. Fix: Core rules at the top of AGENT.md + mandatory checkpoints in `/implement`.
 
-### 2026-02-10 Unified setup guide (single file)
-**Context**: Had both a local guide (uses `cp`) and a portable guide (embedded content). Two files to maintain.
-**Decision**: Merged into one self-contained `AGENT_SETUP_GUIDE.md` with all workflow content embedded inline.
-**Rationale**: One file to maintain, works on any device, no local path dependencies.
+### Don't maintain two versions of the same thing
+If content must appear in multiple places, have one source of truth. Local and portable setup guides drifted out of sync until unified into a single self-contained guide.
 
-### 2026-02-10 GitHub for skills library
-**Context**: Skills library was referenced via local path (`~/Desktop/Antigravity/antigravity-awesome-skills-main/`). Static, outdated.
-**Decision**: All references now use `https://github.com/sickn33/antigravity-awesome-skills` and raw GitHub URLs.
-**Rationale**: Always up to date (713+ skills), works on any device, no local files needed.
-
-### 2026-02-10 Three-way setup detection
-**Context**: Bootstrapper would stop if AGENT.md existed, even if workflows weren't installed. Broke upgrade path.
-**Decision**: Detection now checks for workflows specifically: fully set up / needs upgrade / fresh project.
-**Rationale**: Handles the case where a project used the old template-based setup and needs workflow installation.
-
-### 2026-02-16 Central skills catalogue with auto-sync
-**Context**: Skills created in individual projects were never consolidated. 14 unique skills across 5 projects.
-**Decision**: `skills/` in this project is the central catalogue. `create-skill.md` Step 8a auto-syncs new skills here. obras/superpowers added as a third discovery source.
-**Rationale**: One place to find all reusable skills. iCloud Desktop syncs path across devices.
-
-### 2026-02-16 Core Rule 6 — Honesty over confidence
-**Context**: Agent was guessing about IDE features and platform behaviour instead of checking.
-**Decision**: Added Core Rule 6: don't guess about tools/settings/platform. Trust coding knowledge, verify everything else.
-**Rationale**: AI training data goes stale fast. Tool/platform questions need verification; coding patterns don't.
-
-### 2026-02-16 UX Design Foundation — hybrid workflow + skill
-**Context**: Products built by AI agents look generic ("vibe-coded") because there's no design strategy driving decisions. Existing skills cover implementation patterns but not the "why".
-**Decision**: Created `/ux-design` workflow (interactive discovery → creates `.agent/ux/` knowledge base) + `ux-design` skill (two-way — reads artifacts before building UI, prompts updates after). Integrated into `/setup`, `/new-track`, `/implement`, and `planning`.
-**Rationale**: The workflow captures the vision once, artifacts persist it, and the skill enforces it every time UI is built. Living documents that grow with the product.
-
-### 2026-02-17 Offer + Lead Strategy skills and unified setup guide
-**Context**: Needed Hormozi frameworks baked into the agent system. Also had a fragile update process — separate update files with local paths.
-**Decision**: Created `/offer-strategy` and `/lead-strategy` workflows + skills. All three workflows (UX, offer, leads) now use smart folder detection. Unified the setup guide with a version system (`.agent/version`) so one file handles both fresh installs and updates, all from GitHub.
-**Rationale**: Smart folders put output where humans look (not buried in `.agent/`). Unified guide eliminates update patches and works for external users too.
-
-### 2026-02-18 v4 — Terminal discipline, browser URLs, port management
-**Context**: Terminal commands frequently freeze the agent in polling loops. Browser tool opens separate Chrome profiles. Dev server ports are random and conflicting.
-**Decision**: Added Core Rules 7 (categorised terminal timeouts), 8 (always share dev URL with user), 9 (port assigned during /setup, enforced via lsof check). Port question added to both `/setup` and `/new-project` workflows. Default port: 5010.
-**Rationale**: Categorised timeouts are better than a blanket rule — dev servers and install commands need different handling. Port-in-AGENT.md is simple and always-visible. 5010 avoids conflicts with common services (3000, 5173, 5432, 8080).
-
-### 2026-02-19 v5 — Visual QA workflow system
-**Context**: Rebuilding websites from reference requires capturing exhaustive CSS data, then generating code from that data. Live test proved the approach works (7 sections rebuilt from data alone) but revealed gaps in capture (missing inner wrappers, nested backgrounds, hover states, font sources).
-**Decision**: Created three-workflow pipeline: `/capture-target` (standalone input) → `/recreate-site` (build from scratch) or `/compare-site` (fix existing build). Plus `visual-qa` skill as the shared engine. Renamed `/design-audit` to `/compare-site` for clarity.
-**Rationale**: Technology-agnostic capture means same data works for any stack. Both downstream workflows check for capture data before proceeding, guiding users to `/capture-target` first.
-
-### 2026-02-22 Template extraction — eliminate duplication
-**Context**: AGENT.md core rules (~2,600 chars) were duplicated in 4 files. Both `setup.md` (13,553) and `new-project.md` (16,182) were over the 12K workflow limit. No path for non-code projects.
-**Decision**: Extracted core rules into `templates/AGENT-code.md` and `templates/AGENT-workspace.md`. Workflows now reference templates instead of inlining. `templates/AGENT.md` kept as a copy of AGENT-code.md for backwards compatibility.
-**Rationale**: Single source of truth for rules. Halved both workflow sizes. Workspace template enables strategy/content/research projects.
-
-### 2026-02-22 Exclude setup-only workflows from user installs
-**Context**: `setup.md`, `new-project.md`, `update-guide.md` were being installed into every user project even though they're only used during initial setup or for maintaining this repo.
-**Decision**: These plus `critical-analysis.md` are now excluded via `rm -f` after the wildcard copy. 17 total → 13 installed.
-**Rationale**: Users don't need meta-workflows cluttering their slash command list.
-
-### 2026-02-22 Critical analysis workflow for self-verification
-**Context**: After making changes to the setup system, multiple consistency issues were discovered only through manual analysis (command lists out of sync, skill installs missing, stale paths).
-**Decision**: Created `/critical-analysis` — a 10-step verification workflow that checks character counts, cross-references, template sync, hardcoded paths, scenario traces, version consistency, and GitHub URLs.
-**Rationale**: Codifies all known failure modes. Ensures nothing gets missed regardless of session context.
-
-### 2026-03-07 Skill bundles per project type
-**Context**: Agent builds projects without domain-specific guidance, repeatedly forgetting RLS policies, duplicating components, skipping type regeneration. Skills existed but were ad-hoc and the agent had no mechanism to discover or invoke them at the right time.
-**Decision**: Created 14 shared development skills in `skills/` + 7 bundle manifests in `skills/bundles/`. All skills install everywhere via a `for` loop — the repo is the source of truth, not a hardcoded list. Bundles serve as documentation ("most relevant per project type"), not install filters. Skills use structured frontmatter (`triggers`, `track_types`) for automatic matching during `/new-track` planning.
-**Rationale**: Skills influence the plan, not execution — once baked into plan phases, they actually get followed. Install-all is simpler than selective install and future-proof (adding a skill to `skills/` means it auto-installs everywhere). `/new-track` is the natural invocation point because the agent already knows the track type and hasn't started building yet.
-
-### 2026-03-12 Living conductor documents
-**Context**: Conductor documents (`product.md`, `roadmap.md`, `tech-stack.md`) became stale after creation. `product.md` was never updated, roadmap only got checkbox ticks, and `/status` didn't read most conductor docs.
-**Decision**: Made conductor docs into living documents with three mechanisms: (1) `/end-session` incrementally updates Current State in `product.md`, `tech-stack.md`, and applies tiered roadmap updates (auto for small changes, interactive for structural). (2) `/status` now reads all conductor docs. (3) New `/audit` workflow does deep codebase-to-doc reconciliation. `product.md` uses a Vision/Current State model — Vision is written at project start and only modified during `/audit`, not during end-session.
-**Rationale**: Incremental updates slow drift but don't stop it. The Vision/Current State split prevents end-session from accidentally removing aspirational content. `/audit` every few sessions is the reset button for accuracy.
-
-### 2026-03-12 Workflow-level versioning
-**Context**: Updates blindly overwrote all workflow files, destroying any local customizations. No way to know if a specific workflow was current or outdated.
-**Decision**: Added `version: N` to every workflow's YAML frontmatter. During updates, `update.md` compares local vs repo versions: same version = skip, older version = offer update with warning about customization loss, no version = pre-versioning install (overwrite). Users can opt out of specific workflow updates.
-**Rationale**: Simple to maintain (bump a number when editing), self-contained (no git dependency), precise (distinguishes "old" from "customized"), and efficient (skips unchanged workflows).
-
-### 2026-03-12 Agent behaviour rules (11-13)
-**Context**: Agent repeatedly: (1) presented three options and picked the middle one without analysis, (2) asked the user to do things the agent could do itself, (3) suggested changes based on assumptions about similar apps instead of reading the actual code.
-**Decision**: Added three new core rules to all AGENT.md templates: Rule 11 "No fake options," Rule 12 "Do the work yourself," Rule 13 "Read the code first."
-**Rationale**: Specific, actionable guardrails against observed lazy patterns. Apply to every project via core rules merge during updates.
-
-### 2026-03-12 Auto-update check in end-session
-**Context**: Users had to manually paste the bootstrap prompt to check for Antigravity updates. No automatic mechanism.
-**Decision**: Added Step 9 to `/end-session` — silently curls the `VERSION` file from GitHub and compares against local `.agent/version`. If newer version exists, offers update. Runs `update.md` from GitHub if user accepts.
-**Rationale**: Once bootstrapped, projects become self-updating. No user action needed. Silent when no update available or offline.
-
-### 2026-03-12 /test workflow
-**Context**: No structured way to verify features work after building them. Testing was ad-hoc.
-**Decision**: Created `/test` workflow — 6-phase scope-adaptive testing: (1) Scope via brainstorm, (2) Reconnaissance (code audit for ground truth), (3) Test Design (structured cases with expected outcomes), (4) Execute (observe only — do NOT fix), (5) Compile (categorised report), (6) Act (user decides what to update). Tests classified as 🤖 agent / 🌐 browser / 👤 user / 🤝 collaborative.
-**Rationale**: Based on real QA experience (54-test, 9-round app audit). The brainstorm phase naturally determines scope (quick smoke test vs full QA) without needing a menu. "Don't fix during testing" rule prevents losing the systematic view.
-
-## Lessons Learned
-
-### 2026-02-10 Passive setup guides don't enforce behavior
-**Problem**: The old 713-line guide told the agent to update memory, but it was buried in templates and easily ignored.
-**Fix**: Core rules at the top of AGENT.md + mandatory checkpoints in `/implement` workflow.
-**Prevention**: Critical behaviors must be explicit rules, not suggestions buried in long documents.
-
-### 2026-02-10 Don't maintain two versions of the same thing
-**Problem**: Local and portable setup guides would drift out of sync.
-**Fix**: Unified into a single self-contained guide.
-**Prevention**: If content must appear in multiple places, have one source of truth.
-
-### 2026-02-19 Agent cannot access DevTools or computed CSS
-**Problem**: Agent tried to capture design data itself using the browser tool — opening DevTools, estimating heights, taking screenshots of CSS panels. It can't do any of this.
-**Fix**: Added explicit agent capability boundary rule to `capture-target.md`. Agent orchestrates capture (tells user what to inspect), user does all DevTools work.
-**Prevention**: Any workflow that requires browser data beyond DOM structure must explicitly state that the user provides the data.
+### Agent cannot access DevTools or computed CSS
+Any workflow that requires browser data beyond DOM structure must explicitly state that the user provides the data. Agent tried to use browser tool for DevTools — it can't.
 
 ## User Preferences
 
@@ -134,24 +28,81 @@
 - **Don't shortcut or work around issues** — if a feature exists (e.g., MCP server in the IDE list), fix it properly instead of suggesting alternatives. Don't skip steps.
 - **Skills catalogue is a database, not a distribution** — this project's `skills/` is a central store. Projects pull individual skills they need; don't push all skills to every project.
 
-## Session Log
+## Recent Sessions
+
+### 2026-03-20
+- v11: Two-tier document architecture redesign. Updated 18 files: 4 templates, 7 workflows (v2), setup.md scaffolding, new-project.md, update.md with Step 6b interactive migration, critical-analysis.md, AGENT_SETUP_GUIDE.md
+- Removed tech-stack.md/strategy.md scaffolds. Added history.md, Project Principles, Development Workflow, Active Track + Backlog roadmap
+- Critical analysis passed all 10 steps (1 minor: new-project.md 230 bytes over 12K)
+- Migrated this repo's own memory.md to v11 structure
+
+### 2026-03-12
+- Created `/security-review` workflow — 8-phase platform-agnostic security review. Added to essential set (13 total). Critical analysis caught 4 integration issues, all fixed.
+- Living conductor documents: product.md + tech-stack.md templates, enhanced /end-session with tiered roadmap + product/tech-stack updates, /status reads all conductor docs, created /audit workflow
+- Workflow categories: 12 essential + 5 additional. Created update.md. Rewrote AGENT_SETUP_GUIDE.md as router. Bumped to v10
+- Added version: 1 to all 22 workflow frontmatters. Added agent behaviour rules 11-13. Auto-update check in /end-session Step 9. Created /test workflow. VERSION file
+
+### 2026-03-07
+- Created skill bundles system: 14 shared skills + 7 bundle manifests. Updated /new-track pre-flight with structured skill matching
+- Fixed both install paths to use concise loop. Removed 9 contaminated/redundant catalogue skills
+
+### 2026-03-02
+- Added Phase 0 Brainstorm Gate to /new-project — "ready or brainstorm?" before scaffolding. Critical analysis passed all 10 checks
+
+### 2026-02-27
+- End-session wrap-up. Completed /brainstorm workflow implementation and testing. Cleaned up temporary plans
+
+---
+
+## Archived History
+
+> Key decisions and older session logs from v1–v10. Kept inline since this repo has no conductor/ directory.
+
+<details>
+<summary>Key Decisions (v1–v10)</summary>
+
+| Date | Decision |
+|------|----------|
+| 2026-02-09 | Local-first skills architecture — skills are project-local (`.agent/skills/`), global library as inspiration |
+| 2026-02-10 | Slash command system — rebuilt from 8 workflows with core rules in AGENT.md |
+| 2026-02-10 | Unified setup guide — single self-contained `AGENT_SETUP_GUIDE.md` from GitHub |
+| 2026-02-10 | GitHub for skills library — all references use raw GitHub URLs |
+| 2026-02-10 | Three-way setup detection — fully set up / needs upgrade / fresh project |
+| 2026-02-16 | Central skills catalogue with auto-sync — `skills/` is the central store |
+| 2026-02-16 | Core Rule 6 — Honesty over confidence (don't guess about tools/platform) |
+| 2026-02-16 | UX Design Foundation — `/ux-design` workflow + skill + templates |
+| 2026-02-17 | Offer + Lead Strategy — Hormozi frameworks, smart folder detection, unified guide with version system |
+| 2026-02-18 | v4 — Terminal discipline (Rule 7), browser URLs (Rule 8), port management (Rule 9, default 5010) |
+| 2026-02-19 | v5 — Visual QA workflow system (capture-target → recreate-site / compare-site) |
+| 2026-02-22 | Template extraction — AGENT-code.md + AGENT-workspace.md, eliminated core rules duplication |
+| 2026-02-22 | Exclude setup-only workflows from user installs (setup, new-project, update-guide, critical-analysis) |
+| 2026-02-22 | Critical analysis workflow for self-verification (10-step) |
+| 2026-03-07 | Skill bundles per project type — 14 shared skills + 7 bundle manifests, install-all via loop |
+| 2026-03-12 | Living conductor documents — product.md Vision/Current State model, tiered roadmap updates |
+| 2026-03-12 | Workflow-level versioning — `version: N` in YAML frontmatter, version-aware updates |
+| 2026-03-12 | Agent behaviour rules 11-13 (no fake options, do the work, read the code) |
+| 2026-03-12 | Auto-update check in end-session — curls VERSION from GitHub |
+| 2026-03-12 | /test workflow — 6-phase scope-adaptive testing (brainstorm → recon → design → execute → compile → act) |
+| 2026-03-20 | v11 — Two-tier document architecture: Active Lessons + Recent Sessions, Active Track + Backlog, history.md archive, Project Principles in AGENT.md, tech-stack merged into product.md |
+
+</details>
+
+<details>
+<summary>Session Log (v1–v10)</summary>
 
 | Date | Summary |
 |------|---------|
-| 2026-02-09 | Implemented local-first skills architecture, created create-skill meta-skill, update document |
-| 2026-02-10 | Built slash command system (8 workflows), rewrote bootstrapper, created USER_GUIDE.md, switched to GitHub skills, unified setup guides |
-| 2026-02-11 | Upgraded create-skill: merged skill into workflow, added depth tiers (Quick/Solid/Deep), fuzzy discovery, research phase, resources folder. Added project restart instructions for Antigravity IDE. |
-| 2026-02-14 | Re-ran Antigravity agent setup for this project. |
-| 2026-02-15 | End-session wrap-up. Authenticated `gh` CLI as ButchMenzies. Logged preference: don't shortcut issues. |
-| 2026-02-16 | Imported 13 skills from 5 projects into central `skills/` catalogue. Added Superpowers as third discovery source. Added auto-sync to create-skill workflow (Step 8a). Added Core Rule 6 (honesty over confidence) to templates/AGENT.md, AGENT_SETUP_GUIDE.md, and .agent/AGENT.md. Created update patch for existing projects. Fixed end-session scoping to prevent cross-project memory contamination. |
-| 2026-02-16 | Created UX Design Foundation: `/ux-design` workflow + `ux-design` skill + 8 UX templates. Integrated into `/setup` (Section 5), `/new-track` (pre-flight), `/implement` (UX checkpoint), `planning` (design-first). Updated bootstrapper and created update patch for existing projects. |
-| 2026-02-17 | Created `/offer-strategy` and `/lead-strategy` skills + workflows (Hormozi frameworks). Updated all three workflows (UX, offer, leads) with smart folder detection and single-file output. Unified `AGENT_SETUP_GUIDE.md` with version system — one guide handles fresh installs and updates from GitHub. Created `CHANGELOG.md`. Added `voice-notes-triage` to standard install. Committed and pushed v3. |
-| 2026-02-18 | v4: Added Core Rules 7 (terminal command discipline), 8 (browser URL sharing), 9 (dev server port management). Updated templates/AGENT.md, AGENT_SETUP_GUIDE.md, setup.md, and new-project.md. Port question added to both /setup and /new-project workflows. Default port 5010. |
-| 2026-02-19 | v5: Created Visual QA workflow system. Built and live-tested capture-target, recreate-site and compare-site workflows + visual-qa skill. Live test rebuilt empoweredgrowth.co.nz from captured data (7 sections, all verified). Critical analysis found and fixed 3 P0 bugs + 4 P1 gaps. Renamed design-audit to compare-site. Updated AGENT.md (16 commands), CHANGELOG, skills-catalog, AGENT_SETUP_GUIDE.md (v5 bootstrapper). Created BOOTSTRAP.md — tiny 4-line snippet for Wispr Flow instead of pasting the full guide. Committed and pushed. |
-| 2026-02-19 | Capture workflow v2: Live test on Squarespace site revealed agent trying to capture data itself and poor spacing enforcement. Added agent capability boundary rule, platform detection (Step 0), template-builder nesting guidance, positioning properties, upload limit clarification, Computed tab emphasis. Added build enforcement to recreate-site (min-height rule, Tailwind bracket warning, vertical sanity check). Tested agent DOM/JS capabilities — confirmed no DevTools access. Committed and pushed. |
-| 2026-02-22 | Restructured onboarding: extracted AGENT.md core rules into `AGENT-code.md` and `AGENT-workspace.md` templates. Rewrote setup.md (13,553→6,248), new-project.md (16,182→8,682), create-skill.md (12,138→11,196). Added workspace/non-code project support. Synced Available Commands across all templates, matched skill installs between both paths. Excluded 4 setup-only workflows from user installs (13 installed). Created `/critical-analysis` workflow (10-step verification). Fixed hardcoded paths. Committed and pushed. |
-| 2026-02-27 | End-session wrap-up. Completed implementation of the `/brainstorm` workflow and testing. Cleaned up temporary plans. |
-| 2026-03-02 | Added Phase 0 Brainstorm Gate to `/new-project` workflow — users in empty folders now get "ready or brainstorm?" before scaffolding. Uses full `/brainstorm` (not lite) since it's a fresh start. Added pre-flight skip instruction since `AGENT.md` and `memory.md` don't exist yet. Critical analysis passed all 10 checks. Committed and pushed. |
-| 2026-03-07 | Created skill bundles system: 14 shared skills in `skills/` (create-feature, fix-bug, database-change, build-component, build-page, create-endpoint, performance-audit, auth-flow, payments-stripe, seo-audit, api-design, deploy-vercel, deploy-railway, package-publish). Created 7 bundle manifests in `skills/bundles/`. Updated `/new-track` pre-flight with structured skill matching and plan integration. Critical analysis found setup guide gap — fixed both install paths (setup guide + /new-project) to use concise loop installing all skills. Removed 9 contaminated/redundant catalogue skills (stripe/Yardstick, supabase/IH Coach, etc.). Fixed this project's `.agent/skills/` — removed visual-qa, added fix-bug + planning. |
-| 2026-03-12 | Living conductor documents: defined `product.md` and `tech-stack.md` templates. Enhanced `/end-session` with tiered roadmap updates + product/tech-stack updates. Enhanced `/status` to read all conductor docs. Created `/audit` workflow. Workflow categories: split into 12 essential + 5 additional. Created `update.md` for update path. Rewrote `AGENT_SETUP_GUIDE.md` as router. Bumped to v10. Added `version: 1` to all 22 workflow frontmatters — version-aware updates prevent customization loss. Added agent behaviour rules 11-13 (no fake options, do the work, read the code). Added auto-update check to `/end-session` Step 9 (curls VERSION from GitHub). Created `/test` workflow (6-phase scope-adaptive testing). Created `VERSION` file. Fixed `new-project.md` missing version write. Critical analysis and 10 scenario tests passed. |
-| 2026-03-12 | Created `/security-review` workflow — 8-phase platform-agnostic security review (database, API, auth, secrets, infrastructure, client-side). Adapts to Supabase/Railway/Vercel/Netlify/Cloudflare. Results stored in `conductor/product.md` Security section as living audit trail. Added to essential workflow set (13 total). Critical analysis caught 4 integration issues: missing from Available Commands in all 3 AGENT templates, missing from `AGENT_SETUP_GUIDE.md` and `update.md` install paths, workflow count 12→13. All fixed. |
+| 2026-02-09 | Implemented local-first skills architecture, created create-skill meta-skill |
+| 2026-02-10 | Built slash command system (8 workflows), rewrote bootstrapper, USER_GUIDE.md |
+| 2026-02-11 | Upgraded create-skill: depth tiers, fuzzy discovery, research phase |
+| 2026-02-14 | Re-ran Antigravity agent setup for this project |
+| 2026-02-15 | End-session wrap-up. Authenticated gh CLI |
+| 2026-02-16 | Imported 13 skills, added Superpowers, Core Rule 6, UX Design Foundation |
+| 2026-02-16 | Created /ux-design workflow + skill + 8 UX templates |
+| 2026-02-17 | Created /offer-strategy and /lead-strategy. Unified setup guide. v3 |
+| 2026-02-18 | v4: Terminal discipline, browser URLs, port management |
+| 2026-02-19 | v5: Visual QA workflow system. Live tested on empoweredgrowth.co.nz |
+| 2026-02-19 | Capture workflow v2: agent capability boundaries, platform detection |
+| 2026-02-22 | Restructured onboarding: template extraction, workspace support, /critical-analysis |
+
+</details>

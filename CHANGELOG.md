@@ -4,6 +4,35 @@ All notable changes to the Antigravity agent system.
 
 ---
 
+## v11 — 2026-03-20
+
+### Document Architecture Redesign
+
+Two-tier active/archive system proven over 50+ sessions in production. Fixes scaling problems with unbounded memory growth, stale tech-stack files, and phase-based roadmaps.
+
+### Added
+- `conductor/history.md` — archive for completed phases, old decisions, old session logs
+- `AGENT.md` → `## Project Principles` — active design decisions that influence every future feature
+- `AGENT.md` → `## Development Workflow` — standard plan/build/test/commit/wrap-up cycle
+- `update.md` Step 6b — interactive document structure migration for v10 → v11 upgrades
+
+### Changed
+- `memory.md` — `Key Decisions` and `Session Log` table replaced with `Active Lessons` + `Recent Sessions` (5-session rotation). Decisions route to Project Principles or history.md
+- `roadmap.md` — numbered phases with 🔄/✅ emojis replaced with `Active Track` + themed `Backlog`
+- `tech-stack.md` — merged into `product.md` as `## Infrastructure Services` (one less file)
+- All 7 core workflows bumped to v2 — `end-session`, `implement`, `new-track`, `status`, `update-memory`, `audit`, `security-review`
+- `setup.md` — conductor scaffolding uses new formats (Active Track roadmap, history.md, no tech-stack.md)
+- `update.md` — interactive migration: auto-migrate or guided walkthrough for memory, conductor files, roadmap conversion
+
+### Removed
+- `tech-stack.md` scaffold from setup (merged into product.md)
+- `strategy.md` scaffold from setup (merged into product.md)
+- Step 4c in `end-session` (tech-stack update step)
+- Step 1c in `status` (tech-stack details)
+- Phase/emoji terminology throughout all workflows
+
+---
+
 ## v9 — 2026-03-05
 
 ### Added

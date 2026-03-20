@@ -157,38 +157,19 @@ Project initialised. No features built yet.
 
 ## Features
 [Detailed inventory of what's been built. Each feature gets a heading with a brief description of what it does and how it works. Empty at project start — populated by /end-session updates.]
-```
 
-#### `conductor/tech-stack.md` (code) or `conductor/strategy.md` (non-code)
+## Infrastructure Services
+[For code projects only — populate from Q5 tech stack answers. For non-code projects, omit this section.]
 
-For code projects, populate from Q5 (tech stack) answers:
-
-```markdown
-# Tech Stack
-
-## Core
 - **Language**: [e.g. TypeScript]
 - **Framework**: [e.g. Next.js 14 (App Router)]
 - **Styling**: [e.g. Tailwind CSS]
-
-## Infrastructure
 - **Database**: [e.g. Supabase (PostgreSQL)]
 - **Auth**: [e.g. Supabase Auth]
 - **Hosting**: [e.g. Vercel]
-
-## Key Dependencies
-[Notable packages beyond the framework defaults, with brief rationale]
-
-## Development
 - **Port**: [from Q6]
 - **Start command**: [e.g. npm run dev]
-- **Key tooling**: [e.g. ESLint, Prettier]
-
-## Decisions
-[Technical decisions and rationale — why this stack, what alternatives were considered. Updated when tech choices change.]
 ```
-
-For non-code projects, create `conductor/strategy.md` with goals, audience, and approach.
 
 #### `conductor/roadmap.md`
 
@@ -197,14 +178,53 @@ Populate from brainstorm-lite output (Section 0) if available, otherwise from Q&
 ```markdown
 # Project Roadmap
 
-## Phase 1: [Name] 🔄
+## Active Track
+
+<!-- Current focus. One track at a time. Items here are concrete and checkable. -->
+
+### [Track Name]
+- [ ] [Concrete task or deliverable]
 - [ ] [Concrete task or deliverable]
 
-## Phase 2: [Name]
+## Backlog
+
+<!-- Future work organised by theme. Items here are less detailed. -->
+
+### [Theme Name]
 - [Outlined item]
+- [Outlined item]
+
+## Cross-Cutting Notes
+
+<!-- Items that span multiple themes or don't fit a category yet. -->
 ```
 
-Use **progressive detail**: Phase 1 has concrete checkboxes, later phases are vague bullet points. Mark Phase 1 with 🔄 (active).
+#### `conductor/history.md`
+
+```markdown
+# [Project Name] — Build History
+
+> Archive of completed work, past decisions, and session logs.
+> Active reference lives in product.md, roadmap.md, .agent/memory.md.
+
+---
+
+## Build Timeline
+
+| Phase | Period | What Was Built |
+|-------|--------|---------------|
+
+## Archived Decisions
+
+## Archived Lessons Learned
+
+## Archived Session Log
+
+| Date | Summary |
+|------|---------|
+
+## Archived Design Documents
+```
 
 #### `conductor/notes.md`
 
@@ -232,7 +252,7 @@ Populate all placeholder sections with real answers from the Q&A. Replace the ti
 
 If `.agent/memory.md` already exists → **do NOT overwrite it**.
 
-Only create if not present. Use `templates/memory.md` from the Antigravity repo as the base. Set the work style preference from Q8 and add today's date to the session log.
+Only create if not present. Use `templates/memory.md` from the Antigravity repo as the base. Set the work style preference from Q8 and add today's date as the first Recent Sessions entry.
 
 ---
 

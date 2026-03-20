@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 description: Comprehensive security review — database, API, auth, secrets, infrastructure, client-side
 ---
 
@@ -18,7 +18,7 @@ Read the current security posture before doing anything new.
 1. **Read previous findings** — check `conductor/product.md` for the `## Security` section
    - If it exists: note the last review date, any open warnings/critical items, and accepted risks
    - If it doesn't exist: this is the first review — note that for the report
-2. **Detect the stack** — read `conductor/tech-stack.md` (or scan `package.json`, config files, deployment configs)
+2. **Detect the stack** — read `conductor/product.md` Infrastructure Services section (or scan `package.json`, config files, deployment configs)
    - Note: database provider, auth provider, hosting/deployment platform, framework
 3. **Read `.agent/memory.md`** — check for past security decisions or known issues
 4. **Read `.agent/AGENT.md`** — understand what the project is and what it handles (user data, payments, etc.)
@@ -316,8 +316,11 @@ If `conductor/product.md` doesn't exist (no conductor), store the report in `.ag
 
 Log the review in `.agent/memory.md`:
 
+Update the current session entry in `## Recent Sessions` with the review outcome, or add a new entry if this is the first item today:
+
 ```markdown
-| [Date] | Security review: [one-line outcome summary] |
+### [Date]
+- Security review: [one-line outcome summary]
 ```
 
 ### Next steps

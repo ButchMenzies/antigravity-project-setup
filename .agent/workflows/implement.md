@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 description: Execute a plan with progress tracking, memory checkpoints, and skill prompts
 ---
 
@@ -14,7 +14,7 @@ Execute tasks from an implementation plan with structured tracking.
 3. **Scan `.agent/skills/`** — read the SKILL.md of any skill relevant to the current work
 4. Locate the active plan:
    - Check `.agent/current-plan.md` first
-   - Then check `conductor/tracks/` for track plans (read `tracks.md` to find active track)
+   - Then check `conductor/tracks/` for track plans (read `conductor/roadmap.md` Active Track section)
    - If no plan files, check conversation context for the most recent plan
 5. If no plan found: suggest running `/new-track` first
 
@@ -90,10 +90,10 @@ Phase verification:
 
 ### 6a. Update Roadmap (if conductor exists)
 
-If `conductor/roadmap.md` exists and the completed phase corresponds to a roadmap phase:
-- Mark the phase as ✅ in the roadmap
-- Check off completed items within the phase
-- Move the 🔄 marker to the next incomplete phase
+If `conductor/roadmap.md` exists:
+- Update the **Active Track** section — mark completed items with `[x]`
+- If the active track is fully done, clear the Active Track section
+- Check off any relevant backlog items
 
 ### 6b. Re-evaluate the Next Phase (BEFORE proceeding)
 
@@ -113,9 +113,10 @@ Before moving on, review and refine the upcoming phase:
 **You must complete this before moving to the next phase.** This is not optional.
 
 1. Update `.agent/memory.md`:
-   - **Decisions** → append under `## Key Decisions` using the format in the section comments
-   - **Lessons/gotchas** → append under `## Lessons Learned` using the format in the section comments
-   - **Session log** → append a row to the `## Session Log` table
+   - **Repeating lesson/gotcha?** → append under `## Active Lessons`
+   - **User preference discovered?** → append under `## User Preferences`
+   - **Design decision that influences future work?** → add to `AGENT.md` → `## Project Principles`
+   - **Recent Sessions** → update the current session entry if significant progress was made
 
 2. **UX knowledge update** (if this phase involved UI work and `.agent/ux/` exists):
    Check if the work revealed anything new about the product's design:
@@ -177,7 +178,7 @@ What's next?
 If using conductor tracks, update `metadata.json`:
 - Set status to `complete`
 - Update timestamps
-- Update `conductor/tracks.md` to mark track as complete
+- Clear the Active Track section in `conductor/roadmap.md`
 
 ---
 

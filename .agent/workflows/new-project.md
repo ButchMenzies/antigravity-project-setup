@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 description: Scaffold a brand new project — choose what to build, create folder structure, install dependencies
 ---
 
@@ -243,7 +243,7 @@ Install any of these?
 
 **Step 5 — Write version file:**
 ```bash
-echo "10" > .agent/version
+echo "11" > .agent/version
 ```
 
 **Step 6 — Clean up:**
@@ -282,7 +282,7 @@ Populate all placeholder sections with real answers from the Q&A. Replace the ti
 
 ### memory.md
 
-Use `templates/memory.md` as the base. Set work style from Q4/Q4W and add today's date to session log.
+Use `templates/memory.md` as the base. Set work style from Q4/Q4W and add today's date as the first Recent Sessions entry.
 
 ### Conductor (long-term projects only)
 
@@ -296,17 +296,15 @@ Create these files:
 
 #### `conductor/product.md`
 
-Populate from Q&A/brainstorm. Structure: **Vision** (what we're building toward — written once, only modified by `/audit`), **Current State** (starts with "Project initialised. No features built yet." — updated by `/end-session`), **Features** (empty at start — built up as features ship), **Security** (initialised as: "Last reviewed: Not yet. Run `/security-review` after your first deployment-ready build." — updated by `/security-review`).
-
-#### `conductor/tech-stack.md` (code) or `conductor/strategy.md` (workspace)
-
-For code projects: **Core** (language, framework, styling), **Infrastructure** (database, auth, hosting), **Key Dependencies** (notable packages with rationale), **Development** (port, start command, tooling), **Decisions** (rationale for tech choices — updated when things change). Populate from Q3/Q5.
-
-For workspace: create `conductor/strategy.md` with goals, audience, and approach.
+Populate from Q&A/brainstorm. Structure: **Vision** (what we're building toward — written once, only modified by `/audit`), **Current State** (starts with "Project initialised. No features built yet." — updated by `/end-session`), **Features** (empty at start — built up as features ship), **Infrastructure Services** (for code projects: language, framework, styling, database, auth, hosting, port, start command — populated from Q3/Q5), **Security** (initialised as: "Last reviewed: Not yet. Run `/security-review` after your first deployment-ready build." — updated by `/security-review`).
 
 #### `conductor/roadmap.md`
 
-Populate from brainstorm output (Phase 0) if available, otherwise from Q&A context. Use **progressive detail**: Phase 1 has concrete checkboxes (`- [ ]`), Phase 2 has outlined items, Phase 3+ has sketched ideas. Mark Phase 1 with 🔄 (active). Later phases get ✅ when done.
+Populate from brainstorm output (Phase 0) if available, otherwise from Q&A context. Use the **Active Track + Backlog** format: Active Track has concrete checkboxes (`- [ ]`), Backlog has themed sections with outlined items, Cross-Cutting Notes captures items that span themes.
+
+#### `conductor/history.md`
+
+Create with empty scaffold: **Build Timeline** (table), **Archived Decisions**, **Archived Lessons Learned**, **Archived Session Log** (table), **Archived Design Documents**.
 
 #### Notes Format
 

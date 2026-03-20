@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 description: Log a decision, lesson, preference, or issue to memory
 ---
 
@@ -55,31 +55,27 @@ What's the proper fix?
 
 ### 3. Write Entry
 
-Append to the **specific section** of `.agent/memory.md`:
+Append to the **appropriate location** based on entry type:
 
-- **Decisions** → append under `## Key Decisions`:
+- **Decisions** → If it influences future feature design, add to `.agent/AGENT.md` → `## Project Principles`:
   ```markdown
-  ### YYYY-MM-DD [Title]
-  **Context**: [what prompted the decision]
-  **Decision**: [what was decided]
-  **Rationale**: [why this choice]
+  N. **[Title]** — [one-line description of the decision and rationale]
   ```
+  If it's more of a one-off choice, log under `## Active Lessons` in `.agent/memory.md`.
 
-- **Lessons** → append under `## Lessons Learned`:
+- **Lessons** → append under `## Active Lessons` in `.agent/memory.md`:
   ```markdown
-  ### YYYY-MM-DD [Title]
+  ### [Title]
   **Problem**: [what went wrong]
   **Fix**: [how it was resolved]
   **Prevention**: [how to avoid next time]
   ```
 
-- **Preferences** → append as a bullet under `## User Preferences`
+- **Preferences** → append as a bullet under `## User Preferences` in `.agent/memory.md`
 
-- **Issues** → append under `## Lessons Learned` (use the lesson format with the issue details)
+- **Issues** → append under `## Active Lessons` (use the lesson format with the issue details)
 
-- **General notes** → append under `## Key Decisions` with a descriptive title
-
-Also update the `## Session Log` table with a new row.
+- **General notes** → append under `## Active Lessons` with a descriptive title
 
 ### 4. Confirm
 

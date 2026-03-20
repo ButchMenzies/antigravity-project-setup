@@ -1,27 +1,20 @@
 # Project Memory
 
-> Agent-maintained record of decisions, lessons, and context.
-> Update after completing features, making decisions, or solving problems.
+> Agent-maintained record of active preferences, lessons, and recent context.
+> Full build history and archived decisions live in `conductor/history.md`.
 >
-> **Maintenance:** When this file exceeds ~100 entries or becomes hard to scan,
-> archive older entries to `.agent/memory-archive.md` and keep only the last
-> 30 days of entries here. Always keep User Preferences — those never expire.
+> **Maintenance:** Keep only the last 5 sessions in Recent Sessions. When adding a new one,
+> move the oldest to `conductor/history.md` Archived Session Log table.
 
 ---
 
-## Key Decisions
+## Active Lessons
 
-<!-- Append new decisions here using this format:
-### YYYY-MM-DD [Title]
-**Context**: [what prompted the decision]
-**Decision**: [what was decided]
-**Rationale**: [why this choice]
--->
+<!-- Only keep lessons that are still genuine traps — things that could bite you again.
+     Once a lesson is baked into the codebase or no longer relevant, archive it to
+     conductor/history.md under Archived Lessons Learned.
 
-## Lessons Learned
-
-<!-- Append new lessons here using this format:
-### YYYY-MM-DD [Title]
+### [Title]
 **Problem**: [what went wrong]
 **Fix**: [how it was resolved]
 **Prevention**: [how to avoid next time]
@@ -33,8 +26,12 @@
 
 <!-- Append new preferences as bullet points -->
 
-## Session Log
+## Recent Sessions
 
-| Date | Summary |
-|------|---------|
-| [today] | Initial project setup |
+<!-- Last 5 sessions in condensed format. When adding a 6th, move the oldest
+     to conductor/history.md Archived Session Log.
+
+### YYYY-MM-DD
+- [Key item 1]
+- [Key item 2]
+-->

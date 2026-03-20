@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 description: Show project status — active tracks, recent memory, available skills
 ---
 
@@ -28,35 +28,25 @@ Features built: [N] ([list feature names])
 Vision items remaining: [N]
 ```
 
-### 1c. Tech Stack Details
-
-If `conductor/tech-stack.md` exists:
-- Read it and show key decisions alongside the AGENT.md tech stack:
-
-```
-🔧 Tech Stack
-
-[Core stack summary from tech-stack.md]
-Recent decisions: [list any entries from the Decisions section]
-```
 
 ### 2. Roadmap Overview
 
 If `conductor/roadmap.md` exists:
-- Read it and show phase-level summary:
+- Read it and show current status:
 
 ```
 🗺️ Roadmap
 
-✅ Phase 1: [Name] — complete
-🔄 Phase 2: [Name] — in progress ([X]/[Y] items)
-   Phase 3: [Name] — upcoming
-   Phase 4: [Name] — upcoming
+Active Track: [Name or "None"]
+[If active: brief progress summary]
+
+Backlog: [N] themes, [M] total items
+Top themes: [list top 3 themes by priority]
 ```
 
-If `conductor/notes.md` exists with content beyond the header:
+If `conductor/notes` exists with content beyond the header:
 ```
-📝 [N] pending notes in conductor/notes.md
+📝 [N] pending notes in conductor/notes
 ```
 
 ### 3. Active Tracks
@@ -87,13 +77,13 @@ No tracks set up. Run /new-track to plan work.
 
 ### 4. Recent Memory
 
-Read the last 3 entries from `.agent/memory.md`:
+Read `## Recent Sessions` from `.agent/memory.md`:
 ```
-🧠 Recent Memory
+🧠 Recent Sessions
 
-- [Date] [Decision/Lesson]: [summary]
-- [Date] [Decision/Lesson]: [summary]
-- [Date] [Decision/Lesson]: [summary]
+- [Date]: [summary]
+- [Date]: [summary]
+- [Date]: [summary]
 ```
 
 ### 5. Local Skills

@@ -28,6 +28,22 @@
 12. **Do the work yourself.** Don't ask the user to do things you can do. If you can read a file, run a command, check a status, or make an edit — do it. Only involve the user when you genuinely need their input, approval, or access to something you can't reach.
 13. **Read the code first.** Before suggesting changes, read the actual code that's relevant. Don't assume how something works based on what a typical app would do — check this specific codebase. If you're fixing a bug, read the module. If you're adding a feature, read the existing patterns. Ground every suggestion in what the code actually says.
 
+## Project Principles
+
+Active design decisions that influence how features are built:
+
+<!-- Add principles here as numbered items when a decision should influence every future feature:
+1. **[Title]** — [one-line description of the decision and rationale]
+-->
+
+## Development Workflow
+
+1. Plan → `/new-track` (produces detailed implementation plan)
+2. Build → `/implement` (execute plan with progress tracking)
+3. Test locally
+4. Commit and push
+5. Wrap up → `/end-session` (update memory, roadmap, product.md)
+
 ## Available Commands
 
 ### Essential

@@ -197,7 +197,18 @@ Verify `templates/memory.md` exists and has the expected sections:
 grep "^## " templates/memory.md
 ```
 
-Must have: Key Decisions, Lessons Learned, User Preferences, Session Log
+Must have: Active Lessons, User Preferences, Recent Sessions
+
+### 6e. AGENT.md template structure
+
+Verify both templates have these sections between Core Rules and Available Commands:
+1. `## Project Principles`
+2. `## Development Workflow`
+
+```bash
+grep "^## " templates/AGENT-code.md
+grep "^## " templates/AGENT-workspace.md
+```
 
 ---
 
@@ -291,7 +302,7 @@ For each scenario, actually read the relevant files and verify the branching log
 2. Verify Phase 1W creates `docs/ research/ output/ references/` structure
 3. Verify Phase 3 fetches `AGENT-workspace.md` template (URL must be correct)
 4. Verify no dev port or scaffolding steps run
-5. Verify Phase 3 conductor section handles workspace differently (`strategy.md` not `tech-stack.md`)
+5. Verify Phase 3 conductor section creates `history.md` and uses Active Track + Backlog roadmap format
 
 ### Scenario D: Update (existing project, older version)
 

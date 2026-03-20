@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 description: Wrap up a session — update memory, note progress, prepare for next time
 ---
 
@@ -50,48 +50,32 @@ Blockers or open questions:
 
 **Do not skip this step. The session cannot end without a memory update.**
 
-Append a session log entry to the `## Session Log` table in `.agent/memory.md`:
+Update `## Recent Sessions` in `.agent/memory.md`:
 
+1. Add today's session at the top in condensed format:
 ```markdown
-| [Date] | [Brief summary of what was accomplished] |
+### [Date]
+- [Key item 1]
+- [Key item 2]
 ```
 
-Then check if any of these need logging (append to the specific sections):
-- Important decisions made? → Append under `## Key Decisions`
-- Tricky problems solved? → Append under `## Lessons Learned`
+2. Keep only the last 5 sessions. If there are more than 5, **move the oldest to `conductor/history.md`** under the Archived Session Log table.
+
+3. Check if any of these need updating:
+- Repeating pattern solved? → Append under `## Active Lessons`
 - User preferences discovered? → Append as bullets under `## User Preferences`
+
+> **Note:** Key decisions that influence future design go into `AGENT.md` → Project Principles, not memory.md.
 
 ### 4. Update Roadmap Progress
 
-If `conductor/roadmap.md` exists, apply **tiered updates**:
+If `conductor/roadmap.md` exists:
 
-#### Tier 1 — Auto (just do it):
-- Mark completed tasks/items with `[x]` or checkboxes
-- If all items in a phase are done, change the phase status emoji to ✅
-- If a phase is actively in progress, ensure it has the 🔄 emoji
-- If a new phase was started, move 🔄 to it
-- **Flesh out the next phase**: if upcoming phase items are vague, add concrete detail based on what was learned this session
-
-#### Tier 2 — Propose & Confirm (interactive):
-If the session's work revealed something that changes the roadmap structure, present a proposal:
-
-```
-📋 Roadmap Change Proposal
-
-Based on this session's work, I think the roadmap needs restructuring:
-
-[Describe the proposed change — e.g. reorder phases, add new phase, remove a phase, change next phase direction]
-
-Reason: [Why this change makes sense given what was discovered]
-
-1. Apply this change
-2. Modify the proposal
-3. Skip — keep roadmap as-is
-```
-
-**Wait for user response before making structural changes.**
-
-Triggers for Tier 2: phase reordering, adding new phases, removing phases, changing the next phase's direction or scope.
+1. Update the **Active Track** section — mark items complete, update status
+2. If the active track is fully done, clear it and propose the next track
+3. If backlog items were worked on, mark them as `[x]`
+4. If new backlog items were discovered, add them to the appropriate theme
+5. If the session revealed something that changes roadmap priorities, propose the change and **wait for user confirmation** before restructuring
 
 ### 4b. Update Product Context
 
@@ -103,15 +87,6 @@ If `conductor/product.md` exists:
 4. Add new entries to the **Features** section for anything built this session — include what the feature does and how it works
 5. Update existing feature entries if their behaviour changed
 6. **Do NOT modify the Vision section** — that's `/audit`'s job
-
-### 4c. Update Tech Stack
-
-If `conductor/tech-stack.md` exists:
-
-1. Read the current `tech-stack.md`
-2. Check if new dependencies, services, or tools were added or changed this session
-3. Update the relevant sections (Core, Infrastructure, Key Dependencies, Development)
-4. If a significant tech decision was made, append to the **Decisions** section with rationale
 
 ### 5. Update Track Progress
 
