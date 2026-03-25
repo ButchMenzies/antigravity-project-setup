@@ -1,9 +1,10 @@
 ---
-name: SEO Audit
-description: Search engine optimization — meta tags, structure, performance
-triggers: [SEO, search engine, meta tags, google, sitemap, indexing]
-track_types: [feature, chore]
-mcps: []
+name: seo-audit
+description: >-
+  Audits search engine optimization covering meta tags, heading structure,
+  sitemaps, and performance. Use when checking SEO compliance, improving
+  search rankings, or preparing pages for indexing.
+source: antigravity
 ---
 
 # SEO Audit

@@ -1,6 +1,11 @@
 ---
+name: security-review
 version: 2
-description: Comprehensive security review — database, API, auth, secrets, infrastructure, client-side
+description: >-
+  Performs a comprehensive security review covering database, API, auth,
+  secrets, infrastructure, and client-side vulnerabilities. Use when
+  auditing security posture or before a production release.
+source: antigravity
 ---
 
 # Security Review

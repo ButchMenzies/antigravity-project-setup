@@ -1,6 +1,11 @@
 ---
+name: audit
 version: 2
-description: Deep audit of conductor documents against the actual codebase — find drift, reconcile vision
+description: >-
+  Performs a deep audit of conductor documents against the actual
+  codebase to find drift and reconcile vision. Use when project
+  documentation may be out of sync with implementation.
+source: antigravity
 ---
 
 # Project Audit

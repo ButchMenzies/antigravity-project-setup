@@ -1,6 +1,11 @@
 ---
-version: 1
-description: Create a new project-local skill from repeating patterns or workflows
+name: create-skill
+version: 2
+description: >-
+  Creates a new project-local skill from repeating patterns or workflows.
+  Use when a process has been repeated, a convention needs documenting, or
+  the user wants to create a new domain-specific capability.
+source: antigravity
 ---
 
 # Create Skill
@@ -193,42 +198,48 @@ Does this cover what you need, or should I adjust?
 
 ## Step 5: Create the Skill
 
+### Naming rules (from Agent Skills spec)
+
+- **Lowercase letters, numbers, and hyphens only** (e.g., `api-design`, `fix-bug`)
+- 1–64 characters
+- Cannot start or end with a hyphen
+- No consecutive hyphens (`--`)
+- Folder name must match the `name` field
+- Use gerund form when natural: `processing-pdfs`, `testing-code`
+- Avoid vague names: `helper`, `utils`, `tools`
+
+### Create the directory
+
 ```bash
 mkdir -p .agent/skills/<skill-name>
 ```
 
-Write `.agent/skills/<skill-name>/SKILL.md` using the template below.
-
-**For Deep skills only** — also create the resources folder:
+**For Deep skills only** — also create reference directories:
 ```bash
-mkdir -p .agent/skills/<skill-name>/resources
+mkdir -p .agent/skills/<skill-name>/references
+mkdir -p .agent/skills/<skill-name>/scripts   # if executable code is needed
 ```
 
 And write research artifacts:
-- `.agent/skills/<skill-name>/resources/frameworks.md` — methodologies, principles, and approaches discovered during research
-- `.agent/skills/<skill-name>/resources/references.md` — notes on named influences, what makes their approach distinctive, key takeaways
-- `.agent/skills/<skill-name>/resources/examples.md` — concrete before/after examples, annotated with why the good version works
+- `.agent/skills/<skill-name>/references/frameworks.md` — methodologies, principles, and approaches discovered during research
+- `.agent/skills/<skill-name>/references/influences.md` — notes on named influences, what makes their approach distinctive, key takeaways
+- `.agent/skills/<skill-name>/references/examples.md` — concrete before/after examples, annotated with why the good version works
+
+Write `.agent/skills/<skill-name>/SKILL.md` using the template below.
 
 ### Skill Template
 
 ```markdown
 ---
 name: <skill-name>
-description: <One-line description of what this skill does>
+description: >-
+  <Third-person description of what the skill does.>
+  Use when <specific triggers, contexts, and keywords>.
 ---
 
 # <Skill Title>
 
-<Brief description of what this skill accomplishes.>
-
-## Use this skill when
-
-- <Trigger 1>
-- <Trigger 2>
-
-## Do not use this skill when
-
-- <Anti-trigger — when NOT to use this>
+<Brief summary — what this skill accomplishes and why it exists.>
 
 ## Instructions
 
@@ -243,14 +254,45 @@ description: <One-line description of what this skill does>
 ## Examples
 
 <Required for Deep skills. Encouraged for Solid. Optional for Quick.>
-<Include concrete examples of the skill in action — not hypothetical, real.>
+<Include concrete input/output pairs — not hypothetical, real.>
 <For Deep skills: annotate examples with WHY they work.>
 
 ## References
 
 <Optional: Links to docs, related skills, or source material.>
-<For Deep skills: reference the resources/ folder for detailed notes.>
+<For Deep skills: reference the references/ folder for detailed notes.>
 ```
+
+### Writing effective descriptions
+
+**The `description` field is critical** — Claude uses it to decide when to activate the skill from potentially 100+ available skills.
+
+- **Write in third person.** "Analyses spreadsheets" not "I can help you analyse"
+- **Include what it does AND when to use it.** Both halves are required.
+- **Include specific keywords** that help Claude match user requests to this skill.
+- **Maximum 1024 characters.**
+
+Good:
+```yaml
+description: >-
+  Diagnoses and fixes bugs through structured reproduction, isolation,
+  and verification. Use when encountering errors, regressions, crashes,
+  unexpected behavior, or broken functionality.
+```
+
+Bad:
+```yaml
+description: Helps with bugs.
+```
+
+### The conciseness principle
+
+**Claude is already very smart.** Only add context it doesn't already have. Challenge each paragraph:
+- "Does Claude really need this explanation?"
+- "Can I assume Claude knows this?"
+- "Does this paragraph justify its token cost?"
+
+Keep `SKILL.md` body under **500 lines**. If content exceeds this, split into separate files in `references/` and link from SKILL.md.
 
 ### Quality bar by tier
 
@@ -258,7 +300,7 @@ description: <One-line description of what this skill does>
 |---|---|---|---|
 | **Instructions** | Concise steps | Detailed with rationale | Comprehensive with principles |
 | **Examples** | Optional | Encouraged (1-2) | Required (2-3, annotated) |
-| **Resources folder** | No | No | Yes |
+| **References folder** | No | No | Yes |
 | **Anti-patterns** | Optional | Encouraged | Required — what to avoid and why |
 
 ---
@@ -340,7 +382,9 @@ Registered in: .agent/skills-catalog.md
 - **Be specific, not generic.** Capture *this project's* patterns — exact file paths, naming conventions, codebase-specific approaches.
 - **Keep it actionable.** Every step must be executable. No vague advice like "follow best practices."
 - **Include commands.** If the skill involves terminal work, include exact commands.
-- **One skill, one job.** If it's getting long, split it.
+- **One skill, one job.** If it's getting long, split it. Multiple focused skills compose better than one large skill.
 - **Update, don't duplicate.** If an existing skill covers 80% of what you need, update it.
+- **Use progressive disclosure.** Keep SKILL.md concise. Move detailed reference material to `references/`, executable code to `scripts/`.
+- **Provide a default, not options.** Don't present multiple approaches unless necessary. Give Claude one clear path with an escape hatch for edge cases.
 - **Upload general skills.** If useful in other projects, upload to the Antigravity repo.
 - **Skills are living documents.** After 2-3 uses, suggest a refinement pass — reinforce what works, fix what needed manual adjustment.

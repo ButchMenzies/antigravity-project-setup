@@ -1,9 +1,10 @@
 ---
-name: Build Page
-description: Section-by-section page construction with SEO and responsive design
-triggers: [new page, landing page, marketing page, content page, build page]
-track_types: [feature]
-mcps: []
+name: build-page
+description: >-
+  Constructs pages section-by-section with SEO and responsive design built
+  in. Use when building landing pages, marketing pages, content pages, or
+  any new route with a full-page layout.
+source: antigravity
 ---
 
 # Build Page

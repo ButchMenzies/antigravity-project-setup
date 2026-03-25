@@ -1,6 +1,11 @@
 ---
 name: offer-strategy
-description: Frameworks for building irresistible offers using the Value Equation and Grand Slam Offer methodology. Reads the project's offer.md for project-specific offer artifacts.
+description: >-
+  Provides frameworks for building irresistible offers using the Value Equation
+  and Grand Slam Offer methodology. Reads the project's offer.md for
+  project-specific artifacts. Use when designing pricing, offers, or value
+  propositions.
+source: antigravity
 ---
 
 # Offer Strategy

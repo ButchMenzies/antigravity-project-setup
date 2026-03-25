@@ -1,9 +1,10 @@
 ---
-name: Deploy to Railway
-description: Railway deployment — services, env vars, health checks
-triggers: [deploy, railway, production, hosting, ship, release, backend deploy]
-track_types: [chore]
-mcps: []
+name: deploy-railway
+description: >-
+  Manages Railway deployments including service configuration, environment
+  variables, and health checks. Use when deploying backends, setting up
+  Railway services, or configuring production hosting.
+source: antigravity
 ---
 
 # Deploy to Railway

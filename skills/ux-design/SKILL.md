@@ -1,6 +1,11 @@
 ---
 name: ux-design
-description: Reference checklist for applying the product's design direction during UI implementation — reads and updates the project's brand/design files.
+description: >-
+  Provides a reference checklist for applying the product's design direction
+  during UI implementation. Reads and updates the project's brand and design
+  files. Use when implementing UI, reviewing design consistency, or updating
+  brand guidelines.
+source: antigravity
 ---
 
 # UX Design

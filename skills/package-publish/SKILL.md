@@ -1,9 +1,10 @@
 ---
-name: Package & Publish
-description: npm package publishing — bundling, exports, versioning, changelog
-triggers: [publish, package, npm, release, library, versioning, changelog]
-track_types: [chore, feature]
-mcps: []
+name: package-publish
+description: >-
+  Handles npm package publishing including bundling, exports, versioning, and
+  changelog management. Use when publishing packages, creating releases,
+  updating library versions, or managing changelogs.
+source: antigravity
 ---
 
 # Package & Publish

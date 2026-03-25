@@ -1,6 +1,11 @@
 ---
+name: status
 version: 2
-description: Show project status — active tracks, recent memory, available skills
+description: >-
+  Shows project status including active tracks, recent memory, and
+  available skills. Use when checking what's in progress or getting
+  oriented in a project.
+source: antigravity
 ---
 
 # Project Status

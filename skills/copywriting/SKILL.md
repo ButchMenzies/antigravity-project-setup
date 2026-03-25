@@ -1,6 +1,10 @@
 ---
 name: copywriting
-description: Voice, tone, and writing conventions for all user-facing text. Reads .agent/ux/ to ensure copy matches the product's design direction.
+description: >-
+  Applies voice, tone, and writing conventions for all user-facing text.
+  Reads .agent/ux/ to ensure copy matches the product's design direction.
+  Use when writing UI copy, marketing text, or onboarding content.
+source: antigravity
 ---
 
 # Copywriting

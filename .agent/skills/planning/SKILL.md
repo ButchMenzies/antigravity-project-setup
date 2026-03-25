@@ -1,6 +1,10 @@
 ---
 name: planning
-description: Principles for iterative, grounded planning — plan what you can see, learn first, then re-plan.
+description: >-
+  Provides principles for iterative, grounded planning that avoids
+  over-engineering. Use when beginning any planning process, scoping work,
+  or breaking down complex tasks into phases.
+source: antigravity
 ---
 
 # Planning

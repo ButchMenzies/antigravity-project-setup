@@ -1,6 +1,11 @@
 ---
+name: recreate-site
 version: 1
-description: Recreate an existing website from scratch — capture its design data, then build it in your chosen tech stack.
+description: >-
+  Recreates an existing website from scratch by capturing its design data
+  and building it in a chosen tech stack. Use when cloning or rebuilding
+  an existing site's design and functionality.
+source: antigravity
 ---
 
 # Recreate Site Workflow

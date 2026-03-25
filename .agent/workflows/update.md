@@ -1,11 +1,11 @@
 ---
-version: 2
+version: 3
 description: Update an existing Antigravity project to the latest version — workflows, skills, core rules
 ---
 
 # Update Project
 
-Update an existing Antigravity-powered project to the latest version. Handles workflow installation (essential + additional), skill updates, core rules merge, document structure migration, and version tracking.
+Update an existing Antigravity-powered project to the latest version. Handles workflow installation (essential + additional), skill updates, core rules merge, stale file cleanup, document structure migration, and version tracking.
 
 > This workflow is fetched from GitHub by the setup guide when it detects an outdated version. It is NOT installed into user projects.
 
@@ -19,9 +19,39 @@ git clone --depth 1 https://github.com/ButchMenzies/antigravity-project-setup.gi
 
 ---
 
-## Step 2: Install Essential Workflows
+## Step 2: Detect Project Type
 
-Essential workflows: `new-track`, `edit`, `implement`, `status`, `update-memory`, `end-session`, `brainstorm`, `brainstorm-lite`, `audit`, `create-skill`, `ux-design`, `test`, `security-review`.
+Read `.agent/AGENT.md` and determine the project type:
+- Has **Tech Stack** and **Local Development** sections → **code project**
+- Has **Goals** and **Key Resources** sections (without Tech Stack) → **workspace project**
+- If unclear → default to **code project**
+
+This determines which workflows and skills are installed in Steps 3-5.
+
+---
+
+## Step 3: Install Essential Workflows
+
+Essential workflows depend on project type:
+
+| Workflow | Code | Workspace |
+|----------|:---:|:---:|
+| `new-track` | ✅ | ✅ |
+| `implement` | ✅ | ✅ |
+| `edit` | ✅ | ✅ |
+| `brainstorm` | ✅ | ✅ |
+| `brainstorm-lite` | ✅ | ✅ |
+| `status` | ✅ | ✅ |
+| `update-memory` | ✅ | ✅ |
+| `end-session` | ✅ | ✅ |
+| `create-skill` | ✅ | ✅ |
+| `audit` | ✅ | — |
+| `test` | ✅ | — |
+| `security-review` | ✅ | — |
+| `ux-design` | ✅ | — |
+| `review` | — | ✅ |
+| `workspace-audit` | — | ✅ |
+| `brand-design` | — | ✅ |
 
 For each essential workflow, compare versions before installing:
 
@@ -62,7 +92,9 @@ Active Track). Keeping old versions may cause workflows to reference sections th
 
 ---
 
-## Step 3: Install Skills
+## Step 4: Install Skills
+
+For **code projects**: copy all skills from the repo (current behaviour).
 
 ```bash
 for skill in /tmp/ag-setup/skills/*/; do
@@ -73,6 +105,31 @@ for skill in /tmp/ag-setup/skills/*/; do
 done
 ```
 
+For **workspace projects**: copy only workspace-relevant skills.
+
+```bash
+for skill in planning copywriting ux-design voice-notes-triage; do
+  if [ -d "/tmp/ag-setup/skills/$skill" ]; then
+    mkdir -p ".agent/skills/$skill"
+    cp -r "/tmp/ag-setup/skills/$skill/"* ".agent/skills/$skill/"
+  fi
+done
+```
+
+Also remove any dev skills that were previously installed in workspace projects (from earlier updates that didn't filter):
+
+```
+If workspace project has dev skills installed (api-design, auth-flow, browser-testing, etc.):
+
+⚠️ Your workspace has [N] development skills installed that aren't relevant:
+[list skills]
+
+1. Remove them — clean up the workspace
+2. Keep them — no harm, just extra files
+```
+
+**Wait for user response.**
+
 ```bash
 if [ -f /tmp/ag-setup/.agent/skills/visual-qa/SKILL.md ]; then
   mkdir -p .agent/skills/visual-qa
@@ -82,11 +139,15 @@ fi
 
 ---
 
-## Step 4: Manage Additional Workflows
+## Step 5: Manage Additional Workflows
 
-Additional workflows: `capture-target`, `recreate-site`, `compare-site`, `offer-strategy`, `lead-strategy`.
+Additional workflows depend on project type:
 
-### 4a. Check existing additional workflows
+**Code projects:** `capture-target`, `recreate-site`, `compare-site`, `offer-strategy`, `lead-strategy`.
+
+**Workspace projects:** `offer-strategy`, `lead-strategy`.
+
+### 5a. Check existing additional workflows
 
 ```bash
 ls .agent/workflows/capture-target.md .agent/workflows/recreate-site.md .agent/workflows/compare-site.md .agent/workflows/offer-strategy.md .agent/workflows/lead-strategy.md 2>/dev/null
@@ -141,9 +202,97 @@ Install any of these?
 
 **Wait for user response.** Copy selected workflows from `/tmp/ag-setup/.agent/workflows/`.
 
+For **workspace projects**, use a simplified offer (no Visual QA workflows):
+
+```
+📦 Additional workflows available:
+
+- /offer-strategy — build a Grand Slam Offer (Hormozi framework)
+- /lead-strategy — plan lead generation strategy (Hormozi framework)
+
+Install any of these?
+1. Install all
+2. Skip — I don't need any of these
+```
+
+**Wait for user response.**
+
+Also check if workspace projects have code-only workflows installed from previous updates. If `test.md`, `security-review.md`, or `audit.md` exist in a workspace project:
+
+```
+⚠️ Your workspace has code-specific workflows installed:
+[list found: test.md, security-review.md, audit.md]
+
+These have workspace equivalents (review.md, workspace-audit.md, brand-design.md)
+that were installed in Step 3.
+
+1. Remove the code workflows — they aren't useful here
+2. Keep them — no harm done
+```
+
+**Wait for user response.**
+
 ---
 
-## Step 5: Copy Templates (only if missing)
+## Step 5b: Cleanup Stale Files
+
+After installing and updating workflows and skills, clean up files that shouldn't be in this project. This handles files leaked by older Antigravity versions and identifies user-created files.
+
+### Workflow Cleanup
+
+Scan all `.md` files in `.agent/workflows/`. For each file, read its YAML frontmatter and categorise it:
+
+**Category 1 — Tagged Antigravity, wrong project type:**
+If the file has `source: antigravity` in its frontmatter but is NOT in this project type's install list (from the Step 3 table) → **remove silently**. These were installed by Antigravity but shouldn't be here for this project type.
+
+**Category 2 — Known Antigravity name, no tag (legacy):**
+If the file has NO `source: antigravity` tag but its filename matches any known Antigravity workflow name → **remove silently**. These leaked from pre-v12 installs.
+
+Known Antigravity workflow names (all 26):
+`new-track`, `implement`, `edit`, `brainstorm`, `brainstorm-lite`, `status`, `update-memory`, `end-session`, `create-skill`, `audit`, `test`, `security-review`, `ux-design`, `review`, `workspace-audit`, `brand-design`, `capture-target`, `recreate-site`, `compare-site`, `offer-strategy`, `lead-strategy`, `setup`, `new-project`, `update`, `update-guide`, `critical-analysis`
+
+**Category 3 — Unknown (not Antigravity):**
+If the file has NO `source: antigravity` tag AND its filename does NOT match any known Antigravity name → **flag to user**.
+
+If any Category 1 or 2 files were removed, or Category 3 files exist, present results:
+
+```
+🧹 Workflow Cleanup
+
+Removed (Antigravity files not needed for your project type):
+- [list removed files, if any]
+
+Unknown workflows (not maintained by Antigravity):
+- [list unknown files, if any]
+
+These aren't part of the Antigravity system. If you didn't create
+them yourself, consider removing them.
+
+1. Keep them all
+2. Let me choose which to remove
+3. Remove all unknown files
+```
+
+**Wait for user response.** Apply their choice.
+
+If no files to remove and no unknown files → skip silently.
+
+### Skill Cleanup
+
+Apply the same three-category logic to `.agent/skills/`. For each subdirectory, read `SKILL.md` frontmatter:
+
+- **Category 1** — has `source: antigravity` but not in this project type's skill install list → remove the entire skill directory
+- **Category 2** — no tag, matches a known Antigravity skill name → remove (legacy)
+- **Category 3** — no tag, unknown name → flag to user
+
+Known Antigravity skill names:
+`api-design`, `auth-flow`, `browser-testing`, `build-component`, `build-page`, `copywriting`, `create-endpoint`, `create-feature`, `database-change`, `deploy-railway`, `deploy-vercel`, `fix-bug`, `lead-strategy`, `offer-strategy`, `package-publish`, `payments-stripe`, `performance-audit`, `planning`, `seo-audit`, `ux-design`, `voice-notes-triage`, `visual-qa`
+
+Present skill cleanup results the same way as workflow cleanup (only if there are items to report).
+
+---
+
+## Step 6: Copy Templates (only if missing)
 
 ```bash
 if [ ! -f .agent/AGENT.md ]; then cp /tmp/ag-setup/templates/AGENT.md .agent/AGENT.md; fi
@@ -154,9 +303,9 @@ if [ ! -f .agent/USER_GUIDE.md ]; then cp /tmp/ag-setup/templates/USER_GUIDE.md 
 
 ---
 
-## Step 6: Merge Core Rules into AGENT.md
+## Step 7: Merge Core Rules into AGENT.md
 
-### If AGENT.md was just created → Skip to Step 6b
+### If AGENT.md was just created → Skip to Step 7b
 
 The template already has the latest core rules.
 
@@ -191,7 +340,7 @@ For any skills not already listed in `.agent/skills-catalog.md`:
 
 ---
 
-## Step 6b: Document Structure Migration (v10 → v11)
+## Step 7b: Document Structure Migration (v10 → v11)
 
 **Only run this step when upgrading from version 10 or earlier.** Check `.agent/version` to determine the current version.
 
@@ -329,7 +478,7 @@ If `conductor/` directory exists:
 
 ---
 
-## Step 7: Clean Up
+## Step 8: Clean Up
 
 ```bash
 rm -rf /tmp/ag-setup
@@ -337,7 +486,7 @@ rm -rf /tmp/ag-setup
 
 ---
 
-## Step 8: Configure .gitignore
+## Step 9: Configure .gitignore
 
 **Do NOT add `.agent/` to `.gitignore`.** If it's already there, remove it and add selective ignores:
 
@@ -351,38 +500,38 @@ rm -rf /tmp/ag-setup
 
 ---
 
-## Step 9: Write Version + Log + Done
+## Step 10: Write Version + Log + Done
 
 Write the version file:
 
 ```bash
-echo "11" > .agent/version
+echo "12" > .agent/version
 ```
 
 Add to `.agent/memory.md` under `## Recent Sessions`:
 
 ```markdown
 ### [TODAY'S DATE]
-- Antigravity updated to v11. Document architecture redesign: two-tier active/archive system, condensed memory (Active Lessons + Recent Sessions), Project Principles in AGENT.md, history.md archive
+- Antigravity updated to v12. Workflow/skill sync: source tagging, stale file cleanup, project-type-aware distribution
 ```
 
 Tell the user:
 
 ```
-✅ Antigravity updated to v11!
+✅ Antigravity updated to v12!
 
 Updated:
-- [N] essential workflows (version 2 — Active Track, Active Lessons, Recent Sessions)
+- [N] essential workflows updated
 - [N] additional workflows (your selection)
-- 20+ skills (standard + development)
+- Skills synced for your project type
+- Stale/leaked files cleaned up
 - Core rules, Project Principles, and Available Commands updated
 
-What's new in v11:
-- Two-tier document architecture — active docs (memory, roadmap, product) + archive (history.md)
-- Condensed memory — Active Lessons + Recent Sessions (5-session rotation) replace old append-only lists
-- Project Principles in AGENT.md — design decisions that influence every feature
-- Active Track + Backlog roadmap — replaces numbered phases with themed backlog
-- tech-stack.md merged into product.md — one less file to maintain
+What's new in v12:
+- Source tagging — all Antigravity-managed files now have `source: antigravity` in frontmatter
+- Stale file cleanup — setup-only workflows leaked by older versions are removed
+- Project-type-aware sync — only workflows/skills relevant to your project type are kept
+- Anthropic format alignment — all skills and workflows now follow the Agent Skills spec (lowercase names, third-person descriptions, progressive disclosure)
 
 ⚠️ Action Required: Close and reopen the project.
 The IDE needs to re-scan to discover the new slash commands.

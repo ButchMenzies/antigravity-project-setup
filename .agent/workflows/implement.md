@@ -1,11 +1,15 @@
 ---
-version: 2
-description: Execute a plan with progress tracking, memory checkpoints, and skill prompts
+name: implement
+version: 3
+description: >-
+  Executes a plan with progress tracking, memory checkpoints, and skill
+  prompts. Use when ready to build after planning is complete.
+source: antigravity
 ---
 
 # Implement
 
-Execute tasks from an implementation plan with structured tracking.
+Execute tasks from a plan with structured tracking.
 
 ## Pre-flight
 
@@ -50,17 +54,17 @@ Update `plan.md` (if using conductor tracks):
 
 ### 3. Execute the Work
 
-Do the actual implementation. Follow these rules:
+Do the actual work. Follow these rules:
 
-- **Read before writing** — understand existing code before changing it
-- **Small changes** — make incremental, testable changes
-- **Test as you go** — verify each change works before moving on
-- **Follow project conventions** — match existing patterns in the codebase
+- **Read before writing** — understand existing work before changing it
+- **Small changes** — make incremental, verifiable changes
+- **Verify as you go** — confirm each change works before moving on
+- **Follow existing patterns** — match conventions already established in the project
 
 ### 4. Verify the Task
 
 Before marking complete:
-- Does the change work as intended?
+- Does the work meet its goal?
 - Are there any obvious side effects?
 - If tests exist, do they pass?
 
@@ -118,13 +122,13 @@ Before moving on, review and refine the upcoming phase:
    - **Design decision that influences future work?** → add to `AGENT.md` → `## Project Principles`
    - **Recent Sessions** → update the current session entry if significant progress was made
 
-2. **UX knowledge update** (if this phase involved UI work and `.agent/ux/` exists):
-   Check if the work revealed anything new about the product's design:
-   - New UI pattern established → update `patterns.md`
-   - New journey mapped → create `journeys/[feature-name].md`
-   - Color or typography usage refined → update `colors.md` or `typography.md`
-   - Persona insight discovered → update `persona.md`
-   - Brand voice evolved → update `brand.md`
+2. **Design knowledge update** (if this phase involved UI or content work):
+   Check if `.agent/ux/` (code projects) or `brand/` (workspace projects) exists. If the work revealed anything new about the product's design or brand:
+    - New pattern established → update `patterns.md`
+    - New journey mapped → create `journeys/[feature-name].md`
+    - Color or typography usage refined → update `colors.md` or `typography.md`
+    - Persona insight discovered → update `persona.md`
+    - Brand voice evolved → update `brand.md`
 
 3. If you notice you've done a similar task pattern multiple times:
    ```
@@ -154,13 +158,13 @@ Summary:
 - Phases completed: [N]/[N]
 - Tasks completed: [M]/[M]
 
-All acceptance criteria:
+All completion criteria:
 - [x] [Criterion 1]
 - [x] [Criterion 2]
 
 Final verification:
-- [ ] All features working as expected
-- [ ] No regressions introduced
+- [ ] All deliverables complete
+- [ ] No existing work broken
 - [ ] Tests passing (if applicable)
 ```
 

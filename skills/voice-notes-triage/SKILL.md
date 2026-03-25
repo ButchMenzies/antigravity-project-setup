@@ -1,6 +1,10 @@
 ---
 name: voice-notes-triage
-description: Analyse voice transcription notes from testing sessions to extract bugs, tasks, and improvements into an actionable plan.
+description: >-
+  Analyses voice transcription notes from testing sessions to extract bugs,
+  tasks, and improvements into an actionable plan. Use when processing
+  voice memos, testing session recordings, or raw feedback transcripts.
+source: antigravity
 ---
 
 # Voice Notes Triage

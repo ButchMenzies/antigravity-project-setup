@@ -1,6 +1,11 @@
 ---
+name: test
 version: 1
-description: Design and run tests for recent changes or full app QA — scope-adaptive, structured, collaborative
+description: >-
+  Designs and runs tests for recent changes or full app QA with
+  scope-adaptive, structured, collaborative testing. Use when
+  validating code changes, running QA, or verifying functionality.
+source: antigravity
 ---
 
 # Test

@@ -1,12 +1,10 @@
 ---
-name: Deploy to Vercel
-description: Vercel deployment — env vars, preview deploys, production checks
-triggers: [deploy, vercel, production, preview, ship, release]
-track_types: [chore]
-mcps:
-  - name: vercel
-    usage: deployment management, environment variables
-    required: false
+name: deploy-vercel
+description: >-
+  Manages Vercel deployments including environment variables, preview deploys,
+  and production checks. Use when deploying frontends, configuring preview
+  environments, or shipping to production on Vercel.
+source: antigravity
 ---
 
 # Deploy to Vercel

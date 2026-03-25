@@ -1,6 +1,11 @@
 ---
+name: offer-strategy
 version: 1
-description: Build a Grand Slam Offer — define dream outcome, stack value, add enhancers, create irresistible pricing
+description: >-
+  Builds a Grand Slam Offer by defining the dream outcome, stacking value,
+  adding enhancers, and creating irresistible pricing. Use when designing
+  product offers, pricing strategies, or value propositions.
+source: antigravity
 ---
 
 # Offer Strategy

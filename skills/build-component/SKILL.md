@@ -1,9 +1,10 @@
 ---
-name: Build Component
-description: Reuse-first component creation — never duplicate, always check existing
-triggers: [new component, UI component, build component, create component, shared component]
-track_types: [feature, refactor]
-mcps: []
+name: build-component
+description: >-
+  Creates reusable UI components with a reuse-first approach that checks
+  existing components before building new ones. Use when creating shared
+  components, design system elements, or UI patterns.
+source: antigravity
 ---
 
 # Build Component

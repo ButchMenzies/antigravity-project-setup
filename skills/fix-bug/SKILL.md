@@ -1,12 +1,10 @@
 ---
-name: Fix Bug
-description: Structured debugging — reproduce, isolate, fix, verify
-triggers: [bug, broken, not working, error, crash, regression, unexpected behavior]
-track_types: [bug]
-mcps:
-  - name: supabase
-    usage: check logs, inspect data, verify RLS policies
-    required: false
+name: fix-bug
+description: >-
+  Diagnoses and fixes bugs through structured reproduction, isolation, and
+  verification. Use when encountering errors, regressions, crashes,
+  unexpected behavior, or broken functionality.
+source: antigravity
 ---
 
 # Fix Bug

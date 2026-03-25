@@ -1,9 +1,10 @@
 ---
-name: Stripe Payments
-description: Payment integration — checkout, webhooks, subscriptions
-triggers: [payment, stripe, checkout, subscription, billing, pricing]
-track_types: [feature]
-mcps: []
+name: payments-stripe
+description: >-
+  Integrates Stripe payment flows including checkout, webhooks, and
+  subscriptions. Use when adding payments, billing, pricing pages,
+  subscription management, or Stripe webhook handlers.
+source: antigravity
 ---
 
 # Stripe Payments

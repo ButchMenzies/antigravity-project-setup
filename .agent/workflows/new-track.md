@@ -1,6 +1,10 @@
 ---
-version: 2
-description: Plan a new piece of work — creates spec and phased implementation plan
+name: new-track
+version: 3
+description: >-
+  Plans a new piece of work by creating a brief and phased plan.
+  Use when starting a new feature, refactor, or any scoped piece of work.
+source: antigravity
 ---
 
 # New Track
@@ -9,7 +13,7 @@ Plan work for the next phase of the project. If a roadmap exists, this workflow 
 
 ## Pre-flight
 
-1. Read `.agent/AGENT.md` for project context and tech stack
+1. Read `.agent/AGENT.md` for project context
 2. Read `.agent/memory.md` for recent decisions and last session's log entry
 3. **Read `.agent/skills/planning/SKILL.md`** — apply planning principles throughout this workflow
 4. **Scan `.agent/skills/` for matching skills.** For each skill with a `SKILL.md`, read its frontmatter. A skill matches if:
@@ -17,7 +21,7 @@ Plan work for the next phase of the project. If a roadmap exists, this workflow 
    - OR its `triggers` match keywords in the user's description
    - Read the full `SKILL.md` of each matching skill — you'll incorporate their **Plan Checklist** items into the implementation plan
    - Typically 1-3 skills will match. If none match, proceed normally
-5. **If the track involves UI work**: check if `.agent/ux/` exists. If yes, read `persona.md` and `design-direction.md` to inform the spec. If no, suggest running `/ux-design` first.
+5. **If the track involves UI or content work**: check if `.agent/ux/` or `brand/` exists. If yes, read `persona.md` and `design-direction.md` to inform the brief. If no, suggest running `/ux-design` (code projects) or `/brand-design` (workspace projects) first.
 
 ---
 
@@ -84,7 +88,7 @@ If brainstorm: run `/brainstorm-lite` inline. When it concludes, use the output 
 
 ---
 
-## Step 3: Interactive Specification
+## Step 3: Interactive Brief
 
 **CRITICAL RULES:**
 - Ask **ONE question per turn**
@@ -92,16 +96,16 @@ If brainstorm: run `/brainstorm-lite` inline. When it concludes, use the output 
 - If the roadmap or brainstorm already answered a question, **skip it** — don't re-ask
 - If the user already described the work, extract answers and confirm rather than re-asking
 
-### Q1: What are we building?
+### Q1: What are we working on?
 
 Skip if the roadmap phase already defines this clearly. Otherwise:
 
 ```
-Describe the feature in one sentence.
-[If context exists]: "So we're building [X] — is that right?"
+Describe the work in one sentence.
+[If context exists]: "So we're working on [X] — is that right?"
 ```
 
-### Q2: Acceptance criteria
+### Q2: Completion criteria
 
 ```
 How will we know it's done? Key requirements:
@@ -114,13 +118,13 @@ Suggested based on [roadmap / brainstorm / description]:
 Add, remove, or modify?
 ```
 
-### Q3: Technical approach
+### Q3: Approach
 
 ```
-Any preferences on how to implement this?
+Any preferences on how to approach this?
 
 1. I have a specific approach in mind: [describe]
-2. Use your best judgment based on the codebase
+2. Use your best judgment based on the project
 3. Let's discuss options
 ```
 
@@ -133,21 +137,21 @@ Anything explicitly OUT of scope?
 2. Nothing specific — use your judgment
 ```
 
-Skip any question where the answer is already obvious from context. The goal is a **lighter Q&A** when the roadmap or brainstorm provides direction.
+Skip any question where the answer is already obvious from context. The goal is a **lighter Q&A** when the roadmap or brainstorm provides direction. For workspace projects, Q3 (approach) can often be skipped entirely.
 
 ---
 
 ## Plan Generation
 
-After gathering the spec, generate a phased implementation plan:
+After gathering the brief, generate a phased plan:
 
 ```markdown
-# Implementation Plan: [Title]
+# Plan: [Title]
 
-## Spec Summary
+## Summary
 [One paragraph from Q&A / roadmap / brainstorm]
 
-## Acceptance Criteria
+## Completion Criteria
 - [ ] [From Q&A]
 
 ## Phase 1: [Phase Name]
@@ -157,7 +161,7 @@ After gathering the spec, generate a phased implementation plan:
 - [ ] Task 1.2: [Description]
 
 ### Verification
-- [ ] [How to verify this phase works]
+- [ ] [How to verify this phase is complete]
 
 ## Phase 2: [Phase Name]
 
@@ -166,10 +170,10 @@ After gathering the spec, generate a phased implementation plan:
 - [ ] Task 2.2: [Description]
 
 ### Verification
-- [ ] [How to verify this phase works]
+- [ ] [How to verify this phase is complete]
 
 ## Final Verification
-- [ ] All acceptance criteria met
+- [ ] All completion criteria met
 - [ ] Tests passing (if applicable)
 - [ ] Memory updated with decisions made
 ```
@@ -180,7 +184,7 @@ After gathering the spec, generate a phased implementation plan:
 - Each phase should be independently verifiable
 - First phase should be the smallest meaningful unit
 - Include test tasks if the project uses testing
-- Keep tasks concrete — each should be a specific code change
+- Keep tasks concrete — each should be a specific deliverable or change
 - **Incorporate matched skill checklists:** For each skill matched in pre-flight step 4, weave its **Plan Checklist** items into the relevant plan phases. Don't dump them as a separate section — integrate them naturally. For example, a database-change skill's "RLS Policies" items go into the phase that handles database work, not into a standalone "skill checklist" phase
 - **Don't over-load small tracks:** If the track is a quick bug fix or minor chore, only include skill items that are genuinely relevant. A one-line CSS fix doesn't need a full component reuse scan
 
@@ -194,7 +198,7 @@ Here's the plan for: [Title]
 [Show the full plan]
 
 What would you like to do?
-→ /implement — start building this plan
+→ /implement — start executing this plan
 → /edit — review or change the plan first
 ```
 
@@ -205,9 +209,9 @@ What would you like to do?
 Create the track folder under `conductor/tracks/`:
 
 ```
-conductor/tracks/[phase-name]/
-├── spec.md          # The spec from Q&A
-└── plan.md          # The implementation plan
+conductor/tracks/[track-name]/
+├── brief.md         # The brief from Q&A
+└── plan.md          # The plan
 ```
 
 If no `conductor/` exists, write the plan to **`.agent/current-plan.md`**.

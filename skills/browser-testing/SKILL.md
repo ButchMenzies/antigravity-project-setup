@@ -1,6 +1,10 @@
 ---
 name: browser-testing
-description: Standardized browser verification workflow for testing UI changes using the browser subagent.
+description: >-
+  Runs standardized browser verification workflows for testing UI changes
+  using the browser subagent. Use when validating visual output, testing
+  user interactions, or verifying responsive layouts.
+source: antigravity
 ---
 
 # Browser Testing Workflow

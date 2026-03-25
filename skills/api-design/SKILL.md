@@ -1,9 +1,10 @@
 ---
-name: API Design
-description: Consistent API patterns — REST conventions, error formats, versioning
-triggers: [API design, REST, endpoint design, API structure, response format]
-track_types: [feature, refactor]
-mcps: []
+name: api-design
+description: >-
+  Enforces consistent API patterns including REST conventions, error formats,
+  response structures, and versioning. Use when designing new endpoints,
+  restructuring an API, or reviewing API consistency.
+source: antigravity
 ---
 
 # API Design

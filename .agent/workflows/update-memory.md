@@ -1,6 +1,11 @@
 ---
+name: update-memory
 version: 2
-description: Log a decision, lesson, preference, or issue to memory
+description: >-
+  Logs a decision, lesson, preference, or issue to project memory.
+  Use when capturing important context that should persist across
+  sessions.
+source: antigravity
 ---
 
 # Update Memory

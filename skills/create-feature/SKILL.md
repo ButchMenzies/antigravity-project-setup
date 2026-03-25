@@ -1,12 +1,10 @@
 ---
-name: Create Feature
-description: Full vertical slice — database to UI with nothing forgotten
-triggers: [new feature, new functionality, user-facing change, add capability]
-track_types: [feature]
-mcps:
-  - name: supabase
-    usage: apply migration, check RLS advisories, generate TypeScript types
-    required: false
+name: create-feature
+description: >-
+  Builds full vertical slices from database to UI with nothing forgotten.
+  Use when implementing new user-facing features, adding capabilities, or
+  building functionality that spans multiple layers.
+source: antigravity
 ---
 
 # Create Feature

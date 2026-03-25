@@ -1,6 +1,11 @@
 ---
+name: brainstorm-lite
 version: 1
-description: Mid-work brainstorm — stop building and think before making changes
+description: >-
+  Pauses mid-work to think before making changes, without writing code
+  or editing files. Use when mid-task and needing to reconsider an
+  approach or explore alternatives.
+source: antigravity
 ---
 
 # Brainstorm Lite

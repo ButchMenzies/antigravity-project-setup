@@ -1,6 +1,11 @@
 ---
+name: compare-site
 version: 1
-description: Compare your existing build against a target design — apply captured data to fix discrepancies.
+description: >-
+  Compares an existing build against a target design and applies captured
+  data to fix discrepancies. Use when checking visual accuracy against
+  a reference design or fixing design drift.
+source: antigravity
 ---
 
 # Compare Site Workflow

@@ -1,6 +1,11 @@
 ---
+name: capture-target
 version: 1
-description: Guide the user to capture high-quality, standardized reference images for the Visual QA process using an interactive, agent-driven loop.
+description: >-
+  Guides the user to capture high-quality, standardized reference images
+  for the Visual QA process using an interactive, agent-driven loop.
+  Use when preparing reference screenshots for design comparison.
+source: antigravity
 ---
 
 # Capture Target Workflow

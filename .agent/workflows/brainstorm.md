@@ -1,6 +1,11 @@
 ---
+name: brainstorm
 version: 1
-description: Brainstorming session — ideas, requirements, constraints, purely conceptual.
+description: >-
+  Facilitates a brainstorming session covering ideas, requirements, and
+  constraints without making any code changes. Use when starting from
+  scratch on a new concept or exploring a problem space.
+source: antigravity
 ---
 
 # Brainstorm

@@ -185,45 +185,67 @@ Skip dev port question — not applicable.
 git clone --depth 1 https://github.com/ButchMenzies/antigravity-project-setup.git /tmp/ag-setup
 ```
 
-**Step 2 — Create directories and copy essential workflows:**
+**Step 2 — Create directories and copy workflows based on project type:**
+
 ```bash
 mkdir -p .agent/workflows .agent/skills
-cp /tmp/ag-setup/.agent/workflows/new-track.md .agent/workflows/
-cp /tmp/ag-setup/.agent/workflows/edit.md .agent/workflows/
-cp /tmp/ag-setup/.agent/workflows/implement.md .agent/workflows/
-cp /tmp/ag-setup/.agent/workflows/status.md .agent/workflows/
-cp /tmp/ag-setup/.agent/workflows/update-memory.md .agent/workflows/
-cp /tmp/ag-setup/.agent/workflows/end-session.md .agent/workflows/
-cp /tmp/ag-setup/.agent/workflows/brainstorm.md .agent/workflows/
-cp /tmp/ag-setup/.agent/workflows/brainstorm-lite.md .agent/workflows/
-cp /tmp/ag-setup/.agent/workflows/audit.md .agent/workflows/
-cp /tmp/ag-setup/.agent/workflows/create-skill.md .agent/workflows/
-cp /tmp/ag-setup/.agent/workflows/ux-design.md .agent/workflows/
-cp /tmp/ag-setup/.agent/workflows/test.md .agent/workflows/
-cp /tmp/ag-setup/.agent/workflows/security-review.md .agent/workflows/
 ```
 
-**Step 3 — Copy skills:**
+Install workflows based on project type from Q1. Use the mapping table below — ✅ means install, — means skip:
+
+| Workflow | Code (Q1: 1-6) | Workspace (Q1: 7) |
+|----------|:---:|:---:|
+| `new-track.md` | ✅ | ✅ |
+| `implement.md` | ✅ | ✅ |
+| `edit.md` | ✅ | ✅ |
+| `brainstorm.md` | ✅ | ✅ |
+| `brainstorm-lite.md` | ✅ | ✅ |
+| `status.md` | ✅ | ✅ |
+| `update-memory.md` | ✅ | ✅ |
+| `end-session.md` | ✅ | ✅ |
+| `create-skill.md` | ✅ | ✅ |
+| `audit.md` | ✅ | — |
+| `test.md` | ✅ | — |
+| `security-review.md` | ✅ | — |
+| `ux-design.md` | ✅ | — |
+| `review.md` | — | ✅ |
+| `workspace-audit.md` | — | ✅ |
+| `brand-design.md` | — | ✅ |
+
+Copy each ✅ workflow from `/tmp/ag-setup/.agent/workflows/` to `.agent/workflows/`.
+
+**Step 3 — Copy skills based on project type:**
+
+| Skill | Code (Q1: 1-6) | Workspace (Q1: 7) |
+|-------|:---:|:---:|
+| `planning` | ✅ | ✅ |
+| `copywriting` | ✅ | ✅ |
+| `ux-design` | ✅ | ✅ |
+| `voice-notes-triage` | ✅ | ✅ |
+| `fix-bug` | ✅ | — |
+| All other dev skills | ✅ | — |
+
+For **code projects**: copy all skills from `/tmp/ag-setup/skills/*/` (current behaviour).
+For **workspace projects**: copy only the skills marked ✅ above.
+
 ```bash
-for skill in /tmp/ag-setup/skills/*/; do
-  name=$(basename "$skill")
-  case "$name" in bundles) continue;; esac
-  mkdir -p ".agent/skills/$name"
-  cp -r "$skill"* ".agent/skills/$name/"
+# Copy selected skills
+for skill in planning copywriting ux-design voice-notes-triage; do  # workspace list — expand for code projects
+  if [ -d "/tmp/ag-setup/skills/$skill" ]; then
+    mkdir -p ".agent/skills/$skill"
+    cp -r "/tmp/ag-setup/skills/$skill/"* ".agent/skills/$skill/"
+  fi
 done
 ```
 
 ```bash
-if [ -f /tmp/ag-setup/.agent/skills/visual-qa/SKILL.md ]; then
-  mkdir -p .agent/skills/visual-qa
-  cp /tmp/ag-setup/.agent/skills/visual-qa/SKILL.md .agent/skills/visual-qa/SKILL.md
-fi
 cp /tmp/ag-setup/templates/skills-catalog.md .agent/skills-catalog.md
 cp /tmp/ag-setup/templates/USER_GUIDE.md .agent/USER_GUIDE.md
 ```
 
 **Step 4 — Offer additional workflows:**
 
+For **code projects**:
 ```
 📦 Additional workflows available:
 
@@ -237,6 +259,18 @@ Install any of these?
 1. Install all
 2. Let me choose
 3. Skip — I don't need any of these
+```
+
+For **workspace projects**:
+```
+📦 Additional workflows available:
+
+- /offer-strategy — build a Grand Slam Offer (Hormozi framework)
+- /lead-strategy — plan lead generation strategy (Hormozi framework)
+
+Install any of these?
+1. Install all
+2. Skip — I don't need any of these
 ```
 
 **Wait for user response.** Copy selected workflows from `/tmp/ag-setup/.agent/workflows/`.

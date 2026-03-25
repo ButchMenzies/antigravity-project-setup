@@ -1,9 +1,10 @@
 ---
-name: Performance Audit
-description: Framework-specific performance checks — bundle size, rendering, caching
-triggers: [performance, slow, optimize, bundle size, loading time, audit]
-track_types: [chore, refactor]
-mcps: []
+name: performance-audit
+description: >-
+  Runs framework-specific performance checks covering bundle size, rendering,
+  and caching. Use when optimizing page load times, reducing bundle size,
+  or auditing application performance.
+source: antigravity
 ---
 
 # Performance Audit

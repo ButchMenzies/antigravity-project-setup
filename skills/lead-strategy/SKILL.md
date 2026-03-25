@@ -1,6 +1,11 @@
 ---
 name: lead-strategy
-description: Frameworks for generating and converting leads using the Core Four channels, lead magnets, and scaling methods. Reads the project's leads.md for project-specific lead gen artifacts.
+description: >-
+  Provides frameworks for generating and converting leads using the Core Four
+  channels, lead magnets, and scaling methods. Reads the project's leads.md
+  for project-specific artifacts. Use when planning lead generation,
+  outreach strategies, or growth channels.
+source: antigravity
 ---
 
 # Lead Strategy

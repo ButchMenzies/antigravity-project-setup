@@ -1,6 +1,11 @@
 ---
+name: end-session
 version: 2
-description: Wrap up a session — update memory, note progress, prepare for next time
+description: >-
+  Wraps up a session by updating memory, noting progress, and preparing
+  for next time. Use when finishing work for the day or ending a
+  coding session.
+source: antigravity
 ---
 
 # End Session

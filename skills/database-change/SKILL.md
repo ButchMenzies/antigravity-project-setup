@@ -1,12 +1,10 @@
 ---
-name: Database Change
-description: Schema changes done right — migration, RLS, types, queries
-triggers: [database, schema, migration, table, column, new table, alter table, add field]
-track_types: [feature, chore, refactor]
-mcps:
-  - name: supabase
-    usage: apply migration, check RLS advisories, generate types, inspect schema
-    required: false
+name: database-change
+description: >-
+  Handles schema changes with proper migration, RLS policies, type generation,
+  and query updates. Use when creating tables, altering columns, adding
+  fields, or making any database schema modification.
+source: antigravity
 ---
 
 # Database Change

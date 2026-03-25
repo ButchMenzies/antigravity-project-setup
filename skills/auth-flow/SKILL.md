@@ -1,12 +1,10 @@
 ---
-name: Auth Flow
-description: Authentication and authorization — protected routes, roles, middleware
-triggers: [auth, login, signup, protected route, authorization, role, permission]
-track_types: [feature, chore]
-mcps:
-  - name: supabase
-    usage: auth configuration, RLS policies by user, session management
-    required: false
+name: auth-flow
+description: >-
+  Implements authentication and authorization flows including protected routes,
+  role-based access, and middleware. Use when adding login, signup, session
+  management, permissions, or RLS policies.
+source: antigravity
 ---
 
 # Auth Flow

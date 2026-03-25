@@ -1,12 +1,10 @@
 ---
-name: Create Endpoint
-description: API route or server action with validation, auth, and error handling
-triggers: [new endpoint, API route, server action, new route, REST endpoint]
-track_types: [feature, chore]
-mcps:
-  - name: supabase
-    usage: query data, check RLS, verify auth
-    required: false
+name: create-endpoint
+description: >-
+  Creates API routes or server actions with validation, authentication, and
+  error handling. Use when adding new endpoints, REST routes, server
+  actions, or API handlers.
+source: antigravity
 ---
 
 # Create Endpoint

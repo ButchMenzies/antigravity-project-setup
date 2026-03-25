@@ -1,6 +1,11 @@
 ---
+name: lead-strategy
 version: 1
-description: Define your lead generation strategy — channels, lead magnets, outreach, and scaling plan
+description: >-
+  Defines a lead generation strategy covering channels, lead magnets,
+  outreach, and scaling plans. Use when planning customer acquisition,
+  growth strategies, or marketing funnels.
+source: antigravity
 ---
 
 # Lead Strategy

@@ -1,6 +1,10 @@
 ---
+name: edit
 version: 1
-description: Revise or refine an implementation plan before proceeding
+description: >-
+  Revises or refines an implementation plan before proceeding.
+  Use when a plan needs adjustments, scope changes, or corrections.
+source: antigravity
 ---
 
 # Edit Plan
