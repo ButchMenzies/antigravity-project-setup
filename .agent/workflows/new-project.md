@@ -275,12 +275,33 @@ Install any of these?
 
 **Wait for user response.** Copy selected workflows from `/tmp/ag-setup/.agent/workflows/`.
 
-**Step 5 — Write version file:**
-```bash
-echo "11" > .agent/version
+**Step 5 — Claude Code support (optional):**
+
+```
+🔌 Claude Code Support
+
+Are you also using the Claude Code extension or CLI?
+If yes, we'll set up a .claude/ folder so Claude Code can access
+all the same skills and workflows.
+
+1. Yes — also set up for Claude Code
+2. No — Antigravity only
 ```
 
-**Step 6 — Clean up:**
+**Wait for user response.**
+
+If yes:
+1. Create `.claude/skills/` directory
+2. Mirror all skills from `.agent/skills/` → `.claude/skills/` (direct copy)
+3. Convert workflows to Claude Code skills: for each `.agent/workflows/*.md` with `source: antigravity`, create `.claude/skills/<name>/SKILL.md` with `disable-model-invocation: true` added to frontmatter and `version:`/`source:` removed
+4. Generate `CLAUDE.md` at project root from `.agent/AGENT.md` (with auto-generated header)
+
+**Step 6 — Write version file:**
+```bash
+echo "12" > .agent/version
+```
+
+**Step 7 — Clean up:**
 ```bash
 rm -rf /tmp/ag-setup
 ```
@@ -296,6 +317,10 @@ Append to existing `.gitignore` (don't replace existing content):
 .agent/memory-archive.md
 .agent/pending-skill-uploads.md
 .agent/current-plan.md
+
+# Claude Code — generated from .agent/, regenerated on each update
+.claude/
+CLAUDE.md
 ```
 
 If `.gitignore` contains `.agent/` as a blanket ignore, remove that line — it breaks slash command autocomplete.

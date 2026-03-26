@@ -113,7 +113,53 @@ Install any of these?
 
 **Wait for user response.** Copy selected workflows from `/tmp/ag-setup/.agent/workflows/`.
 
-**Step E — Copy templates (only if files don't exist yet):**
+**Step E — Claude Code support (optional):**
+
+```
+🔌 Claude Code Support
+
+Are you also using the Claude Code extension or CLI?
+If yes, we'll set up a .claude/ folder so Claude Code can access
+all the same skills and workflows.
+
+1. Yes — also set up for Claude Code
+2. No — Antigravity only
+```
+
+**Wait for user response.**
+
+If yes:
+
+1. Create the `.claude/skills/` directory:
+```bash
+mkdir -p .claude/skills
+```
+
+2. Mirror all skills (direct copy):
+```bash
+for skill in .agent/skills/*/; do
+  name=$(basename "$skill")
+  mkdir -p ".claude/skills/$name"
+  cp -r "$skill"* ".claude/skills/$name/"
+done
+```
+
+3. Convert workflows to Claude Code skills. For each `.md` file in `.agent/workflows/` that has `source: antigravity` in its frontmatter:
+   - Read the file content
+   - Add `disable-model-invocation: true` to the YAML frontmatter (this prevents Claude from auto-triggering workflows — the user must invoke them with `/name`)
+   - Remove the `version:` and `source:` fields (not relevant for Claude Code)
+   - Create `.claude/skills/<name>/SKILL.md` with the modified content
+
+4. Generate `CLAUDE.md` at the project root. Read `.agent/AGENT.md` and create a Claude Code equivalent:
+```markdown
+# Project Context
+
+> Auto-generated from .agent/AGENT.md by Antigravity. Edit .agent/AGENT.md instead.
+
+[Copy the Project Overview, Tech Stack, Project Principles, and Core Rules sections from AGENT.md]
+```
+
+**Step G — Copy templates (only if files don't exist yet):**
 ```bash
 if [ ! -f .agent/AGENT.md ]; then cp /tmp/ag-setup/templates/AGENT.md .agent/AGENT.md; fi
 if [ ! -f .agent/memory.md ]; then cp /tmp/ag-setup/templates/memory.md .agent/memory.md; fi
@@ -121,7 +167,7 @@ if [ ! -f .agent/skills-catalog.md ]; then cp /tmp/ag-setup/templates/skills-cat
 if [ ! -f .agent/USER_GUIDE.md ]; then cp /tmp/ag-setup/templates/USER_GUIDE.md .agent/USER_GUIDE.md; fi
 ```
 
-**Step F — Clean up:**
+**Step H — Clean up:**
 ```bash
 rm -rf /tmp/ag-setup
 ```
@@ -138,7 +184,13 @@ rm -rf /tmp/ag-setup
 .agent/memory-archive.md
 .agent/pending-skill-uploads.md
 .agent/current-plan.md
+
+# Claude Code — generated from .agent/, regenerated on each update
+.claude/
+CLAUDE.md
 ```
+
+> The `.claude/` folder is generated output — it mirrors `.agent/` for Claude Code users and is regenerated on each Antigravity update. Do not track it in git.
 
 ---
 

@@ -292,6 +292,70 @@ Present skill cleanup results the same way as workflow cleanup (only if there ar
 
 ---
 
+## Step 5c: Claude Code Sync
+
+Check if `.claude/skills/` directory exists.
+
+### If `.claude/` exists → Auto-sync
+
+The user previously opted into Claude Code support. Silently sync `.claude/` to match the current `.agent/` state:
+
+**1. Mirror skills:**
+For each skill directory in `.agent/skills/`:
+- Copy the entire skill directory to `.claude/skills/<name>/`
+- Overwrite existing files
+
+```bash
+for skill in .agent/skills/*/; do
+  name=$(basename "$skill")
+  mkdir -p ".claude/skills/$name"
+  cp -r "$skill"* ".claude/skills/$name/"
+done
+```
+
+**2. Convert workflows to Claude Code skills:**
+For each `.md` file in `.agent/workflows/` that has `source: antigravity` in its frontmatter:
+- Read the file content
+- Parse YAML frontmatter
+- Add `disable-model-invocation: true` (prevents Claude from auto-triggering — user must invoke with `/name`)
+- Remove `version:` field (not relevant for Claude Code)
+- Remove `source:` field (not relevant — `.claude/` is generated)
+- Write as `.claude/skills/<name>/SKILL.md`
+
+**3. Clean up stale `.claude/skills/` entries:**
+For each directory in `.claude/skills/`:
+- If it doesn't correspond to a skill in `.agent/skills/` AND doesn't correspond to a workflow in `.agent/workflows/` → remove it
+
+**4. Regenerate `CLAUDE.md`:**
+Read `.agent/AGENT.md` and generate `CLAUDE.md` at the project root:
+```markdown
+# Project Context
+
+> Auto-generated from .agent/AGENT.md by Antigravity. Edit .agent/AGENT.md instead.
+> Regenerated on: [TODAY'S DATE]
+
+[Copy the Project Overview, Tech Stack, Project Principles, and Core Rules sections from AGENT.md]
+```
+
+### If `.claude/` does NOT exist → Offer opt-in
+
+```
+🔌 Claude Code Support
+
+Are you also using the Claude Code extension or CLI?
+If yes, we'll set up a .claude/ folder so Claude Code can access
+all the same skills and workflows.
+
+1. Yes — set up for Claude Code
+2. No — skip
+```
+
+**Wait for user response.**
+
+If yes → run the sync logic above (steps 1-4). If no → skip silently.
+
+---
+
 ## Step 6: Copy Templates (only if missing)
 
 ```bash
@@ -496,7 +560,13 @@ rm -rf /tmp/ag-setup
 .agent/memory-archive.md
 .agent/pending-skill-uploads.md
 .agent/current-plan.md
+
+# Claude Code — generated from .agent/, regenerated on each update
+.claude/
+CLAUDE.md
 ```
+
+> The `.claude/` folder is generated output — it mirrors `.agent/` for Claude Code users and is regenerated on each Antigravity update. Do not track it in git.
 
 ---
 
@@ -512,7 +582,7 @@ Add to `.agent/memory.md` under `## Recent Sessions`:
 
 ```markdown
 ### [TODAY'S DATE]
-- Antigravity updated to v12. Workflow/skill sync: source tagging, stale file cleanup, project-type-aware distribution
+- Antigravity updated to v12. Workflow/skill sync: source tagging, stale file cleanup, project-type-aware distribution, Claude Code support
 ```
 
 Tell the user:
@@ -526,12 +596,14 @@ Updated:
 - Skills synced for your project type
 - Stale/leaked files cleaned up
 - Core rules, Project Principles, and Available Commands updated
+- [If Claude Code: ".claude/ synced with X skills and Y workflow-commands"]
 
 What's new in v12:
 - Source tagging — all Antigravity-managed files now have `source: antigravity` in frontmatter
 - Stale file cleanup — setup-only workflows leaked by older versions are removed
 - Project-type-aware sync — only workflows/skills relevant to your project type are kept
 - Anthropic format alignment — all skills and workflows now follow the Agent Skills spec (lowercase names, third-person descriptions, progressive disclosure)
+- Claude Code support — optional .claude/ folder mirrors skills and workflows for Claude Code users
 
 ⚠️ Action Required: Close and reopen the project.
 The IDE needs to re-scan to discover the new slash commands.
