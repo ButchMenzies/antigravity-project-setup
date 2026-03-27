@@ -23,6 +23,7 @@ Stop building. Start thinking. No code, no file edits, no implementation until t
 5. **Be opinionated.** Propose alternatives. Challenge weak ideas. Point out edge cases. Don't be a yes-man.
 6. **Push back on first-instinct solutions.** If the first idea sounds "fine," that's not good enough — explore at least one alternative before settling.
 7. **Stay in this mode until released.** The user must explicitly say something like "okay, let's build" or "go ahead and implement" before you touch any files. Asking a question about implementation details does NOT count as permission.
+8. **Take Notes (Mandatory)**: At the start of every brainstorm-lite, create `.agent/brainstorm-notes.md`. Log key facts, decisions, and constraints as the conversation progresses. When the brainstorm ends, consolidate notes into the relevant plan and delete the file.
 
 ## How It Works
 

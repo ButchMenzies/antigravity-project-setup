@@ -5,6 +5,9 @@ Typically: Next.js + TypeScript + Tailwind + Supabase.
 
 ## Skills
 
+- write-code *(adapts on first use)*
+- code-review *(adapts on first use)*
+- architecture-change *(adapts on first use)*
 - create-feature
 - fix-bug
 - database-change

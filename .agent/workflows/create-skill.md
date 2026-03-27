@@ -42,12 +42,7 @@ If a local skill covers this → **update it** instead of creating a duplicate.
 
 Read: `https://raw.githubusercontent.com/ButchMenzies/antigravity-project-setup/main/skills/README.md`
 
-**Search with 3-5 related keywords, not just the exact name.** Think about what the skill is *about*, not just what the user *called* it.
-
-Examples:
-- User says "copywriting skill" → search: `copywriting`, `marketing`, `copy`, `content`, `writing`
-- User says "deployment skill" → search: `deployment`, `deploy`, `release`, `CI`, `pipeline`
-- User says "component skill" → search: `component`, `UI`, `design-system`, `layout`, `pattern`
+**Search with 3-5 related keywords, not just the exact name.** Think about what the skill is *about* — e.g., "copywriting skill" → search `copywriting`, `marketing`, `copy`, `content`, `writing`.
 
 **1c. Check the global reference library:**
 ```bash
@@ -170,27 +165,7 @@ Compile research into notes for the `resources/` folder (created in Step 5).
 
 ### Step 4b: Draft Outline (Solid and Deep)
 
-Present a **draft outline** of the skill before writing it:
-
-```
-Here's what I'm thinking for the <skill-name> skill:
-
-## Structure
-1. <Step 1 title> — <what it covers>
-2. <Step 2 title> — <what it covers>
-3. <Step 3 title> — <what it covers>
-
-## Key Principles (from research)
-- <Principle 1>
-- <Principle 2>
-- <Principle 3>
-
-## Examples I'll Include
-- <Example 1 description>
-- <Example 2 description>
-
-Does this cover what you need, or should I adjust?
-```
+Present a **draft outline** of the skill before writing — list the steps, key principles from research, and examples you'll include.
 
 **Wait for user response before proceeding.**
 
@@ -265,25 +240,12 @@ description: >-
 
 ### Writing effective descriptions
 
-**The `description` field is critical** — Claude uses it to decide when to activate the skill from potentially 100+ available skills.
+**The `description` field is critical** — Claude uses it to decide when to activate the skill.
 
 - **Write in third person.** "Analyses spreadsheets" not "I can help you analyse"
 - **Include what it does AND when to use it.** Both halves are required.
 - **Include specific keywords** that help Claude match user requests to this skill.
 - **Maximum 1024 characters.**
-
-Good:
-```yaml
-description: >-
-  Diagnoses and fixes bugs through structured reproduction, isolation,
-  and verification. Use when encountering errors, regressions, crashes,
-  unexpected behavior, or broken functionality.
-```
-
-Bad:
-```yaml
-description: Helps with bugs.
-```
 
 ### The conciseness principle
 
@@ -337,27 +299,7 @@ Add the new skill to `.agent/skills-catalog.md` under the **Local Skills** secti
 
 ## Step 8: Upload to Central Catalogue
 
-Check `which gh` → if not installed, skip entirely. Then `gh auth status`:
-- Not authenticated → queue to `.agent/pending-skill-uploads.md` (silent, no user message)
-- Authenticated → check `gh repo view ButchMenzies/antigravity-project-setup --json viewerPermission`
-  - `ADMIN`/`WRITE` → upload skill + drain any pending queue, then delete the queue file
-  - Other → skip silently
-
-If `.agent/pending-skill-uploads.md` exists and we have write access, upload all pending skills too, then delete the file.
-
-**To upload:**
-```bash
-git clone https://github.com/ButchMenzies/antigravity-project-setup.git /tmp/antigravity-setup
-cp -r .agent/skills/<skill-name> /tmp/antigravity-setup/skills/<skill-name>
-# Also copy any other pending skills. Update skills/README.md with new entries.
-cd /tmp/antigravity-setup
-git add -A
-git commit -m "Add skill: <skill-name>"
-git push
-rm -rf /tmp/antigravity-setup
-```
-
-After successful upload, delete `.agent/pending-skill-uploads.md` if it existed.
+Check `which gh` → if not installed, skip. Then `gh auth status` → if not authenticated, queue skill name to `.agent/pending-skill-uploads.md`. If authenticated with write access to `ButchMenzies/antigravity-project-setup`, clone the repo to `/tmp/`, copy skill, update `skills/README.md`, commit, push, clean up. Also drain any pending queue.
 
 ---
 
@@ -379,12 +321,10 @@ Registered in: .agent/skills-catalog.md
 
 ## Guidelines
 
-- **Be specific, not generic.** Capture *this project's* patterns — exact file paths, naming conventions, codebase-specific approaches.
-- **Keep it actionable.** Every step must be executable. No vague advice like "follow best practices."
-- **Include commands.** If the skill involves terminal work, include exact commands.
-- **One skill, one job.** If it's getting long, split it. Multiple focused skills compose better than one large skill.
+- **Be specific, not generic.** Capture *this project's* patterns — exact file paths, naming conventions.
+- **Keep it actionable.** Every step must be executable. No vague advice.
+- **One skill, one job.** If it's getting long, split it.
 - **Update, don't duplicate.** If an existing skill covers 80% of what you need, update it.
-- **Use progressive disclosure.** Keep SKILL.md concise. Move detailed reference material to `references/`, executable code to `scripts/`.
-- **Provide a default, not options.** Don't present multiple approaches unless necessary. Give Claude one clear path with an escape hatch for edge cases.
-- **Upload general skills.** If useful in other projects, upload to the Antigravity repo.
-- **Skills are living documents.** After 2-3 uses, suggest a refinement pass — reinforce what works, fix what needed manual adjustment.
+- **Use progressive disclosure.** Keep SKILL.md concise. Move detailed material to `references/`.
+- **Provide a default, not options.** Give Claude one clear path with an escape hatch for edge cases.
+- **Skills are living documents.** After 2-3 uses, suggest a refinement pass.

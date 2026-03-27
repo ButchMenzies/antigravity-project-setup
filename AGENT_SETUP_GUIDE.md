@@ -3,7 +3,7 @@
 > **Paste this into any project chat.** Handles fresh installs and updates automatically.
 > Sources everything from GitHub — works on any device.
 
-**Latest version: 12** (2026-03-26)
+**Latest version: 13** (2026-03-27)
 
 ---
 
@@ -14,16 +14,16 @@ cat .agent/version 2>/dev/null || echo "none"
 ls .agent/AGENT.md 2>/dev/null
 ```
 
-### If version = 12 → **ALREADY CURRENT**
+### If version = 13 → **ALREADY CURRENT**
 
 Read `.agent/AGENT.md` and `.agent/memory.md`, then proceed with the user's request. You are done with this guide.
 
-### If version = 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, or "none" with `.agent/AGENT.md` → **NEEDS UPDATE**
+### If version = 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, or "none" with `.agent/AGENT.md` → **NEEDS UPDATE**
 
 > **⛔ STOP — Do NOT continue with Steps 2-6.**
-> Read and follow the `/update` workflow directly from GitHub:
-> `https://raw.githubusercontent.com/ButchMenzies/antigravity-project-setup/main/.agent/workflows/update.md`
-> This handles workflow updates, skill installs, core rules merge, and version tracking. You are done with this guide.
+> Read and follow the v13 migration from GitHub:
+> `https://raw.githubusercontent.com/ButchMenzies/antigravity-project-setup/main/updates/v13.md`
+> This handles all structural updates, new workflows, and self-evolution bootstrap. You are done with this guide.
 
 ### If no `.agent/` directory → **FRESH PROJECT**
 
@@ -40,6 +40,23 @@ ls *.* src/ app/ lib/ public/ 2>/dev/null
   > Read and follow the `/new-project` workflow directly from GitHub:
   > `https://raw.githubusercontent.com/ButchMenzies/antigravity-project-setup/main/.agent/workflows/new-project.md`
   > This handles scaffolding (or workspace setup for non-code projects), bootstrap, and onboarding in one pass. You are done with this guide.
+
+---
+
+## Step 1.5: Identify Project Type
+
+```bash
+ls package.json pyproject.toml requirements.txt go.mod Cargo.toml Gemfile 2>/dev/null
+```
+
+- **If any manifest found** → **Code project** (proceed with code install path)
+- **If only markdown/docs/text files** → Ask the user:
+
+  > Is this a code project or a workspace project (strategy, planning, content)?
+  > 1. Code project
+  > 2. Workspace project
+
+Note the answer — it determines which workflows and skills to install in Step 3.
 
 ---
 
@@ -60,7 +77,9 @@ mkdir -p .agent/workflows .agent/skills
 git clone --depth 1 https://github.com/ButchMenzies/antigravity-project-setup.git /tmp/ag-setup
 ```
 
-**Step B — Copy essential workflows:**
+**Step B — Copy workflows (based on project type from Step 1.5):**
+
+Shared (both types):
 ```bash
 cp /tmp/ag-setup/.agent/workflows/new-track.md .agent/workflows/
 cp /tmp/ag-setup/.agent/workflows/edit.md .agent/workflows/
@@ -70,14 +89,28 @@ cp /tmp/ag-setup/.agent/workflows/update-memory.md .agent/workflows/
 cp /tmp/ag-setup/.agent/workflows/end-session.md .agent/workflows/
 cp /tmp/ag-setup/.agent/workflows/brainstorm.md .agent/workflows/
 cp /tmp/ag-setup/.agent/workflows/brainstorm-lite.md .agent/workflows/
-cp /tmp/ag-setup/.agent/workflows/audit.md .agent/workflows/
 cp /tmp/ag-setup/.agent/workflows/create-skill.md .agent/workflows/
-cp /tmp/ag-setup/.agent/workflows/ux-design.md .agent/workflows/
-cp /tmp/ag-setup/.agent/workflows/test.md .agent/workflows/
-cp /tmp/ag-setup/.agent/workflows/security-review.md .agent/workflows/
+cp /tmp/ag-setup/.agent/workflows/refresh.md .agent/workflows/
+cp /tmp/ag-setup/.agent/workflows/review-scaffold.md .agent/workflows/
+cp /tmp/ag-setup/.agent/workflows/audit.md .agent/workflows/
 ```
 
-**Step C — Copy skills:**
+Code projects only:
+```bash
+cp /tmp/ag-setup/.agent/workflows/test.md .agent/workflows/
+cp /tmp/ag-setup/.agent/workflows/security-review.md .agent/workflows/
+cp /tmp/ag-setup/.agent/workflows/ux-design.md .agent/workflows/
+```
+
+Workspace projects only:
+```bash
+cp /tmp/ag-setup/.agent/workflows/review.md .agent/workflows/
+cp /tmp/ag-setup/.agent/workflows/brand-design.md .agent/workflows/
+```
+
+**Step C — Copy skills (based on project type):**
+
+Code projects — copy all skills:
 ```bash
 for skill in /tmp/ag-setup/skills/*/; do
   name=$(basename "$skill")
@@ -94,22 +127,26 @@ if [ -f /tmp/ag-setup/.agent/skills/visual-qa/SKILL.md ]; then
 fi
 ```
 
+Workspace projects — copy selected skills only:
+```bash
+for skill in planning copywriting ux-design voice-notes-triage offer-strategy lead-strategy; do
+  if [ -d "/tmp/ag-setup/skills/$skill" ]; then
+    mkdir -p ".agent/skills/$skill"
+    cp -r "/tmp/ag-setup/skills/$skill/"* ".agent/skills/$skill/"
+  fi
+done
+```
+
 **Step D — Offer additional workflows:**
 
-```
-📦 Additional workflows available:
+For **code projects**:
+- capture-target, recreate-site, compare-site (Visual QA)
+- offer-strategy, lead-strategy (Hormozi framework)
 
-- /capture-target — capture design data from a live site (Visual QA)
-- /recreate-site — rebuild a site from captured data (Visual QA)
-- /compare-site — fix an existing build against captured target data (Visual QA)
-- /offer-strategy — build a Grand Slam Offer (Hormozi framework)
-- /lead-strategy — plan lead generation strategy (Hormozi framework)
+For **workspace projects**:
+- offer-strategy, lead-strategy (Hormozi framework)
 
-Install any of these?
-1. Install all
-2. Let me choose
-3. Skip — I don't need any of these
-```
+Present the relevant list. Options: Install all / Let me choose / Skip.
 
 **Wait for user response.** Copy selected workflows from `/tmp/ag-setup/.agent/workflows/`.
 
@@ -165,6 +202,7 @@ if [ ! -f .agent/AGENT.md ]; then cp /tmp/ag-setup/templates/AGENT.md .agent/AGE
 if [ ! -f .agent/memory.md ]; then cp /tmp/ag-setup/templates/memory.md .agent/memory.md; fi
 if [ ! -f .agent/skills-catalog.md ]; then cp /tmp/ag-setup/templates/skills-catalog.md .agent/skills-catalog.md; fi
 if [ ! -f .agent/USER_GUIDE.md ]; then cp /tmp/ag-setup/templates/USER_GUIDE.md .agent/USER_GUIDE.md; fi
+if [ ! -f .agent/improvements.md ]; then cp /tmp/ag-setup/templates/improvements.md .agent/improvements.md; fi
 ```
 
 **Step H — Clean up:**
@@ -182,7 +220,8 @@ rm -rf /tmp/ag-setup
 # Antigravity — keep workflows/skills tracked, ignore personal data
 .agent/memory.md
 .agent/memory-archive.md
-.agent/pending-skill-uploads.md
+.agent/improvements.md
+.agent/brainstorm-notes.md
 .agent/current-plan.md
 
 # Claude Code — generated from .agent/, regenerated on each update
@@ -199,32 +238,31 @@ CLAUDE.md
 Write the version file:
 
 ```bash
-echo "12" > .agent/version
+echo "13" > .agent/version
 ```
 
 Add to `.agent/memory.md` under `## Recent Sessions`:
 
 ```markdown
 ### [TODAY'S DATE]
-- Antigravity installed v12. Workflows and skills with source tagging, stale file cleanup. See CHANGELOG: https://github.com/ButchMenzies/antigravity-project-setup/blob/main/CHANGELOG.md
+- Antigravity installed v13. Self-evolving scaffolding with improvements.md + /review-scaffold. See CHANGELOG: https://github.com/ButchMenzies/antigravity-project-setup/blob/main/CHANGELOG.md
 ```
 
 Tell the user:
 
 ```
-✅ Antigravity installed v12!
+✅ Antigravity installed v13!
 
 Installed:
-- 13 essential workflows + [N] additional workflows
-- 20+ skills (standard + development)
+- 15 essential workflows + [N] additional workflows
+- 20+ skills (standard + development + HOW skills)
 
 Features:
-- Two-tier document architecture — active docs + history.md archive
-- Condensed memory — Active Lessons + Recent Sessions (5-session rotation)
-- Project Principles in AGENT.md — design decisions that influence every feature
-- Active Track + Backlog roadmap — replaces numbered phases
-- /audit — deep audit of conductor docs against your codebase
-- /end-session — updates product.md, roadmap, and memory
+- Self-evolving scaffolding — improvements.md + /review-scaffold
+- Your Role + Don’t Be Lazy — senior dev mindset with non-negotiable discipline rules
+- HOW skills (write-code, code-review, architecture-change) — adapt themselves on first use
+- /refresh — mid-conversation context reset
+- Mandatory brainstorm notes — no more lost decisions
 
 ⚠️ Action Required: Close and reopen the project.
 The IDE needs to re-scan to discover the new slash commands.

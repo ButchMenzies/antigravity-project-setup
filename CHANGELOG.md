@@ -4,6 +4,43 @@ All notable changes to the Antigravity agent system.
 
 ---
 
+## v13 — 2026-03-27
+
+### Self-Evolving Scaffolding
+
+Replaces the top-down update model with bottom-up self-evolution. Projects observe their own scaffolding gaps and periodically process them.
+
+### Added
+- `improvements.md` template — 5-category observation log (Workflows, Skills, Rules, Agent Behaviour, Other)
+- `/refresh` workflow — mid-conversation context reset (read-only, no files created)
+- `/review-scaffold` workflow — periodic deep review of workflows, skills, and rules
+- `## Your Role` section in AGENT.md templates — senior dev/strategist identity framing
+- `## Don't Be Lazy` section in AGENT.md templates — 9 non-negotiable discipline rules (code) / 7 rules (workspace)
+- `### Terminology` subsection under Project Principles — project-specific terms
+- HOW skills: `write-code`, `code-review`, `architecture-change` — ship with first-use adaptation headers
+- Step 3b in `/end-session` — coding discipline check via code-review skill
+- Step 3c in `/end-session` — scaffolding observation capture with 5+ nudge for `/review-scaffold`
+- Step 2b in `/new-track` — codebase reconnaissance via architecture-change skill
+- `updates/v13.md` — migration for existing projects
+
+### Changed
+- Core Rules trimmed from 13 → 10 (code) / 12 → 8 (workspace) — rules 11-13 moved to Don't Be Lazy
+- `/implement` Steps 3-4 — now point to write-code/code-review skills with graceful degradation
+- `/brainstorm` Rule 5 — note-taking changed from Optional to Mandatory
+- `/brainstorm-lite` — added Rule 8 for mandatory note-taking
+- `/audit` — v3: added live schema verification, merged workspace-audit capabilities
+- All 6 code skill bundles — include HOW skills (write-code, code-review, architecture-change where appropriate)
+- `AGENT_SETUP_GUIDE.md` — bumped to v13, installs new workflows and improvements.md
+- `.gitignore` template — removed `pending-skill-uploads.md`, added `improvements.md` and `brainstorm-notes.md`
+
+### Removed
+- `/update` workflow — replaced by self-evolution (`improvements.md` + `/review-scaffold`)
+- `/workspace-audit` workflow — merged into `/audit` with project-type conditional
+- Step 7b in `/end-session` (Drain Pending Skill Uploads)
+- Step 9 in `/end-session` (Check for Antigravity Updates)
+
+---
+
 ## v11 — 2026-03-20
 
 ### Document Architecture Redesign

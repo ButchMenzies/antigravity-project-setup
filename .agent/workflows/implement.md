@@ -54,8 +54,12 @@ Update `plan.md` (if using conductor tracks):
 
 ### 3. Execute the Work
 
-Do the actual work. Follow these rules:
+Re-read `## Don't Be Lazy` in `.agent/AGENT.md`.
 
+If `.agent/skills/write-code/SKILL.md` exists, read it — follow the "Before You Touch a File" checklist.
+If this task spans multiple modules and `.agent/skills/architecture-change/SKILL.md` exists, read it too.
+
+If no skills exist, follow these rules:
 - **Read before writing** — understand existing work before changing it
 - **Small changes** — make incremental, verifiable changes
 - **Verify as you go** — confirm each change works before moving on
@@ -64,6 +68,11 @@ Do the actual work. Follow these rules:
 ### 4. Verify the Task
 
 Before marking complete:
+
+If `.agent/skills/code-review/SKILL.md` exists, read it. Run the review checklist on your changes.
+If `.agent/skills/write-code/SKILL.md` exists, read the "After Writing" section. Verify with real data.
+
+If no skills exist:
 - Does the work meet its goal?
 - Are there any obvious side effects?
 - If tests exist, do they pass?

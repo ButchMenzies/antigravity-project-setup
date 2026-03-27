@@ -1,1 +1,8 @@
 .DS_Store
+
+# Antigravity — keep workflows/skills tracked, ignore personal data
+.agent/memory.md
+.agent/memory-archive.md
+.agent/improvements.md
+.agent/brainstorm-notes.md
+.agent/current-plan.md

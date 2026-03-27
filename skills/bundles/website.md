@@ -5,6 +5,8 @@ Typically: Astro + Tailwind or Next.js static export.
 
 ## Skills
 
+- write-code *(adapts on first use)*
+- code-review *(adapts on first use)*
 - build-page
 - build-component
 - seo-audit

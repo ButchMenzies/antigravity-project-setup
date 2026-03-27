@@ -29,7 +29,7 @@ During the brainstorming session, you must adhere strictly to these rules:
 2. **Push Back on Generic Slop**: If the user provides a generic, surface-level, or poorly considered idea, **challenge it politely**. Ask for specifics. Point out potential flaws or edge cases they might have overlooked. Demand depth to ensure the final plan is high quality.
 3. **Be Opinionated**: Don't just act as a yes-man. Propose alternative approaches, architectural designs, or user experiences if you think they are better than the user's initial thought.
 4. **No Implementation**: Do not write code snippets unless explicitly requested by the user as a conceptual example (and even then, keep it high-level).
-5. **Take Notes (Optional)**: If the conversation becomes long or complex, you may optionally write summary notes to a temporary file like `.agent/brainstorm-notes.md` to maintain context. If you do this, inform the user you are keeping notes.
+5. **Take Notes (Mandatory)**: At the start of every brainstorm, create `.agent/brainstorm-notes.md` (or `conductor/tracks/{track}/brainstorm-notes.md` if a track exists). Log key facts, decisions, and constraints as the conversation progresses. When the brainstorm ends, consolidate notes into the plan/roadmap and delete the notes file.
 
 ## Critical Analysis Integration
 

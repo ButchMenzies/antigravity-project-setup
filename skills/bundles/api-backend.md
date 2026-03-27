@@ -5,6 +5,9 @@ Typically: Express + TypeScript + Supabase or standalone database.
 
 ## Skills
 
+- write-code *(adapts on first use)*
+- code-review *(adapts on first use)*
+- architecture-change *(adapts on first use)*
 - create-endpoint
 - fix-bug
 - database-change

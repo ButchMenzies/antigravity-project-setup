@@ -18,6 +18,9 @@ If content must appear in multiple places, have one source of truth. Local and p
 ### Agent cannot access DevTools or computed CSS
 Any workflow that requires browser data beyond DOM structure must explicitly state that the user provides the data. Agent tried to use browser tool for DevTools — it can't.
 
+### Agents default to sanitised observations
+When asked to log what went wrong during a session, the agent naturally gravitates toward logging safe architecture notes instead of genuine self-critique. End-session Step 3c must explicitly demand honest failure logging with concrete good/bad examples, or the observations will be useless.
+
 ## User Preferences
 
 - Work style: Plan first, then implement — reviews plans before coding
@@ -29,6 +32,14 @@ Any workflow that requires browser data beyond DOM structure must explicitly sta
 - **Skills catalogue is a database, not a distribution** — this project's `skills/` is a central store. Projects pull individual skills they need; don't push all skills to every project.
 
 ## Recent Sessions
+
+### 2026-03-27
+- v13: Self-evolving scaffolding. Added improvements.md, /refresh, /review-scaffold workflows. HOW skills. Your Role + Don't Be Lazy identity sections. Removed /update, /workspace-audit merged into /audit
+- Setup guide project-type awareness (Step 1.5) — conditional workflow/skill installs for code vs workspace. /setup Section 2.5 reconciliation
+- Scenario testing: traced 3 install paths, fixed 19 findings. Brought this project's own .agent/ up to v13
+- Rewrote end-session Step 3c: honest self-critique with examples, count check moved after writing. Added Don't Be Lazy rule 10: "Lead with proposals, not questions"
+- First /review-scaffold run: fixed Available Commands (26, 3 categories), skills-catalog, folder structure, conductor structure, added active lesson
+- Rewrote v13.md: replaced fragile AGENT.md text-patching with bulk-overwrite + template-replace + content-extraction approach
 
 ### 2026-03-20
 - v11: Two-tier document architecture redesign. Updated 18 files: 4 templates, 7 workflows (v2), setup.md scaffolding, new-project.md, update.md with Step 6b interactive migration, critical-analysis.md, AGENT_SETUP_GUIDE.md

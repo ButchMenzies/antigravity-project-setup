@@ -23,9 +23,9 @@ Scaffold a new project from a blank folder. Handles scaffolding, Antigravity boo
 If the user chooses to brainstorm:
 - Run `/brainstorm` as-is — do not modify its rules or steer the conversation toward setup questions
 - **Skip brainstorm's pre-flight** (steps 1–2) — `.agent/AGENT.md` and `.agent/memory.md` don't exist yet in an empty folder. Jump straight to the conversation
-- When the brainstorm concludes naturally (user signals they're ready to proceed), **seamlessly transition** into Phase 1
-- Use all context gathered during the brainstorm to **pre-fill and skip** Phase 1 questions where possible — the Q&A should feel lighter, not repetitive
-- Do not announce the transition. The user should experience one continuous conversation, not two separate processes
+- When the brainstorm concludes naturally, **seamlessly transition** into Phase 1
+- Use all context gathered during the brainstorm to **pre-fill and skip** Phase 1 questions where possible
+- Do not announce the transition
 
 ---
 
@@ -96,44 +96,15 @@ Rules:
 
 #### Framework Commands
 
-**Next.js:**
-```bash
-npx -y create-next-app@latest ./ --help
-npx -y create-next-app@latest ./ --ts --eslint --tailwind --app --src-dir --import-alias "@/*" --use-npm --yes
-```
+| Framework | Scaffold Command |
+|-----------|------------------|
+| Next.js | `npx -y create-next-app@latest ./ --ts --eslint --tailwind --app --src-dir --import-alias "@/*" --use-npm --yes` |
+| Vite + React | `npx -y create-vite@latest ./ --template react-ts` then `npm install` |
+| Astro | `npx -y create-astro@latest ./ --template minimal --typescript strict --install --no-git` |
+| Express | `npm init -y` then install `express typescript @types/express @types/node tsx` |
+| Expo | `npx -y create-expo-app@latest ./ --template blank-typescript` |
 
-**Vite + React:**
-```bash
-npx -y create-vite@latest ./ --help
-npx -y create-vite@latest ./ --template react-ts
-npm install
-npm install -D tailwindcss @tailwindcss/vite
-```
-
-**Astro:**
-```bash
-npx -y create-astro@latest ./ --help
-npx -y create-astro@latest ./ --template minimal --typescript strict --install --no-git
-npx astro add tailwind -y
-```
-
-**Express:**
-```bash
-npm init -y
-npm install express
-npm install -D typescript @types/express @types/node tsx
-npx tsc --init
-mkdir -p src
-# Create src/index.ts with basic Express server
-```
-
-**React Native + Expo:**
-```bash
-npx -y create-expo-app@latest ./ --help
-npx -y create-expo-app@latest ./ --template blank-typescript
-```
-
-Only create additional folders if the scaffolder didn't provide them. Don't create empty placeholder folders. Do **not** start the dev server during setup.
+**Always run `--help` first** before any scaffolder. Only create additional folders if the scaffolder didn't. Don't start the dev server.
 
 ---
 
@@ -160,7 +131,7 @@ What kind of workspace?
 
 ### Work Style & Scope (Q4W)
 
-Same as Q4 above (plan first vs. just go, project scope).
+Same as Q4 above.
 
 **Wait for user response.**
 
@@ -204,12 +175,13 @@ Install workflows based on project type from Q1. Use the mapping table below —
 | `update-memory.md` | ✅ | ✅ |
 | `end-session.md` | ✅ | ✅ |
 | `create-skill.md` | ✅ | ✅ |
-| `audit.md` | ✅ | — |
+| `refresh.md` | ✅ | ✅ |
+| `review-scaffold.md` | ✅ | ✅ |
+| `audit.md` | ✅ | ✅ |
 | `test.md` | ✅ | — |
 | `security-review.md` | ✅ | — |
 | `ux-design.md` | ✅ | — |
 | `review.md` | — | ✅ |
-| `workspace-audit.md` | — | ✅ |
 | `brand-design.md` | — | ✅ |
 
 Copy each ✅ workflow from `/tmp/ag-setup/.agent/workflows/` to `.agent/workflows/`.
@@ -222,6 +194,9 @@ Copy each ✅ workflow from `/tmp/ag-setup/.agent/workflows/` to `.agent/workflo
 | `copywriting` | ✅ | ✅ |
 | `ux-design` | ✅ | ✅ |
 | `voice-notes-triage` | ✅ | ✅ |
+| `write-code` | ✅ | — |
+| `code-review` | ✅ | — |
+| `architecture-change` | ✅ | — |
 | `fix-bug` | ✅ | — |
 | All other dev skills | ✅ | — |
 
@@ -241,64 +216,22 @@ done
 ```bash
 cp /tmp/ag-setup/templates/skills-catalog.md .agent/skills-catalog.md
 cp /tmp/ag-setup/templates/USER_GUIDE.md .agent/USER_GUIDE.md
+cp /tmp/ag-setup/templates/improvements.md .agent/improvements.md
 ```
 
 **Step 4 — Offer additional workflows:**
 
-For **code projects**:
-```
-📦 Additional workflows available:
+Present available optional workflows. For **code projects**: capture-target, recreate-site, compare-site (Visual QA), offer-strategy, lead-strategy (Hormozi). For **workspace projects**: offer-strategy, lead-strategy only.
 
-- /capture-target — capture design data from a live site (Visual QA)
-- /recreate-site — rebuild a site from captured data (Visual QA)
-- /compare-site — fix an existing build against captured target data (Visual QA)
-- /offer-strategy — build a Grand Slam Offer (Hormozi framework)
-- /lead-strategy — plan lead generation strategy (Hormozi framework)
-
-Install any of these?
-1. Install all
-2. Let me choose
-3. Skip — I don't need any of these
-```
-
-For **workspace projects**:
-```
-📦 Additional workflows available:
-
-- /offer-strategy — build a Grand Slam Offer (Hormozi framework)
-- /lead-strategy — plan lead generation strategy (Hormozi framework)
-
-Install any of these?
-1. Install all
-2. Skip — I don't need any of these
-```
-
-**Wait for user response.** Copy selected workflows from `/tmp/ag-setup/.agent/workflows/`.
+Options: Install all / Let me choose / Skip. **Wait for user response.** Copy selected from `/tmp/ag-setup/.agent/workflows/`.
 
 **Step 5 — Claude Code support (optional):**
 
-```
-🔌 Claude Code Support
-
-Are you also using the Claude Code extension or CLI?
-If yes, we'll set up a .claude/ folder so Claude Code can access
-all the same skills and workflows.
-
-1. Yes — also set up for Claude Code
-2. No — Antigravity only
-```
-
-**Wait for user response.**
-
-If yes:
-1. Create `.claude/skills/` directory
-2. Mirror all skills from `.agent/skills/` → `.claude/skills/` (direct copy)
-3. Convert workflows to Claude Code skills: for each `.agent/workflows/*.md` with `source: antigravity`, create `.claude/skills/<name>/SKILL.md` with `disable-model-invocation: true` added to frontmatter and `version:`/`source:` removed
-4. Generate `CLAUDE.md` at project root from `.agent/AGENT.md` (with auto-generated header)
+Ask if the user also uses Claude Code. If yes: create `.claude/skills/`, mirror all skills, convert workflows to Claude Code skills (add `disable-model-invocation: true`, remove `version:`/`source:`), generate `CLAUDE.md` from `.agent/AGENT.md`.
 
 **Step 6 — Write version file:**
 ```bash
-echo "12" > .agent/version
+echo "13" > .agent/version
 ```
 
 **Step 7 — Clean up:**
@@ -315,7 +248,8 @@ Append to existing `.gitignore` (don't replace existing content):
 # Antigravity — keep workflows/skills tracked, ignore personal data
 .agent/memory.md
 .agent/memory-archive.md
-.agent/pending-skill-uploads.md
+.agent/improvements.md
+.agent/brainstorm-notes.md
 .agent/current-plan.md
 
 # Claude Code — generated from .agent/, regenerated on each update
@@ -355,23 +289,17 @@ Create these files:
 
 #### `conductor/product.md`
 
-Populate from Q&A/brainstorm. Structure: **Vision** (what we're building toward — written once, only modified by `/audit`), **Current State** (starts with "Project initialised. No features built yet." — updated by `/end-session`), **Features** (empty at start — built up as features ship), **Infrastructure Services** (for code projects: language, framework, styling, database, auth, hosting, port, start command — populated from Q3/Q5), **Security** (initialised as: "Last reviewed: Not yet. Run `/security-review` after your first deployment-ready build." — updated by `/security-review`).
+Structure: **Vision**, **Current State** ("Project initialised. No features built yet."), **Features** (empty), **Infrastructure Services** (code: language, framework, styling, database, auth, hosting, port, start command from Q3/Q5), **Security** ("Last reviewed: Not yet."). Populate from Q&A/brainstorm.
 
 #### `conductor/roadmap.md`
 
-Populate from brainstorm output (Phase 0) if available, otherwise from Q&A context. Use the **Active Track + Backlog** format: Active Track has concrete checkboxes (`- [ ]`), Backlog has themed sections with outlined items, Cross-Cutting Notes captures items that span themes.
+Use **Active Track + Backlog** format. Active Track: concrete checkboxes. Backlog: themed sections. Populate from brainstorm output or Q&A.
 
 #### `conductor/history.md`
 
-Create with empty scaffold: **Build Timeline** (table), **Archived Decisions**, **Archived Lessons Learned**, **Archived Session Log** (table), **Archived Design Documents**.
+Empty scaffold: **Build Timeline** (table), **Archived Decisions**, **Archived Lessons Learned**, **Archived Session Log** (table), **Archived Design Documents**.
 
-#### Notes Format
-
-```markdown
-# Notes
-
-> Drop ideas, questions, or reminders here. These will be reviewed during `/end-session`.
-```
+Create `conductor/notes.md` with a heading and prompt to drop ideas/questions/reminders for `/end-session` review.
 
 ### Final Commit
 
@@ -385,13 +313,13 @@ git commit -m "Set up Antigravity agent"
 ## Completion
 
 ```
-✅ Project scaffolded and set up!
+✅ Project scaffolded and set up! (Antigravity v13)
 
 Created:
 - [framework/workspace] project
-- Slash command workflows
-- 20+ skills (planning, debugging, database, components, deployment, and more)
-- AGENT.md with project context
+- 15+ workflows + HOW skills (write-code, code-review, architecture-change)
+- Self-evolving scaffolding (improvements.md + /review-scaffold)
+- AGENT.md with project context (Your Role + Don't Be Lazy)
 - memory.md for session tracking
 [- conductor/ project management artifacts (if long-term)]
 

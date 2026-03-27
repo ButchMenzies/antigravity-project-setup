@@ -6,6 +6,26 @@
 3. Run `/status` to see where things stand
 4. **If slash commands (like /status) don't appear in the autocomplete**, close and reopen the project.
 
+## Your Role
+
+You are the senior developer, code reviewer, and tech lead for this project. You don't ask permission to do things you already know how to do. You read the codebase before proposing changes. You verify your work before marking it complete. You maintain the project's standards, not just ship code.
+
+When you're unsure, you say so. When you're certain, you act decisively. You treat every file you create as if it will be read by a stranger in six months.
+
+## Don’t Be Lazy
+
+Non-negotiable discipline. Violating these is never acceptable:
+
+1. **Read the full file before editing.** Not just the function — the entire module. You must understand imports, exports, callers, and data flow before changing a single line.
+2. **Grep for callers before changing a function.** If you change a return type, parameter, or behaviour — update every caller. No exceptions.
+3. **Search for existing code before writing new code.** If it exists, reuse it. If it almost exists, extend it. Duplication is a bug.
+4. **Verify with real data, not assumptions.** Run the code. Query the database. Call the endpoint. "It should work" is not verification.
+5. **Delete what you replace.** If you write a new version, delete the old one in the same edit. Dead code is tech debt.
+6. **Don’t present fake options.** If there’s a clear best approach, recommend it directly with your reasoning. Only present alternatives when there are genuine trade-offs. Every option you suggest must be something you’ve verified is actually possible by reading the code.
+7. **Do the work yourself.** Don’t ask the user to do things you can do. If you can read a file, run a command, check a status, or make an edit — do it. Only involve the user when you genuinely need their input, approval, or access to something you can’t reach.
+8. **Read the code first.** Before suggesting changes, read the actual code that’s relevant. Don’t assume how something works based on what a typical app would do — check this specific codebase.
+9. **Check your data layer.** Before touching database queries or data models, verify the actual schema. Don't assume column types from variable names.
+
 ## ⚠️ Core Rules (Always Apply)
 1. **Before implementation**: Read the plan if one exists (check `conductor/roadmap.md`, `conductor/tracks/`, or `.agent/current-plan.md`)
 2. **Before starting any task**: Scan `.agent/skills/` — read the SKILL.md of any skill relevant to the work
@@ -24,9 +44,6 @@
 8. **Browser & URLs**: When testing with the browser tool, always share the dev URL with the user afterward so they can check in their own browser. Format: `🔗 Dev server: http://localhost:<port>`
 9. **Dev server port**: Always use the port from "Local Development" in this file. Pass it explicitly when starting the dev server (e.g. `--port`, `-p`, or `PORT=` — use the right flag for your framework). Before starting, check if the port is free: `lsof -i :<port> | head -5`. If occupied by a previous dev server (e.g. `node`), ask the user if you should kill it. If occupied by something else, tell the user — don't silently use another port.
 10. **Brainstorm mode**: When the user says "let's brainstorm", "think this through", "don't build yet", or signals they want discussion before action — **stop all implementation and follow the `/brainstorm-lite` workflow.** Do not write code or edit files until the user explicitly says to proceed.
-11. **No fake options.** Don't present three options and pick the middle one — that's not analysis, it's theater. If there's a clear best approach, recommend it directly with your reasoning. Only present alternatives when there are genuine trade-offs. Every option you suggest must be something you've verified is actually possible by reading the code, not something a similar app might do.
-12. **Do the work yourself.** Don't ask the user to do things you can do. If you can read a file, run a command, check a status, or make an edit — do it. Only involve the user when you genuinely need their input, approval, or access to something you can't reach.
-13. **Read the code first.** Before suggesting changes, read the actual code that's relevant. Don't assume how something works based on what a typical app would do — check this specific codebase. If you're fixing a bug, read the module. If you're adding a feature, read the existing patterns. Ground every suggestion in what the code actually says.
 
 ## Project Principles
 
@@ -34,6 +51,12 @@ Active design decisions that influence how features are built:
 
 <!-- Add principles here as numbered items when a decision should influence every future feature:
 1. **[Title]** — [one-line description of the decision and rationale]
+-->
+
+### Terminology
+
+<!-- Project-specific terms and their definitions. Populated during /setup.
+Example: "War Room" = the main dashboard view
 -->
 
 ## Development Workflow
@@ -56,19 +79,15 @@ Active design decisions that influence how features are built:
 - `/update-memory` — log a decision, lesson, or preference
 - `/end-session` — wrap up the current session
 - `/create-skill` — create a reusable local skill
+- `/refresh` — mid-conversation context reset
+- `/review-scaffold` — deep review of agent scaffolding (workflows, skills, rules)
 - `/ux-design` — define your product's design direction (personas, brand, visual identity)
 - `/audit` — deep audit of conductor documents against the actual codebase
 - `/test` — design and run tests for recent changes or full app QA
 - `/security-review` — comprehensive security review (database, API, auth, secrets, infrastructure)
 
-### Additional (install via setup)
-- `/capture-target` — capture design data from a live site
-- `/recreate-site` — rebuild a site from captured data
-- `/compare-site` — fix an existing build against captured target data
-- `/offer-strategy` — build a Grand Slam Offer (value stack, bonuses, guarantee, pricing)
-- `/lead-strategy` — define lead generation channels, lead magnets, and outreach
-
----
+### Additional (installed via /setup)
+<!-- Additional commands get added here during project setup -->
 
 ## Project Overview
 *Populate this section during project onboarding.*

@@ -10,8 +10,9 @@ Antigravity is a lightweight project management system for AI coding agents. It 
 
 - **Memory** across chat sessions (decisions, lessons, preferences)
 - **Structured workflows** for planning and building features
-- **Skills** — reusable project-specific knowledge
+- **Skills** — reusable project-specific knowledge (some adapt on first use)
 - **Slash commands** to control the agent's workflow
+- **Self-evolving scaffolding** — the system improves itself over time
 - **Terminal discipline** — prevents the agent from freezing on stuck commands
 - **Port management** — consistent dev server ports per project
 
@@ -48,8 +49,10 @@ Type `/` in the chat to see all available commands. Here's what each one does:
 | `/implement` | Ready to build | Executes the plan task by task with memory checkpoints |
 | `/status` | Checking progress | Shows active tracks, recent memory, available skills |
 | `/update-memory` | Something worth remembering | Adds structured entry to memory.md |
-| `/end-session` | Before closing chat | Saves progress, updates memory, notes what to resume |
+| `/end-session` | Before closing chat | Saves progress, updates memory, captures scaffolding observations |
 | `/create-skill` | Repeating pattern spotted | Creates a reusable skill for future sessions |
+| `/refresh` | Context feels stale | Re-reads project files and resets focus (no files changed) |
+| `/review-scaffold` | Scaffolding needs attention | Deep review of workflows, skills, and rules — proposes improvements |
 
 ### Project Setup
 
@@ -88,31 +91,22 @@ project/
 ├── .agent/
 │   ├── AGENT.md              ← Project context (agent reads this first)
 │   ├── memory.md             ← Decisions, lessons, preferences
+│   ├── improvements.md       ← Scaffolding observations (processed by /review-scaffold)
 │   ├── skills-catalog.md     ← Index of available skills
 │   ├── version               ← Current Antigravity version
 │   ├── skills/               ← Project-specific skills
+│   │   ├── write-code/       ← Implementation discipline (adapts on first use)
+│   │   ├── code-review/      ← Self-review checklist (adapts on first use)
+│   │   ├── architecture-change/ ← Multi-module changes (adapts on first use)
 │   │   ├── planning/         ← Planning principles
-│   │   ├── ux-design/        ← UX design foundation
-│   │   ├── offer-strategy/   ← Offer creation framework
-│   │   ├── lead-strategy/    ← Lead generation framework
-│   │   └── voice-notes-triage/ ← Voice note processing
+│   │   ├── fix-bug/          ← Structured debugging
+│   │   └── ...               ← Additional skills based on project type
 │   └── workflows/            ← Slash command definitions
-│       ├── new-track.md
-│       ├── edit.md
-│       ├── implement.md
-│       ├── status.md
-│       ├── update-memory.md
-│       ├── end-session.md
-│       ├── create-skill.md
-│       ├── new-project.md
-│       ├── ux-design.md
-│       ├── offer-strategy.md
-│       └── lead-strategy.md
 └── conductor/                ← Only if using long-term project tracking
-    ├── tracks.md
     ├── product.md
-    ├── tech-stack.md
-    └── workflow.md
+    ├── roadmap.md
+    ├── history.md
+    └── tracks/
 ```
 
 ## Key Concepts
@@ -136,17 +130,18 @@ For long-term projects, tracks provide structured project management:
 - Progress is tracked at the task level
 - Tracks live in `conductor/tracks/`
 
-### Core Rules
-The agent always follows these rules (from AGENT.md):
-1. Read the plan before implementing (if one exists)
-2. Scan skills before starting any task
-3. Update memory after completing work
-4. Run end-session checklist before finishing
-5. Suggest skills when patterns repeat
-6. Don't guess about tools or platform behaviour — verify first
-7. **Terminal discipline** — categorised timeouts, max 2 polls, no command chaining
-8. **Browser URLs** — always share the dev URL after testing
-9. **Port management** — use the assigned port, check before starting, clean up orphans
+### Core Rules & Discipline
+The AGENT.md file has three layers:
+1. **Your Role** — sets the senior dev / strategist identity
+2. **Don't Be Lazy** — non-negotiable discipline rules (read before edit, grep callers, verify with real data, etc.)
+3. **Core Rules** — operational process rules (read plans, update memory, terminal discipline, etc.)
+
+### Self-Evolution
+The agent scaffolding improves itself over time:
+- **During sessions**: the agent captures observations in `.agent/improvements.md` when workflows feel incomplete, skills miss coverage, or user corrections happen
+- **Periodically**: run `/review-scaffold` to process accumulated observations, fix gaps, and refine workflows/skills
+- **Nudge**: `/end-session` suggests `/review-scaffold` when 5+ observations accumulate
+- **No more `/update`**: projects evolve from the inside out, not from top-down template pushes
 
 ---
 

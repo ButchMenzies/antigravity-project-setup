@@ -1,10 +1,10 @@
 ---
 name: audit
-version: 2
+version: 3
 description: >-
   Performs a deep audit of conductor documents against the actual
-  codebase to find drift and reconcile vision. Use when project
-  documentation may be out of sync with implementation.
+  codebase or workspace to find drift and reconcile vision. Use when
+  project documentation may be out of sync with implementation.
 source: antigravity
 ---
 
@@ -51,6 +51,9 @@ cat go.mod 2>/dev/null
 **Database schema** (if applicable):
 - Check for migration files, Prisma schema, Supabase types, or ORM models
 - Use MCP tools if a database connection is available
+- **Don't just check migration files — query the live schema** for actual column types (e.g., `SELECT column_name, data_type FROM information_schema.columns`)
+- Compare actual column types to what the code assumes — look for `.trim()`, `.split()`, `.length` on fields that might be JSONB arrays
+- Flag any code that assumes a string type for columns that are actually JSONB, arrays, or numeric
 
 **Routes and API endpoints:**
 - Scan for route definitions, page directories, API handlers
@@ -65,8 +68,12 @@ cat go.mod 2>/dev/null
 ### For workspace/non-code projects:
 
 - List all documents and their structure
-- Check output/deliverable directories
+- Check output/deliverable directories (e.g., `output/`, `research/`, `assets/`)
 - Review strategy and research files
+- Check `brand/` for brand identity files (persona, voice, visual identity)
+- Scan for orphaned files with no clear purpose
+- Check for files referenced elsewhere but never created
+- Assess strategy alignment — is work being done that aligns with stated goals?
 
 ---
 

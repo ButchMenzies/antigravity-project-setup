@@ -18,7 +18,8 @@ Interactive onboarding for a new Antigravity project. Creates `AGENT.md`, `memor
    ```
    .agent/memory.md
    .agent/memory-archive.md
-   .agent/pending-skill-uploads.md
+   .agent/improvements.md
+   .agent/brainstorm-notes.md
    .agent/current-plan.md
    ```
 4. Detect project type:
@@ -68,6 +69,30 @@ If the user chooses to brainstorm:
 5. **Hybrid** — some code, some planning/content
 
 This determines which sections follow and which AGENT.md template is used.
+
+
+### Section 2.5: Workflow Reconciliation
+
+After identifying the project type, verify the installed workflows match.
+
+If the project type is **Strategy/Content/Research** (non-code):
+1. Check if workspace-specific workflows are missing:
+   ```bash
+   ls .agent/workflows/review.md .agent/workflows/brand-design.md 2>/dev/null
+   ```
+2. If missing, fetch from GitHub:
+   - `https://raw.githubusercontent.com/ButchMenzies/antigravity-project-setup/main/.agent/workflows/review.md`
+   - `https://raw.githubusercontent.com/ButchMenzies/antigravity-project-setup/main/.agent/workflows/brand-design.md`
+3. Remove code-only workflows that aren't relevant:
+   ```bash
+   rm -f .agent/workflows/test.md
+   rm -f .agent/workflows/security-review.md
+   rm -f .agent/workflows/ux-design.md
+   ```
+
+If the project type is **Code/Hybrid** — no action needed.
+
+---
 
 ### Section 3: Tech Stack (code/hybrid projects only)
 

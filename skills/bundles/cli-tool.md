@@ -5,6 +5,8 @@ Typically: Node.js + TypeScript.
 
 ## Skills
 
+- write-code *(adapts on first use)*
+- code-review *(adapts on first use)*
 - fix-bug
 - package-publish
 

@@ -5,6 +5,8 @@ Typically: TypeScript npm package.
 
 ## Skills
 
+- write-code *(adapts on first use)*
+- code-review *(adapts on first use)*
 - fix-bug
 - api-design
 - package-publish

@@ -88,6 +88,22 @@ If brainstorm: run `/brainstorm-lite` inline. When it concludes, use the output 
 
 ---
 
+## Step 2b: Codebase Reconnaissance
+
+Re-read `.agent/AGENT.md` — specifically `## Your Role` and `## Don't Be Lazy`.
+
+If `.agent/skills/architecture-change/SKILL.md` exists, read its "Before Proposing Changes" section.
+Apply the reconnaissance steps to understand what exists before specifying what to build.
+
+If no architecture-change skill exists, do reconnaissance manually:
+- **Map the relevant data flows** — trace how related features currently work
+- **Identify affected modules** — what will this new work need to touch?
+- **Check the data layer** — what tables/models/schemas exist for this area?
+
+Summarise findings to the user before proceeding to the spec.
+
+---
+
 ## Step 3: Interactive Brief
 
 **CRITICAL RULES:**
